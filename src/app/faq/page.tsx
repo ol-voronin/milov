@@ -6,6 +6,7 @@ import { FaqList } from '@/components/FaqList';
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema, faqSchema } from '@/components/JsonLd';
 import { faqItems } from '@/content/faq';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Поширені запитання про виплати родинам військових',
@@ -27,9 +28,9 @@ export default function FaqPage() {
 
       <PageHero
         title="Поширені запитання"
-        lead="Зібрали відповіді на запитання, які нам ставлять найчастіше. Якщо вашого немає — зателефонуйте, пояснимо без складних термінів."
+        lead="Короткі відповіді на найчастіші питання. Немає вашого? Зателефонуйте."
         crumbs={[{ label: 'Поширені запитання' }]}
-        pictogram="faq"
+        photo={photos.faq}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

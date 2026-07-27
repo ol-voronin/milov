@@ -5,6 +5,7 @@ import { PageHero } from '@/components/ContentBlocks';
 import { ArticleSearch } from '@/components/ArticleComponents';
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Корисна інформація для родин військових',
@@ -25,9 +26,9 @@ export default function ArticlesPage() {
 
       <PageHero
         title="Корисна інформація"
-        lead="Практичні матеріали простою мовою: що робити, куди звертатися і на що звернути увагу. Скористайтеся пошуком, щоб знайти потрібну тему."
+        lead="Практичні матеріали простою мовою. Скористайтеся пошуком, щоб знайти тему."
         crumbs={[{ label: 'Корисна інформація' }]}
-        pictogram="info"
+        photo={photos.info}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

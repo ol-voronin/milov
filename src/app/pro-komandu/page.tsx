@@ -8,6 +8,7 @@ import { TeamBlock } from '@/components/TeamBlock';
 import { TrustBlock } from '@/components/TrustBlock';
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema, organizationSchema } from '@/components/JsonLd';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Про команду',
@@ -29,9 +30,9 @@ export default function TeamPage() {
 
       <PageHero
         title="Про команду"
-        lead="Ми працюємо з родинами військовослужбовців у делікатних та складних ситуаціях. Наш підхід — спокійно, чесно і без обіцянок, які неможливо виконати."
+        lead="Працюємо спокійно, чесно і без обіцянок, які неможливо виконати."
         crumbs={[{ label: 'Про команду' }]}
-        pictogram="team"
+        photo={photos.team}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

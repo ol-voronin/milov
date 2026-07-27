@@ -10,6 +10,7 @@ import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalCompo
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { officialSources } from '@/content/payments';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Юридична допомога родинам зниклих безвісти та військовополонених',
@@ -38,9 +39,9 @@ export default function MissingPage() {
 
       <PageHero
         title="Зниклі безвісти та військовополонені: права родини"
-        lead="Родина має право знати, що відбувається, отримувати належні кошти та юридичну підтримку. Пояснюємо порядок звернень простими словами."
+        lead="Пояснюємо порядок звернень і належні родині кошти — простими словами."
         crumbs={[{ label: 'Зниклі безвісти та полонені' }]}
-        pictogram="missing"
+        photo={photos.missing}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
@@ -53,11 +54,9 @@ export default function MissingPage() {
           <VStack gap={4}>
             <Heading level={2}>Грошове забезпечення та виплати</Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
-              На період, поки військовослужбовець вважається зниклим безвісти або
-              перебуває в полоні, за ним зазвичай зберігається грошове
-              забезпечення, яке може отримувати родина у визначеному порядку.
-              Умови та порядок залежать від обставин — ми допомагаємо їх
-              з’ясувати та оформити необхідні звернення.
+              На період відсутності за військовослужбовцем зазвичай зберігається
+              грошове забезпечення, яке може отримувати родина. Допомагаємо
+              з’ясувати умови й оформити звернення.
             </Text>
           </VStack>
 

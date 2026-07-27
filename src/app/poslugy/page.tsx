@@ -5,6 +5,7 @@ import { PageHero, HelpGrid, StepsBlock } from '@/components/ContentBlocks';
 import { PriceBlock } from '@/components/PriceBlock';
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Послуги: юридична допомога родинам військовослужбовців',
@@ -25,9 +26,9 @@ export default function ServicesPage() {
 
       <PageHero
         title="Послуги"
-        lead="Допомагаємо на будь-якому етапі: від першої розмови й перевірки документів до представництва в суді. Обсяг допомоги завжди погоджуємо заздалегідь."
+        lead="Від першої розмови до представництва в суді. Обсяг і вартість погоджуємо заздалегідь."
         crumbs={[{ label: 'Послуги' }]}
-        pictogram="services"
+        photo={photos.services}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

@@ -8,6 +8,7 @@ import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalCompo
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { officialSources, payments } from '@/content/payments';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Інші виплати родинам військових: пенсія, компенсації, статуси',
@@ -39,9 +40,9 @@ export default function OtherPaymentsPage() {
 
       <PageHero
         title="Пенсія, компенсації та статуси для родин військових"
-        lead="Окрім одноразової грошової допомоги, родині можуть належати інші кошти та статуси. Розповідаємо, які саме і з чого почати."
+        lead="Окрім одноразової допомоги, родині можуть належати інші кошти та статуси."
         crumbs={[{ label: 'Пенсія, компенсації, статуси' }]}
-        pictogram="payments"
+        photo={photos.otherPayments}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

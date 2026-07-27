@@ -11,6 +11,7 @@ import { ButtonLink } from '@/components/ButtonLink';
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { site } from '@/config/site';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Контакти',
@@ -31,9 +32,9 @@ export default function ContactsPage() {
 
       <PageHero
         title="Контакти"
-        lead="Оберіть зручний спосіб зв’язку. Якщо телефонувати важко — залиште заявку, і ми зателефонуємо самі."
+        lead="Оберіть зручний спосіб зв’язку — або залиште заявку, і ми зателефонуємо самі."
         crumbs={[{ label: 'Контакти' }]}
-        pictogram="contacts"
+        photo={photos.contacts}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

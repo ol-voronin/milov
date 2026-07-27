@@ -54,6 +54,7 @@ export function PageHero({
   id,
   crumbs,
   pictogram,
+  photo,
 }: {
   title: string;
   lead: string;
@@ -61,12 +62,33 @@ export function PageHero({
   id?: string;
   /** Хлібні крихти (аудит N2); головна додається автоматично */
   crumbs?: Crumb[];
-  /** Тематична піктограма сторінки (аудит V1) */
+  /** Тематична піктограма — коли фото не задано */
   pictogram?: PictogramName;
+  /** Фотобанер сторінки (безкоштовний фотосток, src/config/photos.ts) */
+  photo?: { src: string; alt: string };
 }) {
+  const textBlock = (
+    <VStack gap={3} maxWidth={720}>
+      <Heading level={1} textWrap="balance" id={id}>
+        {title}
+      </Heading>
+      <Text as="p" type="large" color="secondary" textWrap="pretty">
+        {lead}
+      </Text>
+      {extra ? (
+        <Text as="p" type="body" color="secondary" textWrap="pretty">
+          {extra}
+        </Text>
+      ) : null}
+      <HStack gap={3} wrap="wrap">
+        <ButtonLink label="Замовити дзвінок" variant="primary" href="/zamovyty-dzvinok" />
+      </HStack>
+    </VStack>
+  );
+
   return (
-    <Section variant="transparent" padding={8}>
-      <Container gap={4} maxWidth={980}>
+    <Section variant="muted" padding={8} paddingBlock={6}>
+      <Container gap={4}>
         {crumbs ? (
           <Breadcrumbs variant="supporting" label="Ви тут">
             <BreadcrumbItem href="/">Головна</BreadcrumbItem>
@@ -83,22 +105,23 @@ export function PageHero({
         ) : (
           <SectionAccent />
         )}
-        <HStack gap={5} vAlign="center" wrap="wrap">
-          {pictogram ? <PagePictogram name={pictogram} /> : null}
-          <VStack gap={3} maxWidth={720}>
-            <Heading level={1} textWrap="balance" id={id}>
-              {title}
-            </Heading>
-            <Text as="p" type="large" color="secondary" textWrap="pretty">
-              {lead}
-            </Text>
-            {extra ? (
-              <Text as="p" type="body" color="secondary" textWrap="pretty">
-                {extra}
-              </Text>
-            ) : null}
-          </VStack>
-        </HStack>
+        {photo ? (
+          <Grid columns={{ minWidth: 340, max: 2 }} gap={6} align="center">
+            {textBlock}
+            <img
+              className="page-hero-img"
+              src={photo.src}
+              alt={photo.alt}
+              loading="eager"
+              fetchPriority="high"
+            />
+          </Grid>
+        ) : (
+          <HStack gap={5} vAlign="center" wrap="wrap">
+            {pictogram ? <PagePictogram name={pictogram} /> : null}
+            {textBlock}
+          </HStack>
+        )}
       </Container>
     </Section>
   );

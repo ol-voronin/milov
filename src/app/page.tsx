@@ -24,6 +24,7 @@ import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, faqSchema } from '@/components/JsonLd';
 import { faqItems } from '@/content/faq';
 import { site } from '@/config/site';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Юридична допомога родинам військових — виплати, документи, захист прав',
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 };
 
-const homeFaq = faqItems.slice(0, 6);
+const homeFaq = faqItems.slice(0, 4);
 
 const trustSignals = [
   'Конфіденційно',
@@ -56,13 +57,8 @@ export default function HomePage() {
                 Юридична допомога родинам військових
               </Heading>
               <Text as="p" type="large" color="secondary" textWrap="pretty">
-                Допомагаємо оформити належні виплати, зібрати документи,
-                оскаржити відмову та захистити права членів родини.
-              </Text>
-              <Text as="p" type="body" color="secondary" textWrap="pretty">
-                Опишіть ситуацію або залиште номер телефону. Юрист зв’яжеться з
-                вами, поставить декілька уточнювальних запитань і пояснить, з
-                чого почати.
+                Оформимо належні виплати, зберемо документи та оскаржимо
+                відмову. Просто залиште номер — юрист пояснить, з чого почати.
               </Text>
               <HStack gap={3} wrap="wrap">
                 <ButtonLink
@@ -88,15 +84,12 @@ export default function HomePage() {
               </Text>
             </VStack>
             <Reveal delay={1}>
-              {/* Фотоелемент hero (запит власника).
-                  TODO: замініть /public/hero-photo.jpg на власне фото
-                  (кабінет, документи, нейтральний пейзаж) — без сцен горя. */}
+              {/* Фото — безкоштовний фотосток Unsplash (src/config/photos.ts).
+                  TODO: за бажанням замініть на власне фото — без сцен горя. */}
               <span className="hero-photo-frame">
                 <img
-                  src="/hero-photo.jpg"
-                  alt="Світанок над пшеничним полем — спокійний ранковий пейзаж"
-                  width={1600}
-                  height={1200}
+                  src={photos.home.src}
+                  alt={photos.home.alt}
                   loading="eager"
                   fetchPriority="high"
                 />
@@ -115,10 +108,6 @@ export default function HomePage() {
               <Heading level={2} id="situatsii">
                 Що сталося?
               </Heading>
-              <Text as="p" type="body" color="secondary">
-                Оберіть ситуацію, яка найбільше схожа на вашу, — покажемо, що
-                можна зробити.
-              </Text>
               <SituationCards />
             </VStack>
           </Reveal>

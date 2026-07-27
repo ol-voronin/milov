@@ -9,6 +9,7 @@ import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalCompo
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { officialSources } from '@/content/payments';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Затримка або відмова у виплаті родині військового: що робити',
@@ -43,9 +44,9 @@ export default function DelayRefusalPage() {
 
       <PageHero
         title="Затримка або відмова у виплаті"
-        lead="Якщо документи подані, а виплати немає — це ще не вирок. Мовчання органу та необґрунтована відмова оскаржуються. Головне — правильно зафіксувати факти."
+        lead="Мовчання органу та необґрунтована відмова оскаржуються. Головне — правильно зафіксувати факти."
         crumbs={[{ label: 'Затримка або відмова' }]}
-        pictogram="delay"
+        photo={photos.delay}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

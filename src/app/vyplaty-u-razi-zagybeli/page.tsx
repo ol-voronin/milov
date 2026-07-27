@@ -4,6 +4,7 @@ import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Container } from '@/components/Container';
+import { ButtonLink } from '@/components/ButtonLink';
 import {
   PageHero,
   PaymentsList,
@@ -22,6 +23,7 @@ import { JsonLd, breadcrumbSchema, faqSchema } from '@/components/JsonLd';
 import { officialSources } from '@/content/payments';
 import { faqItems } from '@/content/faq';
 import { site } from '@/config/site';
+import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Виплати сім’ї загиблого військового: хто має право та як оформити',
@@ -80,10 +82,9 @@ export default function DeathPaymentsPage() {
 
       <PageHero
         title="Виплати у разі загибелі військовослужбовця"
-        lead="Пояснюємо простими словами, які виплати та оформлення можуть стосуватися родини, від чого залежить право на них і що робити, якщо процес зупинився."
-        extra="У одній ситуації можуть існувати різні види коштів і процедур — від одноразової грошової допомоги до пенсії у зв’язку з втратою годувальника. Нижче — огляд основних із них."
+        lead="Які виплати можуть належати родині, які документи потрібні та що робити при затримці чи відмові — простими словами."
         crumbs={[{ label: 'Виплати у разі загибелі' }]}
-        pictogram="payments"
+        photo={photos.payments}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
@@ -187,43 +188,26 @@ export default function DeathPaymentsPage() {
               Куди звертатися
             </Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
-              Залежно від виду виплати заяви подаються до військової частини,
-              ТЦК та СП, Пенсійного фонду України або органів соціального
-              захисту. Якщо не знаєте, з якого органу почати, — зателефонуйте:
-              підкажемо конкретний маршрут для вашої ситуації.
-            </Text>
-          </VStack>
-
-          <VStack gap={4}>
-            <Heading level={2}>Що робити після подання документів</Heading>
-            <Text as="p" type="body" color="secondary" textWrap="pretty">
-              Збережіть копії всіх поданих заяв і підтвердження реєстрації
-              (вхідний номер, поштову квитанцію). Це головний інструмент
-              контролю: без зафіксованої дати подання складно довести затримку
-              чи бездіяльність.
+              Залежно від виплати — військова частина, ТЦК та СП, Пенсійний
+              фонд або соцзахист. Не знаєте, звідки почати? Зателефонуйте —
+              підкажемо маршрут.
             </Text>
           </VStack>
 
           <VStack gap={4}>
             <Heading level={2} id="zatrymka">
-              Що робити при затримці
+              Затримка або відмова
             </Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
-              Якщо рішення чи виплати немає тривалий час — надішліть письмовий
-              запит про стан розгляду. Мовчання органу після спливу строків — це
-              бездіяльність, яку можна оскаржити. Докладніше — на сторінці про
-              затримки та відмови.
+              Зберігайте копії заяв і вхідні номери — це головний доказ подання.
+              Мовчання органу після спливу строків і необґрунтована відмова
+              оскаржуються.
             </Text>
-          </VStack>
-
-          <VStack gap={4}>
-            <Heading level={2}>Що робити при відмові</Heading>
-            <Text as="p" type="body" color="secondary" textWrap="pretty">
-              Вимагайте письмову відмову з підставами. Іноді причина формальна і
-              її можна усунути, доповнивши документи. Якщо орган помиляється по
-              суті — відмова оскаржується до вищого органу або в суді. Строки на
-              оскарження обмежені, тому зволікати не варто.
-            </Text>
+            <ButtonLink
+              label="Що робити при затримці чи відмові"
+              variant="secondary"
+              href="/zatrymka-abo-vidmova"
+            />
           </VStack>
 
           <VStack gap={4}>
