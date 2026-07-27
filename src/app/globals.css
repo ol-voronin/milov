@@ -1,0 +1,62 @@
+/*
+ * Мінімальні глобальні стилі.
+ * Уся верстка — компонентами Astryx; тут лише те, чого компоненти
+ * не покривають: мобільна нижня CTA, друк чекліста, reduced motion.
+ * Використовуються тільки дизайн-токени, без сирих значень кольорів.
+ */
+
+/* ---- Мобільна нижня кнопка «Замовити дзвінок» ---- */
+.mobile-call-cta {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-call-cta {
+    display: block;
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    padding: var(--spacing-3, 0.75rem);
+    padding-bottom: calc(var(--spacing-3, 0.75rem) + env(safe-area-inset-bottom));
+    background: var(--color-background-surface);
+    border-top: var(--border-width, 1px) solid var(--color-border);
+    z-index: 50;
+  }
+
+  .mobile-call-cta a,
+  .mobile-call-cta button {
+    width: 100%;
+  }
+
+  /* Контент не перекривається кнопкою */
+  body {
+    padding-bottom: calc(var(--spacing-10, 5rem) + env(safe-area-inset-bottom));
+  }
+}
+
+/* ---- Друк чекліста ---- */
+@media print {
+  .mobile-call-cta,
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ---- Повага до prefers-reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Плавний скрол до якорів (лише коли анімації дозволені) */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
