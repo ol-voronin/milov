@@ -26,6 +26,8 @@ export default function ServicesPage() {
       <PageHero
         title="Послуги"
         lead="Допомагаємо на будь-якому етапі: від першої розмови й перевірки документів до представництва в суді. Обсяг допомоги завжди погоджуємо заздалегідь."
+        crumbs={[{ label: 'Послуги' }]}
+        pictogram="services"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

@@ -2,10 +2,9 @@ import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
-import { Banner } from '@astryxdesign/core/Banner';
 import { Container } from '@/components/Container';
 import { PageHero } from '@/components/ContentBlocks';
-import { LegalMeta } from '@/components/LegalComponents';
+import { LegalMeta, ReviewNote } from '@/components/LegalComponents';
 import { site } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -28,11 +27,10 @@ export default function TermsPage() {
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
         <Container gap={6} maxWidth={820}>
-          <Banner
-            status="warning"
-            title="Шаблон для юридичної перевірки"
-            description="[ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ] Текст є шаблоном і потребує затвердження адвокатом."
-          />
+          <ReviewNote>
+            [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ] Текст є шаблоном
+            і потребує затвердження адвокатом.
+          </ReviewNote>
 
           <VStack gap={3}>
             <Heading level={2}>1. Інформаційний характер</Heading>

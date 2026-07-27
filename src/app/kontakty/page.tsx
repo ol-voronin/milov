@@ -32,6 +32,8 @@ export default function ContactsPage() {
       <PageHero
         title="Контакти"
         lead="Оберіть зручний спосіб зв’язку. Якщо телефонувати важко — залиште заявку, і ми зателефонуємо самі."
+        crumbs={[{ label: 'Контакти' }]}
+        pictogram="contacts"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

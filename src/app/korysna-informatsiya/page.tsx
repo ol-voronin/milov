@@ -26,11 +26,13 @@ export default function ArticlesPage() {
       <PageHero
         title="Корисна інформація"
         lead="Практичні матеріали простою мовою: що робити, куди звертатися і на що звернути увагу. Скористайтеся пошуком, щоб знайти потрібну тему."
+        crumbs={[{ label: 'Корисна інформація' }]}
+        pictogram="info"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
         <Container>
-          <ArticleSearch />
+          <ArticleSearch includePages />
         </Container>
       </Section>
 

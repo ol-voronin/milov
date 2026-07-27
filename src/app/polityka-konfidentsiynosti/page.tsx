@@ -3,10 +3,9 @@ import { Section } from '@astryxdesign/core/Section';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { List, ListItem } from '@astryxdesign/core/List';
-import { Banner } from '@astryxdesign/core/Banner';
 import { Container } from '@/components/Container';
 import { PageHero } from '@/components/ContentBlocks';
-import { LegalMeta } from '@/components/LegalComponents';
+import { LegalMeta, ReviewNote } from '@/components/LegalComponents';
 import { site } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -32,11 +31,11 @@ export default function PrivacyPage() {
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
         <Container gap={6} maxWidth={820}>
-          <Banner
-            status="warning"
-            title="Шаблон для юридичної перевірки"
-            description="[ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ] Цей текст є шаблоном. Перед публікацією його має перевірити та затвердити адвокат з урахуванням фактичних процесів обробки даних."
-          />
+          <ReviewNote>
+            [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ] Цей текст є
+            шаблоном. Перед публікацією його має перевірити та затвердити
+            адвокат з урахуванням фактичних процесів обробки даних.
+          </ReviewNote>
 
           <VStack gap={3}>
             <Heading level={2}>1. Хто ми</Heading>
@@ -88,9 +87,11 @@ export default function PrivacyPage() {
             <Text as="p" type="body" color="secondary">
               Заявки зберігаються протягом обмеженого строку, визначеного
               внутрішньою політикою зберігання даних, після чого видаляються.
-              [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ: вкажіть конкретний
-              строк, узгоджений із власником сайту.]
             </Text>
+            <ReviewNote>
+              Вкажіть конкретний строк зберігання, узгоджений із власником
+              сайту (див. LEAD_RETENTION_DAYS).
+            </ReviewNote>
           </VStack>
 
           <VStack gap={3}>
@@ -99,9 +100,9 @@ export default function PrivacyPage() {
               Доступ до заявок має обмежене коло осіб команди. Технічно дані
               можуть оброблятися постачальниками інфраструктури (хостинг,
               захищена CRM або поштовий сервіс), які діють за нашими
-              інструкціями. [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ:
-              перелічіть фактичних процесорів.]
+              інструкціями.
             </Text>
+            <ReviewNote>Перелічіть фактичних процесорів даних.</ReviewNote>
           </VStack>
 
           <VStack gap={3}>
@@ -124,9 +125,11 @@ export default function PrivacyPage() {
             <Text as="p" type="body" color="secondary">
               Сайт не використовує рекламних трекерів. Якщо буде підключено
               знеособлену аналітику відвідуваності, вона не отримуватиме вміст
-              ваших звернень. [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ:
-              оновіть розділ відповідно до фактично підключених сервісів.]
+              ваших звернень.
             </Text>
+            <ReviewNote>
+              Оновіть розділ відповідно до фактично підключених сервісів.
+            </ReviewNote>
           </VStack>
 
           <LegalMeta />

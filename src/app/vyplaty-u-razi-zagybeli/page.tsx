@@ -4,7 +4,13 @@ import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Container } from '@/components/Container';
-import { PageHero, PaymentsList, CaseFlow } from '@/components/ContentBlocks';
+import {
+  PageHero,
+  PaymentsList,
+  CaseFlow,
+  SummaryBox,
+  PageToc,
+} from '@/components/ContentBlocks';
 import {
   LegalNotice,
   LegalMeta,
@@ -76,16 +82,42 @@ export default function DeathPaymentsPage() {
         title="Виплати у разі загибелі військовослужбовця"
         lead="Пояснюємо простими словами, які виплати та оформлення можуть стосуватися родини, від чого залежить право на них і що робити, якщо процес зупинився."
         extra="У одній ситуації можуть існувати різні види коштів і процедур — від одноразової грошової допомоги до пенсії у зв’язку з втратою годувальника. Нижче — огляд основних із них."
+        crumbs={[{ label: 'Виплати у разі загибелі' }]}
+        pictogram="payments"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
-        <Container gap={8}>
-          <LegalNotice />
+        <Container gap={8} maxWidth={980}>
+          {/* Коротко — для тих, кому важко читати довгу сторінку (аудит C1) */}
+          <SummaryBox
+            items={[
+              'Родині можуть належати кілька різних виплат — від одноразової допомоги до пенсії.',
+              'Право на кожну виплату залежить від родинного зв’язку, обставин та документів.',
+              'Заяви подаються до військової частини, ТЦК та СП, Пенсійного фонду чи соцзахисту.',
+              'Затримку і відмову можна оскаржити — головне зафіксувати подання документів.',
+            ]}
+          />
+
+          <PageToc
+            items={[
+              { label: 'Які виплати можуть бути актуальними', anchor: 'vydy-vyplat' },
+              { label: 'Від чого залежить право на виплату', anchor: 'pravo' },
+              { label: 'Хто може бути отримувачем', anchor: 'khto-maye-pravo' },
+              { label: 'Особисте розпорядження', anchor: 'rozporiadzhennia' },
+              { label: 'Документи', anchor: 'dokumenty' },
+              { label: 'Куди звертатися', anchor: 'kudy' },
+              { label: 'Затримка та відмова', anchor: 'zatrymka' },
+              { label: 'Складні ситуації', anchor: 'skladni' },
+              { label: 'Запитання та відповіді', anchor: 'pytannia' },
+            ]}
+          />
 
           <CaseFlow />
 
           <VStack gap={4}>
-            <Heading level={2}>Які виплати та оформлення можуть бути актуальними</Heading>
+            <Heading level={2} id="vydy-vyplat">
+              Які виплати та оформлення можуть бути актуальними
+            </Heading>
             <Text as="p" type="body" color="secondary">
               Наявність кожної виплати залежить від обставин конкретної справи —
               перелік нижче не означає, що всі виплати гарантовано доступні
@@ -95,7 +127,9 @@ export default function DeathPaymentsPage() {
           </VStack>
 
           <VStack gap={4}>
-            <Heading level={2}>Від чого залежить право на виплату</Heading>
+            <Heading level={2} id="pravo">
+              Від чого залежить право на виплату
+            </Heading>
             <List>
               {eligibilityFactors.map((f) => (
                 <ListItem key={f} label={f} />
@@ -119,7 +153,9 @@ export default function DeathPaymentsPage() {
           </VStack>
 
           <VStack gap={4}>
-            <Heading level={2}>Як може впливати особисте розпорядження</Heading>
+            <Heading level={2} id="rozporiadzhennia">
+              Як може впливати особисте розпорядження
+            </Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
               Військовослужбовець за життя може визначити, хто саме отримає
               одноразову грошову допомогу, або змінити розподіл часток між
@@ -131,7 +167,9 @@ export default function DeathPaymentsPage() {
           </VStack>
 
           <VStack gap={4}>
-            <Heading level={2}>Які документи можуть знадобитися</Heading>
+            <Heading level={2} id="dokumenty">
+              Які документи можуть знадобитися
+            </Heading>
             <List>
               {requiredDocs.map((d) => (
                 <ListItem key={d} label={d} />
@@ -145,7 +183,9 @@ export default function DeathPaymentsPage() {
           </VStack>
 
           <VStack gap={4}>
-            <Heading level={2}>Куди звертатися</Heading>
+            <Heading level={2} id="kudy">
+              Куди звертатися
+            </Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
               Залежно від виду виплати заяви подаються до військової частини,
               ТЦК та СП, Пенсійного фонду України або органів соціального
@@ -165,7 +205,9 @@ export default function DeathPaymentsPage() {
           </VStack>
 
           <VStack gap={4}>
-            <Heading level={2}>Що робити при затримці</Heading>
+            <Heading level={2} id="zatrymka">
+              Що робити при затримці
+            </Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
               Якщо рішення чи виплати немає тривалий час — надішліть письмовий
               запит про стан розгляду. Мовчання органу після спливу строків — це
@@ -185,7 +227,9 @@ export default function DeathPaymentsPage() {
           </VStack>
 
           <VStack gap={4}>
-            <Heading level={2}>Типові складні ситуації</Heading>
+            <Heading level={2} id="skladni">
+              Типові складні ситуації
+            </Heading>
             <List>
               {complexCases.map((c) => (
                 <ListItem key={c} label={c} />
@@ -198,9 +242,14 @@ export default function DeathPaymentsPage() {
           </VStack>
 
           <VStack gap={4}>
-            <Heading level={2}>Поширені запитання</Heading>
+            <Heading level={2} id="pytannia">
+              Поширені запитання
+            </Heading>
             <FaqList items={pageFaq} />
           </VStack>
+
+          {/* Дисклеймер після контенту, а не перед ним (аудит T3) */}
+          <LegalNotice />
 
           <OfficialSources sources={officialSources} />
 

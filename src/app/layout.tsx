@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import '@astryxdesign/core/reset.css';
 import '@astryxdesign/core/astryx.css';
+import '@fontsource-variable/manrope';
 import './globals.css';
 import { Providers } from '@/components/Providers';
 import { SiteShell } from '@/components/SiteShell';
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     title: `${site.brandName} — юридична допомога родинам військових`,
     description:
       'Перевіримо вашу ситуацію, пояснимо порядок дій та, за потреби, візьмемо на себе юридичний супровід.',
+    images: [{ url: '/og.png', width: 1200, height: 630 }],
   },
   robots: { index: true, follow: true },
 };
@@ -36,6 +38,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="uk">
       <body>
+        {/* Без JS reveal-блоки мають бути видимі одразу (аудит A5) */}
+        <noscript>
+          <style>{`.reveal { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
         <JsonLd data={legalServiceSchema()} />
         <Providers>
           <SiteShell>{children}</SiteShell>

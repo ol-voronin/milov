@@ -36,37 +36,69 @@ import {
   NEEDS_LAWYER_REVIEW,
   type PaymentInfo,
 } from '@/content/payments';
+import { useState } from 'react';
+import { Breadcrumbs, BreadcrumbItem } from '@astryxdesign/core/Breadcrumbs';
+import { Button } from '@astryxdesign/core/Button';
 import { Container } from './Container';
 import { ButtonLink } from './ButtonLink';
 import { OfficialSources, ReviewFlag } from './LegalComponents';
 import { SectionAccent } from './HeroVisual';
+import { PagePictogram, type PictogramName } from './PagePictogram';
+
+export type Crumb = { label: string; href?: string };
 
 export function PageHero({
   title,
   lead,
   extra,
   id,
+  crumbs,
+  pictogram,
 }: {
   title: string;
   lead: string;
   extra?: string;
   id?: string;
+  /** Хлібні крихти (аудит N2); головна додається автоматично */
+  crumbs?: Crumb[];
+  /** Тематична піктограма сторінки (аудит V1) */
+  pictogram?: PictogramName;
 }) {
   return (
     <Section variant="transparent" padding={8}>
-      <Container gap={4}>
-        <SectionAccent />
-        <Heading level={1} textWrap="balance" id={id}>
-          {title}
-        </Heading>
-        <Text as="p" type="large" color="secondary" textWrap="pretty">
-          {lead}
-        </Text>
-        {extra ? (
-          <Text as="p" type="body" color="secondary" textWrap="pretty">
-            {extra}
-          </Text>
-        ) : null}
+      <Container gap={4} maxWidth={980}>
+        {crumbs ? (
+          <Breadcrumbs variant="supporting" label="Ви тут">
+            <BreadcrumbItem href="/">Головна</BreadcrumbItem>
+            {crumbs.map((c, i) => (
+              <BreadcrumbItem
+                key={c.label}
+                href={c.href}
+                isCurrent={i === crumbs.length - 1}
+              >
+                {c.label}
+              </BreadcrumbItem>
+            ))}
+          </Breadcrumbs>
+        ) : (
+          <SectionAccent />
+        )}
+        <HStack gap={5} vAlign="center" wrap="wrap">
+          {pictogram ? <PagePictogram name={pictogram} /> : null}
+          <VStack gap={3} maxWidth={720}>
+            <Heading level={1} textWrap="balance" id={id}>
+              {title}
+            </Heading>
+            <Text as="p" type="large" color="secondary" textWrap="pretty">
+              {lead}
+            </Text>
+            {extra ? (
+              <Text as="p" type="body" color="secondary" textWrap="pretty">
+                {extra}
+              </Text>
+            ) : null}
+          </VStack>
+        </HStack>
       </Container>
     </Section>
   );
@@ -203,8 +235,10 @@ export function PrepChecklist() {
   );
 }
 
-export function HelpGrid({ limit }: { limit?: number }) {
-  const items = limit ? helpItems.slice(0, limit) : helpItems;
+export function HelpGrid({ limit = 6 }: { limit?: number }) {
+  // Стіна з 14 карток пригнічує — показуємо 6 + «Показати всі» (аудит C3)
+  const [expanded, setExpanded] = useState(false);
+  const items = expanded ? helpItems : helpItems.slice(0, limit);
   return (
     <VStack gap={4}>
       <Heading level={2}>З чим допомагаємо</Heading>
@@ -225,6 +259,15 @@ export function HelpGrid({ limit }: { limit?: number }) {
           </Card>
         ))}
       </Grid>
+      {!expanded && helpItems.length > limit ? (
+        <VStack hAlign="start">
+          <Button
+            label={`Показати всі (${helpItems.length})`}
+            variant="secondary"
+            onClick={() => setExpanded(true)}
+          />
+        </VStack>
+      ) : null}
       <Text as="p" type="supporting">
         Перелік виплат і можливостей у кожній ситуації є різним — наявність
         послуги в списку не означає, що всі виплати гарантовано доступні кожному.
@@ -250,7 +293,7 @@ export function FinalCta() {
             label="Замовити дзвінок юриста"
             variant="primary"
             size="lg"
-            href="/#callback"
+            href="/zamovyty-dzvinok"
           />
           <Text as="p" type="supporting">
             Не потрібно одразу надсилати документи або детально описувати
@@ -259,6 +302,69 @@ export function FinalCta() {
         </VStack>
       </Container>
     </Section>
+  );
+}
+
+/**
+ * Блок «Коротко» — стислий висновок угорі довгої сторінки (аудит C1).
+ */
+export function SummaryBox({ items }: { items: string[] }) {
+  return (
+    <Card padding={5} variant="muted">
+      <VStack gap={3}>
+        <HStack gap={2} vAlign="center">
+          <span className="step-circle" aria-hidden="true">!</span>
+          <Heading level={2}>Коротко</Heading>
+        </HStack>
+        <List>
+          {items.map((item) => (
+            <ListItem
+              key={item}
+              label={item}
+              startContent={<Icon icon={CheckCircleIcon} size="sm" color="accent" />}
+            />
+          ))}
+        </List>
+      </VStack>
+    </Card>
+  );
+}
+
+/**
+ * Зміст сторінки з якорями (аудит C1).
+ */
+export function PageToc({ items }: { items: { label: string; anchor: string }[] }) {
+  return (
+    <VStack gap={2}>
+      <Text as="p" type="label" weight="semibold">
+        Зміст сторінки
+      </Text>
+      <List>
+        {items.map((item) => (
+          <ListItem key={item.anchor} label={item.label} href={`#${item.anchor}`} />
+        ))}
+      </List>
+    </VStack>
+  );
+}
+
+/**
+ * Нумеровані кроки з кружечками (аудит C2, патерн GOV.UK step-by-step).
+ */
+export function NumberedSteps({ steps: stepItems }: { steps: string[] }) {
+  return (
+    <VStack gap={3}>
+      {stepItems.map((step, i) => (
+        <HStack gap={3} vAlign="start" key={step}>
+          <span className="step-circle" aria-hidden="true">
+            {i + 1}
+          </span>
+          <Text as="p" type="body" color="secondary" textWrap="pretty">
+            {step}
+          </Text>
+        </HStack>
+      ))}
+    </VStack>
   );
 }
 

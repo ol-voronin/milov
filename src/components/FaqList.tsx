@@ -27,7 +27,7 @@ export function FaqList({ items }: { items: FaqItem[] }) {
             <ButtonLink
               label="Обговорити мою ситуацію"
               variant="secondary"
-              href="/#callback"
+              href="/zamovyty-dzvinok"
             />
           </VStack>
         </Collapsible>

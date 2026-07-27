@@ -28,6 +28,8 @@ export default function FaqPage() {
       <PageHero
         title="Поширені запитання"
         lead="Зібрали відповіді на запитання, які нам ставлять найчастіше. Якщо вашого немає — зателефонуйте, пояснимо без складних термінів."
+        crumbs={[{ label: 'Поширені запитання' }]}
+        pictogram="faq"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>

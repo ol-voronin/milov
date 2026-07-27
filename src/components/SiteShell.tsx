@@ -3,7 +3,12 @@
 import type { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import { AppShell } from '@astryxdesign/core/AppShell';
-import { TopNav, TopNavHeading, TopNavItem } from '@astryxdesign/core/TopNav';
+import {
+  TopNav,
+  TopNavHeading,
+  TopNavItem,
+  TopNavMenu,
+} from '@astryxdesign/core/TopNav';
 import { SideNavItem, SideNavSection } from '@astryxdesign/core/SideNav';
 import { Link } from '@astryxdesign/core/Link';
 import { HStack, VStack } from '@astryxdesign/core/Stack';
@@ -14,10 +19,50 @@ import { SiteFooter } from './SiteFooter';
 import { MobileCallCta } from './MobileCallCta';
 import { ButtonLink } from './ButtonLink';
 
+/** Меню «Ситуації» — всі 5 сценаріїв доступні з будь-якої сторінки (аудит N1) */
+const situationMenu = [
+  {
+    title: 'Виплати у разі загибелі',
+    description: 'Хто має право, документи, порядок дій',
+    href: '/vyplaty-u-razi-zagybeli',
+  },
+  {
+    title: 'Затримка або відмова у виплаті',
+    description: 'Як зафіксувати бездіяльність та оскаржити',
+    href: '/zatrymka-abo-vidmova',
+  },
+  {
+    title: 'Зниклі безвісти та полонені',
+    description: 'Права родини та порядок звернень',
+    href: '/znykli-bezvisty-ta-poloneni',
+  },
+  {
+    title: 'Пенсія, компенсації, статуси',
+    description: 'Інші виплати та оформлення для родини',
+    href: '/inshi-vyplaty',
+  },
+  {
+    title: 'Поширені запитання',
+    description: 'Короткі відповіді на найчастіші питання',
+    href: '/faq',
+  },
+];
+
 const navItems = [
-  { label: 'Виплати у разі загибелі', href: '/vyplaty-u-razi-zagybeli' },
   { label: 'Послуги', href: '/poslugy' },
   { label: 'Корисна інформація', href: '/korysna-informatsiya' },
+  { label: 'Про нас', href: '/pro-komandu' },
+  { label: 'Контакти', href: '/kontakty' },
+];
+
+const mobileNavItems = [
+  { label: 'Виплати у разі загибелі', href: '/vyplaty-u-razi-zagybeli' },
+  { label: 'Затримка або відмова', href: '/zatrymka-abo-vidmova' },
+  { label: 'Зниклі безвісти та полонені', href: '/znykli-bezvisty-ta-poloneni' },
+  { label: 'Пенсія, компенсації, статуси', href: '/inshi-vyplaty' },
+  { label: 'Послуги', href: '/poslugy' },
+  { label: 'Корисна інформація', href: '/korysna-informatsiya' },
+  { label: 'Поширені запитання', href: '/faq' },
   { label: 'Про нас', href: '/pro-komandu' },
   { label: 'Контакти', href: '/kontakty' },
 ];
@@ -45,6 +90,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           }
           startContent={
             <>
+              <TopNavMenu label="Ситуації" items={situationMenu} />
               {navItems.map((item) => (
                 <TopNavItem
                   key={item.href}
@@ -63,7 +109,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   {site.phone}
                 </HStack>
               </Link>
-              <ButtonLink label="Замовити дзвінок" variant="primary" href="/#callback" />
+              <ButtonLink
+                label="Замовити дзвінок"
+                variant="primary"
+                href="/zamovyty-dzvinok"
+              />
             </HStack>
           }
         />
@@ -72,7 +122,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         content: (
           <VStack gap={4}>
             <SideNavSection title="Розділи сайту">
-              {navItems.map((item) => (
+              {mobileNavItems.map((item) => (
                 <SideNavItem
                   key={item.href}
                   label={item.label}
@@ -80,14 +130,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   isSelected={isSelected(item.href)}
                 />
               ))}
-              <SideNavItem
-                label="Поширені запитання"
-                href="/faq"
-                isSelected={isSelected('/faq')}
-              />
             </SideNavSection>
             <VStack gap={2}>
-              <ButtonLink label="Замовити дзвінок" variant="primary" href="/#callback" />
+              <ButtonLink
+                label="Замовити дзвінок"
+                variant="primary"
+                href="/zamovyty-dzvinok"
+              />
               <ButtonLink
                 label={`Зателефонувати: ${site.phone}`}
                 variant="secondary"

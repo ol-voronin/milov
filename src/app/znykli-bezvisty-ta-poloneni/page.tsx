@@ -5,7 +5,7 @@ import { Heading, Text } from '@astryxdesign/core/Text';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Banner } from '@astryxdesign/core/Banner';
 import { Container } from '@/components/Container';
-import { PageHero } from '@/components/ContentBlocks';
+import { PageHero, NumberedSteps } from '@/components/ContentBlocks';
 import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalComponents';
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
@@ -39,19 +39,15 @@ export default function MissingPage() {
       <PageHero
         title="Зниклі безвісти та військовополонені: права родини"
         lead="Родина має право знати, що відбувається, отримувати належні кошти та юридичну підтримку. Пояснюємо порядок звернень простими словами."
+        crumbs={[{ label: 'Зниклі безвісти та полонені' }]}
+        pictogram="missing"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
-        <Container gap={8}>
-          <LegalNotice />
-
+        <Container gap={8} maxWidth={980}>
           <VStack gap={4}>
             <Heading level={2}>Основні кроки для родини</Heading>
-            <List>
-              {familySteps.map((s, i) => (
-                <ListItem key={s} label={`${i + 1}. ${s}`} />
-              ))}
-            </List>
+            <NumberedSteps steps={familySteps} />
           </VStack>
 
           <VStack gap={4}>
@@ -81,6 +77,7 @@ export default function MissingPage() {
             </List>
           </VStack>
 
+          <LegalNotice />
           <OfficialSources sources={officialSources} />
           <LegalMeta />
         </Container>

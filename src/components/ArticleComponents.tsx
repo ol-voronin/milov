@@ -24,28 +24,86 @@ import {
   CheckCircleIcon,
 } from '@heroicons/react/24/outline';
 import { articles, type Article, type ArticleSection } from '@/content/articles';
+import { showReviewFlags } from '@/lib/flags';
+import { NEEDS_LAWYER_REVIEW } from '@/content/payments';
 
-export function ArticleSearch() {
+/** Статичний індекс основних сторінок для глобального пошуку (аудит N3) */
+const pageIndex = [
+  {
+    title: 'Виплати у разі загибелі військовослужбовця',
+    description: 'Хто має право, документи, порядок дій',
+    href: '/vyplaty-u-razi-zagybeli',
+    keywords: ['виплати', 'загибель', 'одноразова грошова допомога', 'огд', 'право'],
+  },
+  {
+    title: 'Затримка або відмова у виплаті',
+    description: 'Як зафіксувати бездіяльність та оскаржити відмову',
+    href: '/zatrymka-abo-vidmova',
+    keywords: ['затримка', 'відмова', 'оскарження', 'скарга', 'суд'],
+  },
+  {
+    title: 'Зниклі безвісти та полонені',
+    description: 'Права родини та порядок звернень',
+    href: '/znykli-bezvisty-ta-poloneni',
+    keywords: ['зниклий безвісти', 'полон', 'грошове забезпечення'],
+  },
+  {
+    title: 'Пенсія, компенсації, статуси',
+    description: 'Інші виплати та оформлення для родини',
+    href: '/inshi-vyplaty',
+    keywords: ['пенсія', 'втрата годувальника', 'компенсація', 'відпустка', 'статус', 'поховання'],
+  },
+  {
+    title: 'Послуги та вартість',
+    description: 'Формати допомоги і прозорий підхід до ціни',
+    href: '/poslugy',
+    keywords: ['послуги', 'вартість', 'ціна', 'консультація', 'супровід'],
+  },
+  {
+    title: 'Поширені запитання',
+    description: 'Короткі відповіді на найчастіші питання',
+    href: '/faq',
+    keywords: ['питання', 'faq', 'шлюб', 'спір', 'онлайн'],
+  },
+  {
+    title: 'Замовити дзвінок юриста',
+    description: 'Залиште номер — ми зателефонуємо',
+    href: '/zamovyty-dzvinok',
+    keywords: ['дзвінок', 'заявка', 'контакт', 'юрист'],
+  },
+];
+
+export function ArticleSearch({ includePages = false }: { includePages?: boolean }) {
   const [query, setQuery] = useState('');
+
+  const corpus = useMemo(() => {
+    const articleEntries = articles.map((a) => ({
+      title: a.title,
+      description: a.description,
+      href: `/korysna-informatsiya/${a.slug}`,
+      keywords: a.keywords,
+    }));
+    return includePages ? [...pageIndex, ...articleEntries] : articleEntries;
+  }, [includePages]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return articles;
-    return articles.filter(
+    if (!q) return corpus;
+    return corpus.filter(
       (a) =>
         a.title.toLowerCase().includes(q) ||
         a.description.toLowerCase().includes(q) ||
         a.keywords.some((k) => k.toLowerCase().includes(q)),
     );
-  }, [query]);
+  }, [query, corpus]);
 
   return (
     <VStack gap={4}>
       <TextInput
-        label="Пошук по матеріалах"
+        label={includePages ? 'Пошук по сайту' : 'Пошук по матеріалах'}
         value={query}
         onChange={setQuery}
-        placeholder="Наприклад: відмова, документи, полон…"
+        placeholder="Наприклад: відмова у виплаті, документи, полон…"
         startIcon={MagnifyingGlassIcon}
         hasClear
       />
@@ -58,10 +116,10 @@ export function ArticleSearch() {
         <List>
           {filtered.map((a) => (
             <ListItem
-              key={a.slug}
+              key={a.href}
               label={a.title}
               description={a.description}
-              href={`/korysna-informatsiya/${a.slug}`}
+              href={a.href}
               startContent={<Icon icon={DocumentTextIcon} size="md" color="accent" />}
             />
           ))}
@@ -74,11 +132,11 @@ export function ArticleSearch() {
 export function ArticleBody({ article }: { article: Article }) {
   return (
     <VStack gap={4}>
-      {!article.reviewed ? (
+      {!article.reviewed && showReviewFlags ? (
         <Banner
           status="warning"
-          title="Матеріал очікує юридичної перевірки"
-          description="Текст підготовлено редакцією і ще не перевірено адвокатом. Не приймайте рішень лише на його основі — зателефонуйте, і ми уточнимо актуальний порядок дій."
+          title="Матеріал очікує юридичної перевірки (службова примітка)"
+          description="Текст підготовлено редакцією і ще не перевірено адвокатом. На продакшні ця примітка не показується."
         />
       ) : null}
       {article.sections.map((section, i) => (
@@ -110,8 +168,13 @@ function SectionRenderer({ section }: { section: ArticleSection }) {
           ))}
         </List>
       );
-    case 'warning':
-      return <Banner status="info" title="Зверніть увагу" description={section.text} />;
+    case 'warning': {
+      // На проді службовий маркер перевірки прибирається з тексту (аудит T1)
+      const text = showReviewFlags
+        ? section.text
+        : section.text.replace(NEEDS_LAWYER_REVIEW, '').trim();
+      return <Banner status="info" title="Зверніть увагу" description={text} />;
+    }
     default:
       return null;
   }

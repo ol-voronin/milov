@@ -44,7 +44,15 @@ export default async function ArticlePage({ params }: Props) {
         ])}
       />
 
-      <PageHero title={article.title} lead={article.description} />
+      <PageHero
+        title={article.title}
+        lead={article.description}
+        crumbs={[
+          { label: 'Корисна інформація', href: '/korysna-informatsiya' },
+          { label: article.title },
+        ]}
+        pictogram="info"
+      />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
         <Container gap={6} maxWidth={820}>

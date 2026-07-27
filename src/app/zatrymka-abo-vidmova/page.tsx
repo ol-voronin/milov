@@ -4,7 +4,7 @@ import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Container } from '@/components/Container';
-import { PageHero } from '@/components/ContentBlocks';
+import { PageHero, NumberedSteps } from '@/components/ContentBlocks';
 import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalComponents';
 import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
@@ -44,23 +44,19 @@ export default function DelayRefusalPage() {
       <PageHero
         title="Затримка або відмова у виплаті"
         lead="Якщо документи подані, а виплати немає — це ще не вирок. Мовчання органу та необґрунтована відмова оскаржуються. Головне — правильно зафіксувати факти."
+        crumbs={[{ label: 'Затримка або відмова' }]}
+        pictogram="delay"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
-        <Container gap={8}>
-          <LegalNotice />
-
+        <Container gap={8} maxWidth={980}>
           <VStack gap={4}>
             <Heading level={2}>Виплату затримують: покроково</Heading>
             <Text as="p" type="body" color="secondary">
               Затримка — це не завжди відмова. Але тривале мовчання потрібно
               переводити в юридичну площину:
             </Text>
-            <List>
-              {delaySteps.map((s, i) => (
-                <ListItem key={s} label={`${i + 1}. ${s}`} />
-              ))}
-            </List>
+            <NumberedSteps steps={delaySteps} />
           </VStack>
 
           <VStack gap={4}>
@@ -71,11 +67,7 @@ export default function DelayRefusalPage() {
               Відмова має бути письмовою та вмотивованою. Саме з її тексту
               починається аналіз:
             </Text>
-            <List>
-              {refusalSteps.map((s, i) => (
-                <ListItem key={s} label={`${i + 1}. ${s}`} />
-              ))}
-            </List>
+            <NumberedSteps steps={refusalSteps} />
             <Text as="p" type="body" color="secondary" textWrap="pretty">
               Ми не обіцяємо результат без аналізу документів. Спочатку
               з’ясовуємо обставини, перевіряємо правові підстави та пояснюємо
@@ -93,6 +85,7 @@ export default function DelayRefusalPage() {
             </List>
           </VStack>
 
+          <LegalNotice />
           <OfficialSources sources={officialSources} />
           <LegalMeta />
         </Container>

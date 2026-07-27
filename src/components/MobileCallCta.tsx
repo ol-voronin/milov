@@ -10,7 +10,7 @@ import { Button } from '@astryxdesign/core/Button';
 export function MobileCallCta() {
   return (
     <nav className="mobile-call-cta" aria-label="Швидке замовлення дзвінка">
-      <Button label="Замовити дзвінок" variant="primary" href="/#callback" size="lg" />
+      <Button label="Замовити дзвінок" variant="primary" href="/zamovyty-dzvinok" size="lg" />
     </nav>
   );
 }

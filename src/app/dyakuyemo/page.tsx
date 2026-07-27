@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
+import { Link } from '@astryxdesign/core/Link';
 import { Container } from '@/components/Container';
 import { ButtonLink } from '@/components/ButtonLink';
 import { site } from '@/config/site';
@@ -20,6 +21,21 @@ export default function ThankYouPage() {
         <Text as="p" type="large" color="secondary" textWrap="pretty">
           {site.callbackTimePromise}
         </Text>
+        <Text as="p" type="body" color="secondary" textWrap="pretty">
+          Не дочекалися дзвінка або питання термінове? Зателефонуйте нам
+          самостійно: <Link href={`tel:${site.phone}`}>{site.phone}</Link> (
+          {site.workingHours}).
+        </Text>
+        {site.telegram || site.viber ? (
+          <VStack gap={2} hAlign="start">
+            {site.telegram ? (
+              <ButtonLink label="Написати в Telegram" variant="secondary" href={site.telegram} />
+            ) : null}
+            {site.viber ? (
+              <ButtonLink label="Написати у Viber" variant="secondary" href={site.viber} />
+            ) : null}
+          </VStack>
+        ) : null}
         <Text as="p" type="body" color="secondary" textWrap="pretty">
           Тим часом можете переглянути корисні матеріали — можливо, там уже є
           відповідь на частину ваших запитань.

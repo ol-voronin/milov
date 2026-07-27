@@ -1,5 +1,7 @@
 /**
  * Картки «Що сталося?» на головній сторінці.
+ * Формулювання — від першої особи, мовою користувача (патерн «життєвих
+ * подій» порталу Дія), делікатно і без драматизації.
  * topicValue відповідає значенням теми у формі заявки (src/lib/leadSchema.ts).
  */
 
@@ -14,7 +16,7 @@ export type Situation = {
 export const situations: Situation[] = [
   {
     id: 'death',
-    title: 'Загинув або помер військовослужбовець',
+    title: 'Загинув або помер близький військовослужбовець',
     description:
       'Потрібно оформити виплати, статуси або інші належні родині кошти.',
     href: '/vyplaty-u-razi-zagybeli',
@@ -22,7 +24,7 @@ export const situations: Situation[] = [
   },
   {
     id: 'delay',
-    title: 'Виплату затримують або не нарахували',
+    title: 'Мені затримують виплату',
     description:
       'Документи подані, але немає рішення, відповіді чи виплати.',
     href: '/zatrymka-abo-vidmova',
@@ -30,7 +32,7 @@ export const situations: Situation[] = [
   },
   {
     id: 'refusal',
-    title: 'Отримали відмову',
+    title: 'Мені відмовили у виплаті',
     description:
       'Допоможемо проаналізувати підстави та визначити порядок оскарження.',
     href: '/zatrymka-abo-vidmova#vidmova',
@@ -46,7 +48,7 @@ export const situations: Situation[] = [
   },
   {
     id: 'missing',
-    title: 'Військовий зник безвісти або перебуває в полоні',
+    title: 'Рідна людина зникла безвісти або в полоні',
     description:
       'Пояснимо права родини, порядок звернень і можливі виплати.',
     href: '/znykli-bezvisty-ta-poloneni',
@@ -57,7 +59,7 @@ export const situations: Situation[] = [
     title: 'Інша ситуація',
     description:
       'Коротко опишіть проблему — юрист зателефонує та підкаже, з чого почати.',
-    href: '/#callback',
+    href: '/zamovyty-dzvinok?tema=other',
     topicValue: 'other',
   },
 ];

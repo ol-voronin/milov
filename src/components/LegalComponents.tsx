@@ -9,6 +9,7 @@
  * - ReviewFlag — службова позначка для неперевіреного контенту
  */
 
+import type { ReactNode } from 'react';
 import { Banner } from '@astryxdesign/core/Banner';
 import { VStack, HStack } from '@astryxdesign/core/Stack';
 import { Text } from '@astryxdesign/core/Text';
@@ -19,6 +20,7 @@ import { CheckBadgeIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { site, hasAttorney } from '@/config/site';
 import type { OfficialSource } from '@/content/payments';
 import { NEEDS_LAWYER_REVIEW } from '@/content/payments';
+import { showReviewFlags } from '@/lib/flags';
 
 export function LegalNotice() {
   return (
@@ -92,12 +94,27 @@ export function SensitiveDataNotice() {
 
 /**
  * Службова позначка для контенту, який ще не перевірив адвокат.
- * Показує текстову позначку [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ],
- * щоб її було видно і в CMS-файлах, і на сторінці до моменту перевірки.
+ * Видима лише в dev / за NEXT_PUBLIC_SHOW_REVIEW_FLAGS=1 — відвідувачі
+ * продакшн-сайту внутрішніх редакційних міток не бачать (аудит T1).
  */
 export function ReviewFlag({ visible }: { visible: boolean }) {
-  if (!visible) return null;
+  if (!visible || !showReviewFlags) return null;
   return <Token label={NEEDS_LAWYER_REVIEW} color="yellow" size="sm" />;
+}
+
+/**
+ * Службова примітка для власника/редактора (напр. у шаблонах політик).
+ * Рендериться лише в dev / на staging із увімкненим прапорцем.
+ */
+export function ReviewNote({ children }: { children: ReactNode }) {
+  if (!showReviewFlags) return null;
+  return (
+    <Banner
+      status="warning"
+      title="Службова примітка (не видно на продакшні)"
+      description={<>{children}</>}
+    />
+  );
 }
 
 function formatDate(iso: string): string {

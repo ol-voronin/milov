@@ -16,7 +16,8 @@ const navColumns = [
       { label: 'Виплати у разі загибелі', href: '/vyplaty-u-razi-zagybeli' },
       { label: 'Затримка або відмова', href: '/zatrymka-abo-vidmova' },
       { label: 'Зниклі безвісти та полонені', href: '/znykli-bezvisty-ta-poloneni' },
-      { label: 'Інші виплати родинам', href: '/inshi-vyplaty' },
+      { label: 'Пенсія, компенсації, статуси', href: '/inshi-vyplaty' },
+      { label: 'Замовити дзвінок', href: '/zamovyty-dzvinok' },
     ],
   },
   {
@@ -85,6 +86,9 @@ export function SiteFooter() {
         <Divider />
 
         <VStack gap={3}>
+          <Text as="p" type="label" weight="semibold">
+            Важливо знати
+          </Text>
           <Text as="p" type="supporting">
             Матеріали сайту мають загальний інформаційний характер і не є
             індивідуальною юридичною консультацією. Право на виплати, їх розмір,

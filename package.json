@@ -13,6 +13,7 @@
     "@astryxdesign/cli": "^0.1.8",
     "@astryxdesign/core": "^0.1.8",
     "@astryxdesign/theme-neutral": "^0.1.8",
+    "@fontsource-variable/manrope": "^5.3.0",
     "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^5.5.7",
     "@stylexjs/stylex": "^0.19.0",

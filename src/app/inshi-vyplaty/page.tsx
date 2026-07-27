@@ -38,14 +38,14 @@ export default function OtherPaymentsPage() {
       />
 
       <PageHero
-        title="Інші виплати та оформлення для родин військових"
+        title="Пенсія, компенсації та статуси для родин військових"
         lead="Окрім одноразової грошової допомоги, родині можуть належати інші кошти та статуси. Розповідаємо, які саме і з чого почати."
+        crumbs={[{ label: 'Пенсія, компенсації, статуси' }]}
+        pictogram="payments"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={0}>
-        <Container gap={8}>
-          <LegalNotice />
-
+        <Container gap={8} maxWidth={980}>
           <VStack gap={4}>
             <Heading level={2}>Що може належати родині</Heading>
             <Text as="p" type="body" color="secondary">
@@ -55,6 +55,7 @@ export default function OtherPaymentsPage() {
             <PaymentsList items={otherPayments} />
           </VStack>
 
+          <LegalNotice />
           <OfficialSources sources={officialSources} />
           <LegalMeta />
         </Container>

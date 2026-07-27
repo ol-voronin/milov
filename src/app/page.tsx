@@ -7,7 +7,7 @@ import { Badge } from '@astryxdesign/core/Badge';
 import { Container } from '@/components/Container';
 import { ButtonLink } from '@/components/ButtonLink';
 import { SituationCards } from '@/components/SituationCards';
-import { HeroVisual, SectionAccent } from '@/components/HeroVisual';
+import { SectionAccent } from '@/components/HeroVisual';
 import { Reveal } from '@/components/Reveal';
 import {
   HelpGrid,
@@ -69,7 +69,7 @@ export default function HomePage() {
                   label="Замовити дзвінок"
                   variant="primary"
                   size="lg"
-                  href="/#callback"
+                  href="/zamovyty-dzvinok"
                 />
                 <ButtonLink
                   label="Обрати свою ситуацію"
@@ -88,7 +88,20 @@ export default function HomePage() {
               </Text>
             </VStack>
             <Reveal delay={1}>
-              <HeroVisual />
+              {/* Фотоелемент hero (запит власника).
+                  TODO: замініть /public/hero-photo.jpg на власне фото
+                  (кабінет, документи, нейтральний пейзаж) — без сцен горя. */}
+              <span className="hero-photo-frame">
+                <img
+                  src="/hero-photo.jpg"
+                  alt="Світанок над пшеничним полем — спокійний ранковий пейзаж"
+                  width={1600}
+                  height={1200}
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <span className="hero-photo-accent" aria-hidden="true" />
+              </span>
             </Reveal>
           </Grid>
         </Container>

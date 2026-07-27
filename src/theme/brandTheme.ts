@@ -17,6 +17,20 @@ export const brandTheme = defineTheme({
     accent: '#24527E',
     neutralStyle: 'warm',
   },
+  typography: {
+    // Manrope Variable — відкритий шрифт із повною кирилицею (аудит V2);
+    // підключається через @fontsource-variable/manrope у layout.tsx
+    body: {
+      family: 'Manrope Variable',
+      fallbacks:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    },
+    heading: {
+      family: 'Manrope Variable',
+      fallbacks:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    },
+  },
   tokens: {
     // Теплий білий / світло-бежевий фон сторінки
     '--color-background-body': ['#F8F6F2', '#141517'],

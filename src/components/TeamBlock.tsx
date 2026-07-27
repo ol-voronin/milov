@@ -18,10 +18,46 @@ import { team } from '@/config/site';
  *   «Адвокат» дозволено лише за наявності чинного свідоцтва.
  */
 export function TeamBlock() {
+  const published = team.filter((m) => m.published);
+
+  // Поки реальні дані не заповнені (published=false) — показуємо
+  // знеособлений блок принципів замість карток-заглушок (аудит T2).
+  if (published.length === 0) {
+    return (
+      <VStack gap={4}>
+        <Heading level={2}>Хто працює з вашою справою</Heading>
+        <Card padding={6}>
+          <VStack gap={3}>
+            <Text as="p" type="body" color="secondary" textWrap="pretty">
+              З кожним зверненням працює юрист, який спеціалізується на
+              питаннях виплат родинам військовослужбовців: перевіряє
+              документи, пояснює можливі підстави та супроводжує справу до
+              результату.
+            </Text>
+            <List>
+              <ListItem
+                label="Прямо кажемо, хто саме веде вашу справу, ще до початку роботи"
+                startContent={<Icon icon={CheckCircleIcon} size="sm" color="accent" />}
+              />
+              <ListItem
+                label="Не обіцяємо результат без аналізу документів"
+                startContent={<Icon icon={CheckCircleIcon} size="sm" color="accent" />}
+              />
+              <ListItem
+                label="Працюємо за договором про надання правової допомоги"
+                startContent={<Icon icon={CheckCircleIcon} size="sm" color="accent" />}
+              />
+            </List>
+          </VStack>
+        </Card>
+      </VStack>
+    );
+  }
+
   return (
     <VStack gap={4}>
       <Heading level={2}>Хто працює з вашою справою</Heading>
-      {team.map((member) => (
+      {published.map((member) => (
         <Card key={member.name} padding={6}>
           <VStack gap={4}>
             <HStack gap={4} vAlign="center" wrap="wrap">
