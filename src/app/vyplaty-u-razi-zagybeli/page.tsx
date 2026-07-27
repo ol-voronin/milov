@@ -4,7 +4,7 @@ import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Container } from '@/components/Container';
-import { PageHero, PaymentsList } from '@/components/ContentBlocks';
+import { PageHero, PaymentsList, CaseFlow } from '@/components/ContentBlocks';
 import {
   LegalNotice,
   LegalMeta,
@@ -81,6 +81,8 @@ export default function DeathPaymentsPage() {
       <Section variant="transparent" padding={8} paddingBlock={0}>
         <Container gap={8}>
           <LegalNotice />
+
+          <CaseFlow />
 
           <VStack gap={4}>
             <Heading level={2}>Які виплати та оформлення можуть бути актуальними</Heading>

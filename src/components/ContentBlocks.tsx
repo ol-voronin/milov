@@ -17,10 +17,18 @@ import { Card } from '@astryxdesign/core/Card';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { Icon } from '@astryxdesign/core/Icon';
 import { List, ListItem } from '@astryxdesign/core/List';
-import { Badge } from '@astryxdesign/core/Badge';
 import {
   CheckCircleIcon,
   DocumentTextIcon,
+  PhoneArrowUpRightIcon,
+  ChatBubbleLeftRightIcon,
+  MapIcon,
+  ShieldCheckIcon,
+  DocumentPlusIcon,
+  BuildingLibraryIcon,
+  ScaleIcon,
+  BanknotesIcon,
+  ArrowLongRightIcon,
 } from '@heroicons/react/24/outline';
 import { helpItems } from '@/content/services';
 import {
@@ -31,6 +39,7 @@ import {
 import { Container } from './Container';
 import { ButtonLink } from './ButtonLink';
 import { OfficialSources, ReviewFlag } from './LegalComponents';
+import { SectionAccent } from './HeroVisual';
 
 export function PageHero({
   title,
@@ -46,6 +55,7 @@ export function PageHero({
   return (
     <Section variant="transparent" padding={8}>
       <Container gap={4}>
+        <SectionAccent />
         <Heading level={1} textWrap="balance" id={id}>
           {title}
         </Heading>
@@ -66,18 +76,22 @@ const steps = [
   {
     title: 'Ви залишаєте номер',
     text: 'Не потрібно одразу надсилати документи або детально описувати особисту ситуацію.',
+    icon: PhoneArrowUpRightIcon,
   },
   {
     title: 'Ми уточнюємо обставини',
     text: 'З’ясовуємо, що сталося, які документи вже є та куди ви зверталися.',
+    icon: ChatBubbleLeftRightIcon,
   },
   {
     title: 'Формуємо план дій',
     text: 'Пояснюємо можливі підстави, документи, строки та наступні кроки.',
+    icon: MapIcon,
   },
   {
     title: 'Супроводжуємо справу',
     text: 'За домовленістю готуємо документи, звернення, скарги або представляємо інтереси клієнта.',
+    icon: ShieldCheckIcon,
   },
 ];
 
@@ -88,8 +102,13 @@ export function StepsBlock() {
       <Grid columns={{ minWidth: 240, max: 4 }} gap={4}>
         {steps.map((step, i) => (
           <Card key={step.title} padding={5}>
-            <VStack gap={2}>
-              <Badge variant="info" label={`Крок ${i + 1}`} />
+            <VStack gap={3}>
+              <HStack gap={3} vAlign="center">
+                <span className="step-circle" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <Icon icon={step.icon} size="lg" color="accent" />
+              </HStack>
               <Heading level={3}>{step.title}</Heading>
               <Text as="p" type="body" color="secondary">
                 {step.text}
@@ -101,6 +120,49 @@ export function StepsBlock() {
       <Text as="p" type="supporting">
         Строки розгляду заяв і призначення державних виплат залежать від органу
         та обставин — ми не обіцяємо фіксованих строків отримання виплати.
+      </Text>
+    </VStack>
+  );
+}
+
+/**
+ * Інфографіка «Шлях справи»: від звернення до виплати або оскарження.
+ * Без строків і обіцянок — лише етапи процесу.
+ */
+const flowStages = [
+  { label: 'Звернення', icon: PhoneArrowUpRightIcon },
+  { label: 'Документи', icon: DocumentPlusIcon },
+  { label: 'Подання до органу', icon: BuildingLibraryIcon },
+  { label: 'Рішення', icon: ScaleIcon },
+  { label: 'Виплата або оскарження', icon: BanknotesIcon },
+];
+
+export function CaseFlow() {
+  return (
+    <VStack gap={4}>
+      <Heading level={2}>Шлях справи: від звернення до результату</Heading>
+      <Card padding={5} variant="muted">
+        <HStack gap={3} wrap="wrap" vAlign="center">
+          {flowStages.map((stage, i) => (
+            <HStack gap={3} vAlign="center" key={stage.label}>
+              <VStack gap={2} hAlign="center" width={128}>
+                <span className="icon-medallion" aria-hidden="true">
+                  <Icon icon={stage.icon} size="lg" color="accent" />
+                </span>
+                <Text type="label" weight="medium" justify="center" textWrap="balance">
+                  {stage.label}
+                </Text>
+              </VStack>
+              {i < flowStages.length - 1 ? (
+                <Icon icon={ArrowLongRightIcon} size="md" color="secondary" />
+              ) : null}
+            </HStack>
+          ))}
+        </HStack>
+      </Card>
+      <Text as="p" type="supporting">
+        Схема є узагальненою: послідовність і тривалість етапів залежать від
+        виду виплати та органу.
       </Text>
     </VStack>
   );
@@ -175,6 +237,7 @@ export function FinalCta() {
   return (
     <Section variant="transparent" padding={8}>
       <Container gap={4}>
+        <SectionAccent />
         <Heading level={2} textWrap="balance">
           Не знаєте, з чого почати?
         </Heading>
