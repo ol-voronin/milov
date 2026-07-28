@@ -102,15 +102,9 @@ export default function TeamPage() {
         </Container>
       </Section>
 
-      {/* Команда з фото */}
-      <Section variant="muted" padding={8} paddingBlock={10}>
-        <Container>
-          <TeamBlock />
-        </Container>
-      </Section>
-
-      {/* Темний якір: CTA */}
-      <Section variant="transparent" padding={8} paddingBlock={10}>
+      {/* Темний якір 1: CTA — піднятий вище, щоб не стояв поруч
+          із темним блоком довіри */}
+      <Section variant="transparent" padding={8} paddingBlock={0}>
         <Container>
           <InlineCta
             title="Хочете спершу просто поговорити?"
@@ -119,8 +113,15 @@ export default function TeamPage() {
         </Container>
       </Section>
 
-      {/* Блок довіри */}
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      {/* Світлий блок між двома темними: команда з фото */}
+      <Section variant="muted" padding={8} paddingBlock={10}>
+        <Container>
+          <TeamBlock />
+        </Container>
+      </Section>
+
+      {/* Темний якір 2: блок довіри */}
+      <Section variant="transparent" padding={8} paddingBlock={10}>
         <Container>
           <TrustBlock />
         </Container>

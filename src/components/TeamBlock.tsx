@@ -6,10 +6,12 @@ import { Heading, Text } from '@astryxdesign/core/Text';
 import { Link } from '@astryxdesign/core/Link';
 import { Icon } from '@astryxdesign/core/Icon';
 import {
-  UserIcon,
   CheckBadgeIcon,
   ArrowTopRightOnSquareIcon,
 } from '@heroicons/react/24/outline';
+
+/** Нейтральні портрети-заглушки, поки не додані реальні фото */
+const placeholders = ['/team/placeholder-1.jpg', '/team/placeholder-2.jpg'];
 import { team } from '@/config/site';
 import { CheckList } from './CheckList';
 import { CallbackButton } from './CallbackDialog';
@@ -41,20 +43,16 @@ export function TeamBlock() {
       <Grid columns={{ minWidth: 300, max: 2 }} gap={5}>
         {members.map((member, i) => (
           <article className="person-card" key={`${member.name}-${i}`}>
-            {/* Фото або плейсхолдер із підказкою для власника */}
-            {member.photo ? (
-              <img className="person-card__photo" src={member.photo} alt={member.name} />
-            ) : (
-              <div className="person-card__photo person-card__photo--empty">
-                <Icon icon={UserIcon} size="lg" color="secondary" />
-                <Text type="supporting" justify="center">
-                  Фото спеціаліста
-                </Text>
-                <Text type="supporting" justify="center">
-                  800×1000
-                </Text>
-              </div>
-            )}
+            {/* Фото спеціаліста. Поки реального немає — нейтральна
+                заглушка-портрет, щоб картка не виглядала як вайрфрейм.
+                TODO: покладіть фото у /public/team/ і вкажіть шлях
+                у src/config/site.ts → team[].photo */}
+            <img
+              className="person-card__photo"
+              src={member.photo || placeholders[i % placeholders.length]}
+              alt={member.photo ? member.name : 'Портрет спеціаліста'}
+              loading="lazy"
+            />
 
             <VStack gap={3} padding={5}>
               <VStack gap={1}>
@@ -97,14 +95,6 @@ export function TeamBlock() {
           </article>
         ))}
       </Grid>
-
-      {showPlaceholders ? (
-        <Text as="p" type="supporting">
-          Дані спеціалістів заповнюються у <code>src/config/site.ts</code> —
-          після заповнення поставте <code>published: true</code>. Фото:
-          портрет 800×1000, ділове вбрання, нейтральне тло, природне світло.
-        </Text>
-      ) : null}
 
       <HStack gap={3} wrap="wrap" vAlign="center">
         <CallbackButton label="Записатися на розмову" size="lg" />
