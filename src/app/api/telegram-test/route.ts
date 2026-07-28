@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { notifyTelegram } from '@/lib/telegram';
 
 /**
  * Діагностичний endpoint для перевірки Telegram-сповіщень.
@@ -9,8 +10,8 @@ import { NextRequest, NextResponse } from 'next/server';
  * Використання:
  *   https://ваш-домен/api/telegram-test?key=ВАШ_TELEGRAM_TEST_KEY
  *
- * Відповідь показує, що саме не так: відсутні змінні, невірний токен,
- * невірний chat id тощо.
+ * ⚠️ Перевіряє САМЕ ТОЙ виклик, що використовується для реальних заявок
+ * (notifyTelegram) — інакше тест міг би проходити, а сповіщення про лід ні.
  */
 export async function GET(req: NextRequest) {
   const testKey = process.env.TELEGRAM_TEST_KEY;
@@ -39,51 +40,62 @@ export async function GET(req: NextRequest) {
     });
   }
 
+  // Той самий шлях, що й у справжньої заявки
+  const sent = await notifyTelegram({
+    name: 'ТЕСТ (перевірка сповіщень)',
+    phone: '+380670000000',
+    topic: 'Затримка виплати',
+    contactMethod: 'phone',
+    preferredTime: '',
+    message:
+      'Це тестове сповіщення. Якщо ви його бачите — заявки з сайту теж будуть приходити.',
+    sourcePage: '/api/telegram-test',
+    utm: {},
+    receivedAt: new Date().toISOString(),
+  });
+
+  if (sent) {
+    return NextResponse.json({
+      ok: true,
+      message: 'Повідомлення надіслано — перевірте Telegram.',
+      diagnostics,
+    });
+  }
+
+  // Додатково дістаємо точну помилку від Telegram для підказки
+  let telegramError = '';
+  let errorCode: number | undefined;
   try {
-    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    const res = await fetch(`https://api.telegram.org/bot${token}/getChat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: '✅ Тестове повідомлення з сайту. Якщо ви це бачите — сповіщення про заявки працюють.',
-      }),
+      body: JSON.stringify({ chat_id: chatId }),
       signal: AbortSignal.timeout(8000),
     });
-
-    const body = (await res.json().catch(() => ({}))) as {
+    const body = (await res.json()) as {
       ok?: boolean;
       description?: string;
       error_code?: number;
     };
-
-    if (body.ok) {
-      return NextResponse.json({
-        ok: true,
-        message: 'Повідомлення надіслано — перевірте Telegram.',
-        diagnostics,
-      });
-    }
-
-    const hints: Record<number, string> = {
-      401: 'Невірний токен бота. Перевірте TELEGRAM_BOT_TOKEN (має бути повністю, разом із частиною до двокрапки).',
-      400: 'Найчастіше: невірний TELEGRAM_CHAT_ID, або ви ще не натиснули Start у своєму боті. Напишіть боту будь-яке повідомлення і спробуйте знову.',
-      403: 'Бота заблоковано або видалено з групи.',
-      404: 'Невірний токен — Telegram не знаходить такого бота.',
-    };
-
-    return NextResponse.json({
-      ok: false,
-      telegramError: body.description ?? 'невідома помилка',
-      errorCode: body.error_code,
-      hint: body.error_code ? hints[body.error_code] : undefined,
-      diagnostics,
-    });
-  } catch (e) {
-    return NextResponse.json({
-      ok: false,
-      problem: 'Не вдалося звʼязатися з api.telegram.org',
-      type: e instanceof Error ? e.name : 'unknown',
-      diagnostics,
-    });
+    telegramError = body.description ?? '';
+    errorCode = body.error_code;
+  } catch {
+    telegramError = 'не вдалося звʼязатися з api.telegram.org';
   }
+
+  const hints: Record<number, string> = {
+    401: 'Невірний токен бота. Перевірте TELEGRAM_BOT_TOKEN — має бути повністю, разом із частиною до двокрапки.',
+    400: 'Найчастіше: невірний TELEGRAM_CHAT_ID (це має бути id ВАШОГО акаунта, не бота), або ви ще не натиснули Start у своєму боті.',
+    403: 'Бота заблоковано або видалено з групи.',
+    404: 'Невірний токен — Telegram не знаходить такого бота.',
+  };
+
+  return NextResponse.json({
+    ok: false,
+    problem: 'notifyTelegram() не зміг надіслати повідомлення',
+    telegramError,
+    errorCode,
+    hint: errorCode ? hints[errorCode] : 'Подробиці — у Vercel Logs, рядок [telegram] send failed',
+    diagnostics,
+  });
 }

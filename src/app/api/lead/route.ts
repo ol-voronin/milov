@@ -136,7 +136,9 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    return NextResponse.json({ ok: true });
+    // notified — щоб можна було швидко перевірити доставку в Telegram
+    // з DevTools → Network, не заглядаючи в логи. Персональних даних немає.
+    return NextResponse.json({ ok: true, notified: telegramSent });
   } catch (e) {
     // Журналюємо тип помилки без вмісту запиту
     console.error('[lead] unexpected error', {

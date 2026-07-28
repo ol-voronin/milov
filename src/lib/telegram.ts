@@ -44,7 +44,9 @@ function formatMessage(lead: LeadNotification): string {
     '🔔 <b>Нова заявка з сайту</b>',
     '',
     `👤 <b>Ім’я:</b> ${esc(lead.name)}`,
-    `📞 <b>Телефон:</b> ${esc(lead.phone)}`,
+    // Номер окремим рядком без розділювачів — Telegram робить його
+    // клікабельним для набору на телефоні
+    `📞 <b>Телефон:</b> <code>${esc(lead.phone.replace(/\s/g, ''))}</code>`,
     `📌 <b>Тема:</b> ${esc(lead.topic)}`,
   ];
 
@@ -98,17 +100,17 @@ export async function notifyTelegram(lead: LeadNotification): Promise<boolean> {
     const res = await fetch(`${apiBase}/bot${token}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      /**
+       * Без inline-кнопок: Telegram приймає в них лише http/https/tg://
+       * URL, а `tel:` відхиляє з помилкою «inline keyboard button url is
+       * invalid» — і тоді не доходить усе повідомлення.
+       * Номер у тексті Telegram і так робить клікабельним на телефоні.
+       */
       body: JSON.stringify({
         chat_id: chatId,
         text: formatMessage(lead),
         parse_mode: 'HTML',
         disable_web_page_preview: true,
-        // Кнопка «Подзвонити» прямо зі сповіщення
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: '📞 Подзвонити', url: `tel:${lead.phone.replace(/\s/g, '')}` }],
-          ],
-        },
       }),
       // Не блокуємо відповідь користувачу надовго
       signal: AbortSignal.timeout(5000),
