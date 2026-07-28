@@ -9,3 +9,6 @@ out
 .vercel
 next-env.d.ts
 tsconfig.tsbuildinfo
+
+# Згенеровані артефакти теми (astryx theme build) — комітяться свідомо,
+# бо потрібні для збірки; перегенерувати: npx astryx theme build src/theme/brandTheme.ts -o src/theme/brandTheme.css

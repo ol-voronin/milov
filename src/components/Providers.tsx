@@ -4,7 +4,9 @@ import type { ReactNode, ComponentProps } from 'react';
 import NextLink from 'next/link';
 import { Theme } from '@astryxdesign/core/theme';
 import { LinkProvider } from '@astryxdesign/core/Link';
-import { brandTheme } from '@/theme/brandTheme';
+// Попередньо скомпільована тема (astryx theme build) — без runtime-інжекції,
+// тому токени доступні вже під час SSR і немає стрибка шрифтів.
+import { familyDefenseTheme } from '@/theme/family-defense';
 
 /** Міст між Astryx Link і роутером Next.js */
 function RouterLink(props: ComponentProps<'a'> & { href?: string }) {
@@ -18,7 +20,7 @@ function RouterLink(props: ComponentProps<'a'> & { href?: string }) {
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <Theme theme={brandTheme} mode="light">
+    <Theme theme={familyDefenseTheme} mode="light">
       <LinkProvider component={RouterLink}>{children}</LinkProvider>
     </Theme>
   );

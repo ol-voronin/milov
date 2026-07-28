@@ -18,6 +18,13 @@ export const brandTheme = defineTheme({
     neutralStyle: 'warm',
   },
   typography: {
+    /**
+     * Базовий кегль 16px замість дефолтних 14px.
+     * Аудиторія — зокрема люди 50+, які читають у стресі, часто з телефона.
+     * 16px body + більші заголовки відповідають практиці держпорталів
+     * (Дія, GOV.UK) і рекомендаціям щодо читабельності.
+     */
+    scale: { base: 16, ratio: 1.22 },
     // Manrope Variable — відкритий шрифт із повною кирилицею (аудит V2);
     // підключається через @fontsource-variable/manrope у layout.tsx
     body: {

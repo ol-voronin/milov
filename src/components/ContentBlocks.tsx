@@ -370,9 +370,10 @@ export function PageToc({ items }: { items: { label: string; anchor: string }[] 
  */
 export function NumberedSteps({ steps: stepItems }: { steps: string[] }) {
   return (
-    <VStack gap={3}>
+    <VStack gap={4}>
       {stepItems.map((step, i) => (
-        <HStack gap={3} vAlign="start" key={step}>
+        // vAlign=center — текст стоїть по центру кружечка, не «стрибає»
+        <HStack gap={4} vAlign="center" key={step}>
           <span className="step-circle" aria-hidden="true">
             {i + 1}
           </span>

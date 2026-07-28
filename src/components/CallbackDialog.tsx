@@ -63,8 +63,7 @@ export function CallbackDialogProvider({ children }: { children: ReactNode }) {
         <DialogHeader title="Замовити дзвінок юриста" />
         <VStack paddingBlock={2} gap={3}>
           <Text as="p" type="supporting">
-            Обов’язкові лише ім’я, телефон і тема. Решту можна розповісти
-            голосом.
+            Достатньо імені, телефону та теми.
           </Text>
           {isOpen ? (
             <Suspense fallback={<Skeleton height={280} />}>

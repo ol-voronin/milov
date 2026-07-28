@@ -24,7 +24,6 @@ import {
   type LeadInput,
 } from '@/lib/leadSchema';
 import { site } from '@/config/site';
-import { SensitiveDataNotice } from './LegalComponents';
 
 type Props = {
   /** Попередньо обрана тема (напр. з картки ситуації) */
@@ -256,7 +255,7 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
                   isOptional
                   rows={4}
                   maxLength={500}
-                  placeholder="Кількома реченнями, без персональних документів"
+                  placeholder="Кількома реченнями — без персональних даних"
                   status={
                     errors.message
                       ? { type: 'error', message: errors.message.message }
@@ -299,14 +298,11 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
                 }
               />
               <Text as="p" type="supporting">
-                Як ми обробляємо дані —{' '}
-                <Link href="/polityka-konfidentsiynosti">політика конфіденційності</Link>.
+                <Link href="/polityka-konfidentsiynosti">Політика конфіденційності</Link>
               </Text>
             </VStack>
           )}
         />
-
-        <SensitiveDataNotice />
 
         <VStack gap={2} hAlign="start">
           <Button
@@ -316,13 +312,9 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
             type="submit"
             isLoading={isSubmitting || status === 'submitting'}
           />
-          {/* Що буде далі — знімає невизначеність (аудит F5, патерн Дії) */}
+          {/* Що буде далі — коротко (аудит F5, патерн Дії) */}
           <Text as="p" type="supporting">
-            Після надсилання юрист зателефонує у робочі години ({site.workingHours}).
-            Нічого надсилати заздалегідь не потрібно.
-          </Text>
-          <Text as="p" type="supporting">
-            {site.initialCallTerms}
+            Зателефонуємо у робочі години: {site.workingHours}.
           </Text>
         </VStack>
       </VStack>

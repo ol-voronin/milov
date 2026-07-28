@@ -129,7 +129,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               </>
             }
             endContent={
-              <HStack gap={2} vAlign="center">
+              <HStack gap={5} vAlign="center">
                 {/* Пошук по сайту — завжди в шапці */}
                 <IconButton
                   label="Пошук по сайту"
@@ -138,7 +138,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   onClick={() => setIsSearchOpen(true)}
                 />
                 <Link href={`tel:${site.phone}`} isStandalone>
-                  <HStack gap={1} vAlign="center">
+                  <HStack gap={2} vAlign="center">
                     <Icon icon={PhoneIcon} size="sm" color="accent" />
                     {site.phone}
                   </HStack>
