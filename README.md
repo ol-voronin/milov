@@ -110,3 +110,4 @@ Semantic HTML, навігація клавіатурою та видимий ф�
 5. `docs/DEPLOY_VERCEL.md` — інструкція розгортання.
 6. `docs/TELEGRAM_BOT.md` — налаштування сповіщень про заявки в Telegram.
 7. `docs/DESIGN_ACCENTS.md` — кольорова ієрархія та план акцентів.
+8. `docs/PAGE_PAYMENTS_REDESIGN.md` — план переробки ключової SEO-сторінки.
