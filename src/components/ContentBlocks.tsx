@@ -298,9 +298,9 @@ export function HelpGrid({ limit = 6 }: { limit?: number }) {
   );
 }
 
-export function FinalCta() {
+export function FinalCta({ topic }: { topic?: string } = {}) {
   return (
-    <Section variant="transparent" padding={8} paddingBlock={10}>
+    <Section variant="muted" padding={8} paddingBlock={10}>
       <Container gap={4}>
         <SectionAccent />
         <Heading level={2} textWrap="balance">
@@ -311,7 +311,7 @@ export function FinalCta() {
           який наступний крок може бути доречним у вашій ситуації.
         </Text>
         <VStack gap={2} hAlign="start">
-          <CallbackButton label="Замовити дзвінок юриста" size="lg" />
+          <CallbackButton label="Замовити дзвінок юриста" size="lg" topic={topic} />
           <Text as="p" type="supporting">
             Не потрібно одразу надсилати документи або детально описувати
             особисті обставини.

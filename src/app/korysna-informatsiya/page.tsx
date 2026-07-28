@@ -1,16 +1,15 @@
 import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { Container } from '@/components/Container';
-import { PageHero } from '@/components/ContentBlocks';
-import { ArticleSearch } from '@/components/ArticleComponents';
-import { CallbackSection } from '@/components/CallbackSection';
+import { PageHero, FinalCta } from '@/components/ContentBlocks';
+import { KnowledgeHub } from '@/components/KnowledgeHub';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { photos } from '@/config/photos';
 
 export const metadata: Metadata = {
   title: 'Корисна інформація для родин військових',
   description:
-    'Практичні матеріали: перші кроки після загибелі військовослужбовця, дії при затримці чи відмові у виплаті, права родин зниклих безвісти.',
+    'Практичні матеріали: перші кроки після загибелі військовослужбовця, дії при затримці чи відмові у виплаті, права родин зниклих безвісти. Пошук і фільтр за темами.',
   alternates: { canonical: '/korysna-informatsiya' },
 };
 
@@ -26,18 +25,18 @@ export default function ArticlesPage() {
 
       <PageHero
         title="Корисна інформація"
-        lead="Практичні матеріали простою мовою. Скористайтеся пошуком, щоб знайти тему."
+        lead="Практичні матеріали простою мовою. Знайдіть свою тему через пошук або фільтр."
         crumbs={[{ label: 'Корисна інформація' }]}
         photo={photos.info}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={8}>
+      <Section variant="transparent" padding={8} paddingBlock={10}>
         <Container>
-          <ArticleSearch includePages />
+          <KnowledgeHub />
         </Container>
       </Section>
 
-      <CallbackSection />
+      <FinalCta />
     </>
   );
 }

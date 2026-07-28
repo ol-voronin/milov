@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { Container } from '@/components/Container';
-import { PageHero, HelpGrid, StepsBlock } from '@/components/ContentBlocks';
+import { PageHero, HelpGrid, StepsBlock, FinalCta } from '@/components/ContentBlocks';
 import { PriceBlock } from '@/components/PriceBlock';
-import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { photos } from '@/config/photos';
 
@@ -39,7 +38,7 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      <CallbackSection />
+      <FinalCta />
     </>
   );
 }

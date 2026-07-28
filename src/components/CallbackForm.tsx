@@ -142,7 +142,7 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
           control={control}
           render={({ field }) => (
             <TextInput
-              label="Ім’я"
+              label="Ім’я · обов’язково"
               value={field.value ?? ''}
               onChange={(v) => field.onChange(v)}
               isRequired
@@ -161,7 +161,7 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
           control={control}
           render={({ field }) => (
             <Field
-              label="Телефон"
+              label="Телефон · обов’язково"
               inputID="lead-phone"
               isRequired
               description="Юрист зателефонує на цей номер"
@@ -197,7 +197,7 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
           control={control}
           render={({ field }) => (
             <RadioList
-              label="Тема звернення"
+              label="Тема звернення · обов’язково"
               value={field.value ?? ''}
               onChange={(v) => field.onChange(v)}
               isRequired
@@ -223,7 +223,7 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
               control={control}
               render={({ field }) => (
                 <Selector
-                  label="Зручний спосіб зв’язку"
+                  label="Зручний спосіб зв’язку · за бажанням"
                   placeholder="Телефон"
                   options={contactMethods.map((m) => ({ value: m.value, label: m.label }))}
                   value={field.value}
@@ -237,7 +237,7 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
               control={control}
               render={({ field }) => (
                 <TextInput
-                  label="Зручний час для дзвінка"
+                  label="Зручний час для дзвінка · за бажанням"
                   value={field.value ?? ''}
                   onChange={(v) => field.onChange(v)}
                   isOptional
@@ -250,7 +250,7 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
               control={control}
               render={({ field }) => (
                 <TextArea
-                  label="Короткий опис ситуації"
+                  label="Короткий опис ситуації · за бажанням"
                   value={field.value ?? ''}
                   onChange={(v) => field.onChange(v)}
                   isOptional

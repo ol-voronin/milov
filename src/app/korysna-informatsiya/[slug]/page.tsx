@@ -3,10 +3,9 @@ import { notFound } from 'next/navigation';
 import { Section } from '@astryxdesign/core/Section';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Container } from '@/components/Container';
-import { PageHero } from '@/components/ContentBlocks';
+import { PageHero, FinalCta } from '@/components/ContentBlocks';
 import { ArticleBody, ChecklistActions } from '@/components/ArticleComponents';
 import { LegalMeta, OfficialSources } from '@/components/LegalComponents';
-import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { articles, getArticle } from '@/content/articles';
 import { officialSources } from '@/content/payments';
@@ -74,7 +73,7 @@ export default async function ArticlePage({ params }: Props) {
         </Container>
       </Section>
 
-      <CallbackSection />
+      <FinalCta />
     </>
   );
 }

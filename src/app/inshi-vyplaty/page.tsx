@@ -3,9 +3,8 @@ import { Section } from '@astryxdesign/core/Section';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { Container } from '@/components/Container';
-import { PageHero, PaymentsList } from '@/components/ContentBlocks';
+import { PageHero, PaymentsList, FinalCta } from '@/components/ContentBlocks';
 import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalComponents';
-import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { officialSources, payments } from '@/content/payments';
 import { photos } from '@/config/photos';
@@ -62,7 +61,7 @@ export default function OtherPaymentsPage() {
         </Container>
       </Section>
 
-      <CallbackSection defaultTopic="other" />
+      <FinalCta topic="other" />
     </>
   );
 }

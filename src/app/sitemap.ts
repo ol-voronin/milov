@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/znykli-bezvisty-ta-poloneni',
     '/inshi-vyplaty',
     '/poslugy',
-    '/zamovyty-dzvinok',
     '/pro-komandu',
     '/faq',
     '/korysna-informatsiya',

@@ -5,19 +5,12 @@ import { Heading, Text } from '@astryxdesign/core/Text';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Container } from '@/components/Container';
 import { ButtonLink } from '@/components/ButtonLink';
-import {
-  PageHero,
-  PaymentsList,
-  CaseFlow,
-  SummaryBox,
-  PageToc,
-} from '@/components/ContentBlocks';
+import { PageHero, PaymentsList, CaseFlow, SummaryBox, PageToc, FinalCta } from '@/components/ContentBlocks';
 import {
   LegalNotice,
   LegalMeta,
   OfficialSources,
 } from '@/components/LegalComponents';
-import { CallbackSection } from '@/components/CallbackSection';
 import { FaqList } from '@/components/FaqList';
 import { JsonLd, breadcrumbSchema, faqSchema } from '@/components/JsonLd';
 import { officialSources } from '@/content/payments';
@@ -247,7 +240,7 @@ export default function DeathPaymentsPage() {
         </Container>
       </Section>
 
-      <CallbackSection defaultTopic="death" />
+      <FinalCta topic="death" />
     </>
   );
 }

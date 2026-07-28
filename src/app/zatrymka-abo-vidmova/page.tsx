@@ -4,9 +4,8 @@ import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Container } from '@/components/Container';
-import { PageHero, NumberedSteps } from '@/components/ContentBlocks';
+import { PageHero, NumberedSteps, FinalCta } from '@/components/ContentBlocks';
 import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalComponents';
-import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { officialSources } from '@/content/payments';
 import { photos } from '@/config/photos';
@@ -92,7 +91,7 @@ export default function DelayRefusalPage() {
         </Container>
       </Section>
 
-      <CallbackSection defaultTopic="delay" />
+      <FinalCta topic="delay" />
     </>
   );
 }

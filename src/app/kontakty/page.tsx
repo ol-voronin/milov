@@ -6,9 +6,8 @@ import { Card } from '@astryxdesign/core/Card';
 import { Grid } from '@astryxdesign/core/Grid';
 import { Link } from '@astryxdesign/core/Link';
 import { Container } from '@/components/Container';
-import { PageHero } from '@/components/ContentBlocks';
+import { PageHero, FinalCta } from '@/components/ContentBlocks';
 import { ButtonLink } from '@/components/ButtonLink';
-import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { site } from '@/config/site';
 import { photos } from '@/config/photos';
@@ -94,7 +93,7 @@ export default function ContactsPage() {
         </Container>
       </Section>
 
-      <CallbackSection />
+      <FinalCta />
     </>
   );
 }

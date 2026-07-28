@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { Container } from '@/components/Container';
-import { PageHero } from '@/components/ContentBlocks';
+import { PageHero, FinalCta } from '@/components/ContentBlocks';
 import { FaqList } from '@/components/FaqList';
-import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, breadcrumbSchema, faqSchema } from '@/components/JsonLd';
 import { faqItems } from '@/content/faq';
 import { photos } from '@/config/photos';
@@ -39,7 +38,7 @@ export default function FaqPage() {
         </Container>
       </Section>
 
-      <CallbackSection />
+      <FinalCta />
     </>
   );
 }

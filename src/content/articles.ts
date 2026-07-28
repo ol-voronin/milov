@@ -15,10 +15,24 @@ export type ArticleSection =
   | { type: 'list'; items: string[] }
   | { type: 'warning'; text: string };
 
+export type ArticleCategory = 'first-steps' | 'payments' | 'appeal' | 'missing' | 'documents';
+
+export const categoryLabels: Record<ArticleCategory, string> = {
+  'first-steps': 'Перші кроки',
+  payments: 'Виплати',
+  appeal: 'Оскарження',
+  missing: 'Зниклі та полонені',
+  documents: 'Документи',
+};
+
 export type Article = {
   slug: string;
   title: string;
   description: string;
+  /** Категорія для фільтра на сторінці «Корисна інформація» */
+  category: ArticleCategory;
+  /** Приблизний час читання, хв */
+  readingMinutes: number;
   /** Ключові слова для пошуку по матеріалах */
   keywords: string[];
   updatedAt: string;
@@ -33,6 +47,8 @@ export type Article = {
 export const articles: Article[] = [
   {
     slug: 'pershi-kroky',
+    category: 'first-steps',
+    readingMinutes: 4,
     title: 'Перші кроки після загибелі військовослужбовця',
     description:
       'Спокійний покроковий чекліст: які документи отримати, куди звернутися і що можна відкласти на потім.',
@@ -91,6 +107,8 @@ export const articles: Article[] = [
   },
   {
     slug: 'yak-diyaty-pry-zatrymtsi',
+    category: 'appeal',
+    readingMinutes: 3,
     title: 'Виплату затримують: як діяти',
     description:
       'Що вважається затримкою, як зафіксувати бездіяльність органу та які кроки допомагають зрушити справу.',
@@ -121,6 +139,8 @@ export const articles: Article[] = [
   },
   {
     slug: 'shcho-robyty-pry-vidmovi',
+    category: 'appeal',
+    readingMinutes: 3,
     title: 'Отримали відмову у виплаті: що далі',
     description:
       'Чому відмова — не завжди кінець, які бувають підстави відмов і в якому порядку їх оскаржують.',
@@ -160,6 +180,8 @@ export const articles: Article[] = [
   },
   {
     slug: 'nezareyestrovanyi-shliub',
+    category: 'documents',
+    readingMinutes: 3,
     title: 'Проживання без реєстрації шлюбу: як підтвердити право',
     description:
       'Що робити, якщо пара жила однією сім’єю без штампа в паспорті, і як встановлюється цей факт.',
@@ -190,6 +212,8 @@ export const articles: Article[] = [
   },
   {
     slug: 'rodyny-znyklykh-bezvisty',
+    category: 'missing',
+    readingMinutes: 3,
     title: 'Родинам зниклих безвісти: права та виплати',
     description:
       'Який статус має зниклий безвісти, які виплати зберігаються за родиною і куди звертатися.',

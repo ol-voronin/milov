@@ -21,7 +21,6 @@ import { TeamBlock } from '@/components/TeamBlock';
 import { TrustBlock } from '@/components/TrustBlock';
 import { Reviews } from '@/components/Reviews';
 import { FaqList } from '@/components/FaqList';
-import { CallbackSection } from '@/components/CallbackSection';
 import { JsonLd, faqSchema } from '@/components/JsonLd';
 import { faqItems } from '@/content/faq';
 import { site } from '@/config/site';
@@ -177,9 +176,6 @@ export default function HomePage() {
           </Reveal>
         </Container>
       </Section>
-
-      {/* Форма */}
-      <CallbackSection />
 
       {/* Фінальний CTA */}
       <FinalCta />

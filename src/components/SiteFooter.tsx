@@ -6,9 +6,7 @@ import { Grid } from '@astryxdesign/core/Grid';
 import { Text } from '@astryxdesign/core/Text';
 import { Link } from '@astryxdesign/core/Link';
 import { Divider } from '@astryxdesign/core/Divider';
-import { Theme } from '@astryxdesign/core/theme';
 import { site } from '@/config/site';
-import { brandTheme } from '@/theme/brandTheme';
 import { Container } from './Container';
 
 const navColumns = [
@@ -19,7 +17,6 @@ const navColumns = [
       { label: 'Затримка або відмова', href: '/zatrymka-abo-vidmova' },
       { label: 'Зниклі безвісти та полонені', href: '/znykli-bezvisty-ta-poloneni' },
       { label: 'Пенсія, компенсації, статуси', href: '/inshi-vyplaty' },
-      { label: 'Замовити дзвінок', href: '/zamovyty-dzvinok' },
     ],
   },
   {
@@ -43,11 +40,10 @@ const navColumns = [
 
 export function SiteFooter() {
   return (
-    <footer>
-      {/* Футер виділяється: брендова смуга + темна тема (запит власника) */}
+    <footer className="site-footer">
+      {/* Футер виділяється: темно-синє тло + брендова смуга (запит власника) */}
       <div className="footer-accent" aria-hidden="true" />
-      <Theme theme={brandTheme} mode="dark">
-        <Section variant="muted" padding={8} paddingBlock={10}>
+      <Section variant="transparent" padding={8} paddingBlock={10}>
       <Container gap={8}>
         <Grid columns={{ minWidth: 230 }} gap={6}>
           <VStack gap={3}>
@@ -116,8 +112,7 @@ export function SiteFooter() {
           </HStack>
         </VStack>
       </Container>
-        </Section>
-      </Theme>
+      </Section>
     </footer>
   );
 }
