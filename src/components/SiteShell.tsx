@@ -10,6 +10,7 @@ import {
   TopNavMenu,
 } from '@astryxdesign/core/TopNav';
 import { SideNavItem, SideNavSection } from '@astryxdesign/core/SideNav';
+import { MobileNav } from '@astryxdesign/core/MobileNav';
 import { Link } from '@astryxdesign/core/Link';
 import { HStack, VStack } from '@astryxdesign/core/Stack';
 import { Icon } from '@astryxdesign/core/Icon';
@@ -19,6 +20,7 @@ import { Button } from '@astryxdesign/core/Button';
 import {
   ScaleIcon,
   PhoneIcon,
+  Bars3Icon,
   MagnifyingGlassIcon,
   DocumentTextIcon,
   ClockIcon,
@@ -95,6 +97,11 @@ const mobileNavItems = [
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  /**
+   * Drawer керуємо самі: автоматичний режим AppShell рендерив пункти
+   * меню просто в потоці сторінки замість висувної панелі.
+   */
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isSelected = (href: string) =>
     pathname === href || (href !== '/' && pathname.startsWith(`${href}/`));
@@ -129,33 +136,56 @@ export function SiteShell({ children }: { children: ReactNode }) {
               </>
             }
             endContent={
-              <HStack gap={5} vAlign="center">
-                {/* Пошук по сайту — завжди в шапці */}
-                <IconButton
-                  label="Пошук по сайту"
-                  icon={<Icon icon={MagnifyingGlassIcon} size="md" color="primary" />}
-                  variant="ghost"
-                  onClick={() => setIsSearchOpen(true)}
-                />
+              <HStack gap={4} vAlign="center">
+                {/* Пошук по сайту — у шапці на десктопі, у burger-меню на телефоні */}
+                <span className="header-search">
+                  <IconButton
+                    label="Пошук по сайту"
+                    icon={<Icon icon={MagnifyingGlassIcon} size="md" color="primary" />}
+                    variant="ghost"
+                    onClick={() => setIsSearchOpen(true)}
+                  />
+                </span>
                 <Link href={`tel:${site.phone}`} isStandalone>
                   <HStack gap={2} vAlign="center">
                     <Icon icon={PhoneIcon} size="sm" color="accent" />
-                    {site.phone}
+                    {/* На мобільному лишається лише іконка (globals.css) */}
+                    <span className="header-phone-text">{site.phone}</span>
                   </HStack>
                 </Link>
-                <CallbackButton />
+                <span className="header-cta">
+                  <CallbackButton />
+                </span>
+                {/* Власний burger — видимий лише на мобільному (globals.css) */}
+                <span className="header-burger">
+                  <IconButton
+                    label="Відкрити меню"
+                    icon={<Icon icon={Bars3Icon} size="md" color="primary" />}
+                    variant="ghost"
+                    onClick={() => setIsMenuOpen(true)}
+                  />
+                </span>
               </HStack>
             }
           />
         }
-        mobileNav={{
-          content: (
+        mobileNav={
+          <MobileNav
+            isOpen={isMenuOpen}
+            onOpenChange={setIsMenuOpen}
+            header={site.brandName}
+            width={300}
+          >
             <VStack gap={4}>
               <Button
                 label="Пошук по сайту"
                 variant="secondary"
+                width="100%"
                 icon={<Icon icon={MagnifyingGlassIcon} size="sm" color="inherit" />}
-                onClick={() => setIsSearchOpen(true)}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsSearchOpen(true);
+                }}
               />
               <SideNavSection title="Розділи сайту">
                 {mobileNavItems.map((item) => (
@@ -164,20 +194,22 @@ export function SiteShell({ children }: { children: ReactNode }) {
                     label={item.label}
                     href={item.href}
                     isSelected={isSelected(item.href)}
+                    onClick={() => setIsMenuOpen(false)}
                   />
                 ))}
               </SideNavSection>
               <VStack gap={2}>
                 <CallbackButton width="100%" />
                 <ButtonLink
-                  label={`Зателефонувати: ${site.phone}`}
+                  label="Зателефонувати"
                   variant="secondary"
+                  width="100%"
                   href={`tel:${site.phone}`}
                 />
               </VStack>
             </VStack>
-          ),
-        }}
+          </MobileNav>
+        }
       >
         {children}
         <SiteFooter />

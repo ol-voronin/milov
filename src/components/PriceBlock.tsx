@@ -30,14 +30,16 @@ export function PriceBlock() {
       </Text>
 
       {hasAnyPrice ? (
-        <Table
-          data={priceRows.filter((r) => r.value !== '')}
-          columns={[
-            { key: 'label', header: 'Послуга' },
-            { key: 'value', header: 'Вартість' },
-          ]}
-          idKey="label"
-        />
+        <div className="table-scroll">
+          <Table
+            data={priceRows.filter((r) => r.value !== '')}
+            columns={[
+              { key: 'label', header: 'Послуга' },
+              { key: 'value', header: 'Вартість' },
+            ]}
+            idKey="label"
+          />
+        </div>
       ) : null}
 
       <VStack gap={3}>

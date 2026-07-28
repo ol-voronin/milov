@@ -196,23 +196,26 @@ export function CaseFlow() {
     <VStack gap={4}>
       <Heading level={2}>Шлях справи: від звернення до результату</Heading>
       <Card padding={5} variant="muted">
-        <HStack gap={3} wrap="wrap" vAlign="center">
+        {/* На мобільному стрілки ховаються, етапи стають у два стовпці */}
+        <div className="case-flow">
           {flowStages.map((stage, i) => (
-            <HStack gap={3} vAlign="center" key={stage.label}>
-              <VStack gap={2} hAlign="center" width={128}>
+            <div className="case-flow__row" key={stage.label}>
+              <div className="case-flow__stage">
                 <span className="icon-medallion" aria-hidden="true">
                   <Icon icon={stage.icon} size="lg" color="accent" />
                 </span>
                 <Text type="label" weight="medium" justify="center" textWrap="balance">
                   {stage.label}
                 </Text>
-              </VStack>
+              </div>
               {i < flowStages.length - 1 ? (
-                <Icon icon={ArrowLongRightIcon} size="md" color="secondary" />
+                <span className="case-flow__arrow" aria-hidden="true">
+                  <Icon icon={ArrowLongRightIcon} size="md" color="secondary" />
+                </span>
               ) : null}
-            </HStack>
+            </div>
           ))}
-        </HStack>
+        </div>
       </Card>
       <Text as="p" type="supporting">
         Схема є узагальненою: послідовність і тривалість етапів залежать від

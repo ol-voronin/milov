@@ -20,10 +20,6 @@ import { Icon } from '@astryxdesign/core/Icon';
 import { Link } from '@astryxdesign/core/Link';
 import { EmptyState } from '@astryxdesign/core/EmptyState';
 import {
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@astryxdesign/core/ToggleButton';
-import {
   MagnifyingGlassIcon,
   ClockIcon,
   ArrowRightIcon,
@@ -129,18 +125,41 @@ export function KnowledgeHub() {
           startIcon={MagnifyingGlassIcon}
           hasClear
         />
+        {/* Фільтр-чіпи: коректно переносяться на вузьких екранах
+            і залишаються візуально «натискабельними» */}
         <VStack gap={2}>
-          <Text type="supporting">Фільтр за темою</Text>
-          <ToggleButtonGroup
-            label="Фільтр за темою"
-            type="multiple"
-            value={activeCategories}
-            onChange={(v) => setActiveCategories(Array.isArray(v) ? v : [])}
-          >
-            {usedCategories.map((c) => (
-              <ToggleButton key={c} value={c} label={categoryLabels[c]} />
-            ))}
-          </ToggleButtonGroup>
+          <Text type="supporting" id="filter-label">
+            Фільтр за темою
+          </Text>
+          <div className="filter-chips" role="group" aria-labelledby="filter-label">
+            {usedCategories.map((c) => {
+              const active = activeCategories.includes(c);
+              return (
+                <button
+                  key={c}
+                  type="button"
+                  className={`filter-chip${active ? ' filter-chip--active' : ''}`}
+                  aria-pressed={active}
+                  onClick={() =>
+                    setActiveCategories((prev) =>
+                      prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c],
+                    )
+                  }
+                >
+                  {categoryLabels[c]}
+                </button>
+              );
+            })}
+            {activeCategories.length > 0 ? (
+              <button
+                type="button"
+                className="filter-chip filter-chip--reset"
+                onClick={() => setActiveCategories([])}
+              >
+                Скинути
+              </button>
+            ) : null}
+          </div>
         </VStack>
 
         <Text type="supporting">

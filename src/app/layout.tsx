@@ -33,6 +33,11 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  // Не блокуємо зум: людям зі слабким зором він потрібен (WCAG 1.4.4)
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: 'cover',
+  themeColor: '#14304d',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

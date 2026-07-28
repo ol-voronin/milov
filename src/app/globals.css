@@ -5,6 +5,43 @@
  * Використовуються тільки дизайн-токени, без сирих значень кольорів.
  */
 
+/* ---- Базові правила для мобільних браузерів ---- */
+html {
+  /* iOS Safari у горизонтальній орієнтації сам збільшує текст — вимикаємо */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  /* Страхувальна сітка від горизонтального скролу.
+     clip (а не hidden) — щоб не ламати position: sticky у шапці. */
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+/* Burger-меню — тільки на мобільному (див. медіа-запит нижче) */
+.header-burger {
+  display: none;
+}
+
+/* Довгі непереносні токени (телефон, e-mail, URL) не ламають верстку */
+p,
+li,
+a,
+span,
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
 /* ---- Мобільна нижня кнопка «Замовити дзвінок» ---- */
 .mobile-call-cta {
   display: none;
@@ -17,10 +54,11 @@
     inset-inline: 0;
     bottom: 0;
     padding: var(--spacing-3, 0.75rem);
-    padding-bottom: calc(var(--spacing-3, 0.75rem) + env(safe-area-inset-bottom));
+    padding-bottom: calc(var(--spacing-3, 0.75rem) + env(safe-area-inset-bottom, 0px));
     background: var(--color-background-surface);
-    border-top: var(--border-width, 1px) solid var(--color-border);
-    z-index: 50;
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 -4px 16px var(--color-shadow);
+    z-index: 40;
   }
 
   .mobile-call-cta a,
@@ -30,7 +68,134 @@
 
   /* Контент не перекривається кнопкою */
   body {
-    padding-bottom: calc(var(--spacing-10, 5rem) + env(safe-area-inset-bottom));
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   МОБІЛЬНА ВЕРСІЯ (≤768px)
+   Astryx перемикає TopNav на burger уже після гідратації, тому
+   десктопні елементи навігації додатково приховуємо через CSS —
+   інакше перший кадр на телефоні «розлазиться» по горизонталі.
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Пункти десктопного меню та випадайку «Ситуації» — лише burger */
+  .astryx-top-nav-item,
+  .astryx-top-nav-menu {
+    display: none !important;
+  }
+
+  /* Телефон у шапці — тільки іконка, без довгого номера */
+  .header-phone-text {
+    display: none;
+  }
+
+  /* Кнопку CTA в шапці дублює постійна нижня кнопка */
+  .header-cta {
+    display: none;
+  }
+
+  /* Пошук доступний у burger-меню — у шапці на телефоні зайвий */
+  .header-search {
+    display: none;
+  }
+
+  /* Burger видимий лише тут */
+  .header-burger {
+    display: inline-flex;
+  }
+
+  /* Шапка мусить стискатися, а не виштовхувати контент за межі екрана */
+  .astryx-top-nav {
+    gap: 0.5rem;
+  }
+
+  .astryx-top-nav > * {
+    min-width: 0;
+  }
+
+  .astryx-top-nav-heading {
+    min-width: 0;
+  }
+
+  /* Довга назва практики обрізається з еліпсисом замість переповнення */
+  .astryx-top-nav-heading span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Секції: менше бічних відступів, більше місця тексту */
+  .astryx-section {
+    --astryx-section-padding-inline: 1rem;
+  }
+
+  /* Модалка — майже на весь екран, з урахуванням динамічної висоти
+     мобільних браузерів (dvh) і safe-area */
+  .astryx-dialog {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92dvh !important;
+  }
+
+  /* Таблиці не ламають ширину — горизонтальний скрол усередині */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Інфографіка «Шлях справи»: без стрілок, у два стовпці */
+  .case-flow__arrow {
+    display: none;
+  }
+
+  .case-flow__stage {
+    width: 100% !important;
+  }
+
+  /* Фільтри-перемикачі переносяться на кілька рядків */
+  .astryx-toggle-button-group {
+    flex-wrap: wrap;
+  }
+}
+
+/* Мінімальна тап-зона для інтерактивних елементів на дотик (WCAG 2.2) */
+@media (hover: none) and (pointer: coarse) {
+  .astryx-side-nav-item,
+  .astryx-top-nav-heading {
+    min-height: 2.75rem;
+  }
+
+  /* Пункти списків-посилань (зміст сторінки, статті, джерела) */
+  .astryx-list-item a,
+  .astryx-list-item button {
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Хлібні крихти */
+  .astryx-breadcrumb-item a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+  }
+
+  /* Самостійні посилання (футер, офіційні джерела, контакти).
+     Посилання всередині абзаців не зачіпаємо — там inline-потік. */
+  .astryx-stack > .astryx-link,
+  .site-footer .astryx-link,
+  .astryx-top-nav .astryx-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
+  /* Поля введення: комфортна висота для пальця */
+  .astryx-text-input input,
+  .astryx-text-area textarea,
+  .native-input {
+    min-height: 2.75rem;
   }
 }
 
@@ -110,12 +275,89 @@
   flex-shrink: 0;
 }
 
+/* ---- Фільтр-чіпи (Корисна інформація) ---- */
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-chip {
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-emphasized);
+  background: var(--color-background-surface);
+  color: var(--color-text-primary);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.filter-chip:hover {
+  border-color: var(--color-accent);
+}
+
+.filter-chip:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.filter-chip--active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 600;
+}
+
+.filter-chip--reset {
+  border-style: dashed;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Інфографіка «Шлях справи» ---- */
+.case-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-3, 0.75rem);
+}
+
+.case-flow__row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 0.75rem);
+}
+
+.case-flow__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
+  width: 8rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .case-flow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-5, 1.25rem);
+  }
+
+  .case-flow__row {
+    justify-content: center;
+  }
+}
+
 /* ---- Акцентний блок «Чим допомагаємо ми» ---- */
 .we-help {
   position: relative;
   padding: var(--spacing-6, 1.75rem);
   padding-inline-start: calc(var(--spacing-6, 1.75rem) + 0.375rem);
   border-radius: var(--radius-container, 16px);
+  /* Fallback для старіших мобільних браузерів без color-mix() */
+  background: #24527e0f;
   background: linear-gradient(
     180deg,
     color-mix(in srgb, var(--brand-navy) 7%, transparent),
@@ -207,7 +449,11 @@
 /* ---- Нативне поле телефону в оболонці Field (аудит F1) ---- */
 .native-input {
   width: 100%;
-  font: inherit;
+  font-family: inherit;
+  /* 16px обов'язково: менший кегль змушує iOS Safari зумити сторінку
+     під час фокусу на полі — і верстка «стрибає» */
+  font-size: 1rem;
+  line-height: 1.5;
   color: var(--color-text-primary);
   background: var(--color-background-surface);
   border: 1px solid var(--color-border-emphasized);
