@@ -20,8 +20,8 @@ export function FaqList({ items }: { items: FaqItem[] }) {
           defaultIsOpen={false}
           trigger={<Text type="large" weight="medium">{item.question}</Text>}
         >
-          <VStack gap={3} paddingBlock={2} hAlign="start">
-            <Text as="p" type="body" color="secondary">
+          <VStack gap={4} paddingBlock={1} hAlign="start" maxWidth={780}>
+            <Text as="p" type="body" color="secondary" textWrap="pretty">
               {item.answer}
             </Text>
             <CallbackButton label="Обговорити мою ситуацію" variant="secondary" />
