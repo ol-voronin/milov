@@ -16,7 +16,8 @@ import { Grid } from '@astryxdesign/core/Grid';
 import { Card } from '@astryxdesign/core/Card';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { Icon } from '@astryxdesign/core/Icon';
-import { List, ListItem } from '@astryxdesign/core/List';
+import { Link } from '@astryxdesign/core/Link';
+import { CheckList } from './CheckList';
 import {
   CheckCircleIcon,
   DocumentTextIcon,
@@ -154,7 +155,10 @@ const steps = [
 export function StepsBlock() {
   return (
     <VStack gap={5}>
-      <Heading level={2}>Як проходить робота</Heading>
+      <VStack gap={3}>
+        <span className="section-rule" aria-hidden="true" />
+        <Heading level={2}>Як проходить робота</Heading>
+      </VStack>
       <Grid columns={{ minWidth: 240, max: 4 }} gap={4}>
         {steps.map((step) => (
           <Card key={step.title} padding={5}>
@@ -194,7 +198,10 @@ const flowStages = [
 export function CaseFlow() {
   return (
     <VStack gap={4}>
-      <Heading level={2}>Шлях справи: від звернення до результату</Heading>
+      <VStack gap={3}>
+        <span className="section-rule" aria-hidden="true" />
+        <Heading level={2}>Шлях справи: від звернення до результату</Heading>
+      </VStack>
       <Card padding={5} variant="muted">
         {/* На мобільному стрілки ховаються, етапи стають у два стовпці */}
         <div className="case-flow">
@@ -238,19 +245,14 @@ const prepItems = [
 export function PrepChecklist() {
   return (
     <VStack gap={4}>
-      <Heading level={2}>Що можна підготувати до консультації</Heading>
+      <VStack gap={3}>
+        <span className="section-rule" aria-hidden="true" />
+        <Heading level={2}>Що можна підготувати до консультації</Heading>
+      </VStack>
       <Text as="p" type="body" color="secondary">
         Якщо чогось із переліку немає — це не перешкода. Почати можна з того, що є.
       </Text>
-      <List>
-        {prepItems.map((item) => (
-          <ListItem
-            key={item}
-            label={item}
-            startContent={<Icon icon={CheckCircleIcon} size="sm" color="accent" />}
-          />
-        ))}
-      </List>
+      <CheckList items={[...prepItems]} tone="navy" columns={2} />
       <Text as="p" type="supporting">
         Не надсилайте паспорт, РНОКПП, банківські реквізити, медичні документи
         або повний пакет матеріалів через звичайну форму на сайті. Юрист пояснить,
@@ -266,13 +268,23 @@ export function HelpGrid({ limit = 6 }: { limit?: number }) {
   const items = expanded ? helpItems : helpItems.slice(0, limit);
   return (
     <VStack gap={4}>
-      <Heading level={2}>З чим допомагаємо</Heading>
+      <VStack gap={3}>
+        <span className="section-rule" aria-hidden="true" />
+        <Heading level={2}>З чим допомагаємо</Heading>
+      </VStack>
       <Grid columns={{ minWidth: 280, max: 3 }} gap={4}>
-        {items.map((item) => (
-          <Card key={item.title} padding={4} variant="muted">
-            <VStack gap={1}>
-              <HStack gap={2} vAlign="center">
-                <Icon icon={DocumentTextIcon} size="sm" color="accent" />
+        {items.map((item, i) => (
+          <Card key={item.title} padding={4}>
+            <VStack gap={2}>
+              <HStack gap={3} vAlign="center">
+                <span
+                  className={`icon-medallion icon-medallion--sm${
+                    ['', ' icon-medallion--sand', ' icon-medallion--slate'][i % 3]
+                  }`}
+                  aria-hidden="true"
+                >
+                  <Icon icon={DocumentTextIcon} size="md" color="accent" />
+                </span>
                 <Text type="label" weight="semibold">
                   {item.title}
                 </Text>
@@ -330,23 +342,17 @@ export function FinalCta({ topic }: { topic?: string } = {}) {
  */
 export function SummaryBox({ items }: { items: string[] }) {
   return (
-    <Card padding={5} variant="muted">
+    <div className="accent-card accent-card--gold">
       <VStack gap={3}>
-        <HStack gap={2} vAlign="center">
-          <span className="step-circle" aria-hidden="true">!</span>
+        <HStack gap={3} vAlign="center">
+          <span className="step-circle" aria-hidden="true">
+            !
+          </span>
           <Heading level={2}>Коротко</Heading>
         </HStack>
-        <List>
-          {items.map((item) => (
-            <ListItem
-              key={item}
-              label={item}
-              startContent={<Icon icon={CheckCircleIcon} size="sm" color="accent" />}
-            />
-          ))}
-        </List>
+        <CheckList items={items} tone="gold" />
       </VStack>
-    </Card>
+    </div>
   );
 }
 
@@ -359,11 +365,15 @@ export function PageToc({ items }: { items: { label: string; anchor: string }[] 
       <Text as="p" type="label" weight="semibold">
         Зміст сторінки
       </Text>
-      <List>
-        {items.map((item) => (
-          <ListItem key={item.anchor} label={item.label} href={`#${item.anchor}`} />
+      <CheckList
+        tone="mist"
+        columns={2}
+        items={items.map((item) => (
+          <Link key={item.anchor} href={`#${item.anchor}`}>
+            {item.label}
+          </Link>
         ))}
-      </List>
+      />
     </VStack>
   );
 }

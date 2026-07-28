@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
-import { List, ListItem } from '@astryxdesign/core/List';
+import { CheckList } from '@/components/CheckList';
 import { Container } from '@/components/Container';
 import { ButtonLink } from '@/components/ButtonLink';
 import { PageHero, PaymentsList, CaseFlow, SummaryBox, PageToc, FinalCta } from '@/components/ContentBlocks';
@@ -124,11 +124,7 @@ export default function DeathPaymentsPage() {
             <Heading level={2} id="pravo">
               Від чого залежить право на виплату
             </Heading>
-            <List>
-              {eligibilityFactors.map((f) => (
-                <ListItem key={f} label={f} />
-              ))}
-            </List>
+            <CheckList items={eligibilityFactors} tone="navy" />
           </VStack>
 
           <VStack gap={4}>
@@ -139,11 +135,7 @@ export default function DeathPaymentsPage() {
               Коло отримувачів різниться залежно від виду виплати. Найчастіше до
               нього можуть входити:
             </Text>
-            <List>
-              {potentialRecipients.map((r) => (
-                <ListItem key={r} label={r} />
-              ))}
-            </List>
+            <CheckList items={potentialRecipients} tone="gold" />
           </VStack>
 
           <VStack gap={4}>
@@ -164,11 +156,7 @@ export default function DeathPaymentsPage() {
             <Heading level={2} id="dokumenty">
               Які документи можуть знадобитися
             </Heading>
-            <List>
-              {requiredDocs.map((d) => (
-                <ListItem key={d} label={d} />
-              ))}
-            </List>
+            <CheckList items={requiredDocs} tone="navy" />
             <Text as="p" type="supporting">
               Точний перелік залежить від виду виплати та органу. Не надсилайте
               персональні документи через форму на сайті — юрист пояснить, як
@@ -207,11 +195,7 @@ export default function DeathPaymentsPage() {
             <Heading level={2} id="skladni">
               Типові складні ситуації
             </Heading>
-            <List>
-              {complexCases.map((c) => (
-                <ListItem key={c} label={c} />
-              ))}
-            </List>
+            <CheckList items={complexCases} tone="danger" />
             <Text as="p" type="body" color="secondary">
               У таких випадках краще не діяти навмання: одна невдала заява може
               ускладнити подальший процес.

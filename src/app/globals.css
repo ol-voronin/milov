@@ -275,6 +275,98 @@ video {
   flex-shrink: 0;
 }
 
+/* ---- Списки з акцентними маркерами ---- */
+.check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.check-list--two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--spacing-5, 1.25rem);
+}
+
+@media (max-width: 768px) {
+  .check-list--two {
+    grid-template-columns: 1fr;
+  }
+}
+
+.check-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  line-height: 1;
+  /* маркер вирівняний по першому рядку тексту */
+  margin-block-start: 0.125rem;
+}
+
+.check-marker--navy {
+  background: var(--brand-navy);
+  color: #ffffff;
+}
+
+.check-marker--gold {
+  background: var(--brand-gold);
+  color: #2b2410;
+}
+
+.check-marker--mist {
+  background: var(--brand-mist);
+  color: #10263c;
+}
+
+.check-marker--danger {
+  background: var(--color-error-muted);
+  color: var(--color-error);
+}
+
+.check-marker--plain {
+  background: var(--color-neutral);
+  color: var(--color-text-secondary);
+}
+
+/* ---- Акцентна риска над заголовком секції ---- */
+.section-rule {
+  display: block;
+  width: 2.5rem;
+  height: 0.25rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand-navy), var(--brand-gold));
+}
+
+/* ---- Акцентна картка (Коротко, підсумки) ---- */
+.accent-card {
+  position: relative;
+  padding: var(--spacing-5, 1.25rem);
+  padding-inline-start: calc(var(--spacing-5, 1.25rem) + 0.375rem);
+  border-radius: var(--radius-container, 16px);
+  background: #24527e0d;
+  background: color-mix(in srgb, var(--brand-navy) 6%, transparent);
+  border: 1px solid var(--color-border);
+}
+
+.accent-card::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 0.375rem;
+  border-start-start-radius: var(--radius-container, 16px);
+  border-end-start-radius: var(--radius-container, 16px);
+  background: var(--brand-navy);
+}
+
+.accent-card--gold::before {
+  background: var(--brand-gold);
+}
+
 /* ---- Фільтр-чіпи (Корисна інформація) ---- */
 .filter-chips {
   display: flex;
@@ -412,6 +504,11 @@ video {
 }
 
 .icon-circle--sm {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.icon-medallion--sm {
   width: 2.5rem;
   height: 2.5rem;
 }

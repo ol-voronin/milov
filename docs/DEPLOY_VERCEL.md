@@ -29,6 +29,8 @@ git commit -m "Initial site"
 | `NEXT_PUBLIC_WORKING_HOURS` | так | графік роботи |
 | `LEADS_WEBHOOK_URL` | одне з двох | HTTPS-webhook CRM |
 | `LEADS_EMAIL` | одне з двох | потребує інтеграції поштового сервісу |
+| `TELEGRAM_BOT_TOKEN` | рекомендовано | токен бота від @BotFather |
+| `TELEGRAM_CHAT_ID` | рекомендовано | куди слати сповіщення про заявки |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | ні | антиспам Cloudflare |
 | `TURNSTILE_SECRET_KEY` | ні | секрет — тільки серверна змінна |
 | `LEAD_RETENTION_DAYS` | ні | політика зберігання заявок |

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { leadSchema, topicLabel } from '@/lib/leadSchema';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { notifyTelegram } from '@/lib/telegram';
 
 /**
  * API заявок на зворотний дзвінок.
@@ -80,6 +81,21 @@ export async function POST(req: NextRequest) {
       retentionDays: Number(process.env.LEAD_RETENTION_DAYS ?? 90),
     };
 
+    // ---- Сповіщення в Telegram ----
+    // Надсилаємо першим: власник має дізнатися про лід одразу.
+    // Помилка Telegram не ламає прийом заявки.
+    const telegramSent = await notifyTelegram({
+      name: payload.name,
+      phone: payload.phone,
+      topic: payload.topic,
+      contactMethod: payload.contactMethod,
+      preferredTime: payload.preferredTime,
+      message: payload.message,
+      sourcePage: payload.sourcePage,
+      utm: payload.utm,
+      receivedAt: payload.receivedAt,
+    });
+
     // ---- Доставка ----
     const webhookUrl = process.env.LEADS_WEBHOOK_URL;
     const leadsEmail = process.env.LEADS_EMAIL;
@@ -93,10 +109,14 @@ export async function POST(req: NextRequest) {
       if (!res.ok) {
         // Без тексту звернення в логах
         console.error('[lead] webhook delivery failed', { status: res.status });
-        return NextResponse.json(
-          { error: 'Тимчасова помилка. Зателефонуйте нам напряму.' },
-          { status: 502 },
-        );
+        // Якщо Telegram уже отримав заявку — вона не втрачена,
+        // тому не показуємо людині помилку.
+        if (!telegramSent) {
+          return NextResponse.json(
+            { error: 'Тимчасова помилка. Зателефонуйте нам напряму.' },
+            { status: 502 },
+          );
+        }
       }
     } else if (leadsEmail) {
       /**
@@ -109,7 +129,7 @@ export async function POST(req: NextRequest) {
         topic: payload.topic,
         sourcePage: payload.sourcePage,
       });
-    } else {
+    } else if (!telegramSent) {
       console.info('[lead] received (no delivery channel configured)', {
         topic: payload.topic,
         sourcePage: payload.sourcePage,

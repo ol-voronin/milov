@@ -82,6 +82,9 @@ public/downloads/         # PDF-чекліст «Перші кроки»
 - Honeypot-поле + in-memory rate limiting (5 заявок / 10 хв з IP).
 - Cloudflare Turnstile вмикається автоматично, якщо задані
   `NEXT_PUBLIC_TURNSTILE_SITE_KEY` і `TURNSTILE_SECRET_KEY`.
+- **Telegram-сповіщення про нові заявки** — приходять власнику одразу
+  (`TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID`). Покрокова інструкція:
+  `docs/TELEGRAM_BOT.md`.
 - Доставка заявок: `LEADS_WEBHOOK_URL` (CRM/внутрішня система) або
   `LEADS_EMAIL` (потребує підключення поштового провайдера — див. TODO у
   `src/app/api/lead/route.ts`).
@@ -105,3 +108,4 @@ Semantic HTML, навігація клавіатурою та видимий ф�
 3. `docs/SENSITIVE_CLAIMS.md` — усі юридично чутливі твердження.
 4. `docs/LAUNCH_CHECKLIST.md` — фінальний чекліст.
 5. `docs/DEPLOY_VERCEL.md` — інструкція розгортання.
+6. `docs/TELEGRAM_BOT.md` — налаштування сповіщень про заявки в Telegram.
