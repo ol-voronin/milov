@@ -69,7 +69,7 @@ export function ThankYou() {
 
       <Section variant="transparent" padding={8} paddingBlock={10}>
         <Center axis="horizontal">
-          <VStack gap={5} width="100%" maxWidth={860}>
+          <VStack gap={5} width="100%" maxWidth={1120}>
             <Heading level={2} justify="center">
               Що можна почитати тим часом
             </Heading>

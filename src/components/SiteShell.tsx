@@ -223,7 +223,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         width={640}
         maxHeight="80vh"
       >
-        <DialogHeader title="Пошук по сайту" />
+        <DialogHeader title="Пошук по сайту" onOpenChange={setIsSearchOpen} />
         <VStack paddingBlock={2}>
           {isSearchOpen ? <ArticleSearch includePages /> : null}
         </VStack>

@@ -92,7 +92,7 @@ export default function DeathPaymentsPage() {
 
       {/* Блок 1: коротко + зміст. Відповідь за 20 секунд */}
       <Section variant="transparent" padding={8} paddingBlock={10}>
-        <Container gap={6} maxWidth={980}>
+        <Container gap={6}>
           <SummaryBox
             items={[
               'Родині можуть належати кілька різних виплат — від одноразової допомоги до пенсії.',
@@ -118,14 +118,14 @@ export default function DeathPaymentsPage() {
 
       {/* Темний якір 1: інфографіка шляху справи */}
       <Section variant="transparent" padding={8} paddingBlock={0}>
-        <Container maxWidth={980}>
+        <Container>
           <CaseFlow tone="dark" />
         </Container>
       </Section>
 
       {/* Блок 2: види виплат — акордеон замість 8 карток поспіль */}
       <Section variant="transparent" padding={8} paddingBlock={10}>
-        <Container gap={5} maxWidth={980}>
+        <Container gap={5}>
           <VStack gap={3} maxWidth={720}>
             <span className="section-rule" aria-hidden="true" />
             <Heading level={2} id="vydy-vyplat">
@@ -143,14 +143,14 @@ export default function DeathPaymentsPage() {
 
       {/* Темний якір 2: CTA в середині сторінки */}
       <Section variant="transparent" padding={8} paddingBlock={0}>
-        <Container maxWidth={980}>
+        <Container>
           <InlineCta topic="death" />
         </Container>
       </Section>
 
       {/* Блок 3: право, отримувачі, розпорядження, документи — у вкладках */}
       <Section variant="transparent" padding={8} paddingBlock={10}>
-        <Container gap={5} maxWidth={980}>
+        <Container gap={5}>
           <VStack gap={3} maxWidth={720}>
             <span className="section-rule" aria-hidden="true" />
             <Heading level={2} id="pravo">
@@ -200,7 +200,7 @@ export default function DeathPaymentsPage() {
 
       {/* Блок 4: куди звертатися + затримка/відмова + складні ситуації */}
       <Section variant="muted" padding={8} paddingBlock={10}>
-        <Container gap={8} maxWidth={980}>
+        <Container gap={8}>
           <VStack gap={3} maxWidth={720}>
             <span className="section-rule" aria-hidden="true" />
             <Heading level={2} id="kudy">
@@ -242,7 +242,7 @@ export default function DeathPaymentsPage() {
 
       {/* Темний якір 3: чим допомагаємо */}
       <Section variant="transparent" padding={8} paddingBlock={10}>
-        <Container maxWidth={980}>
+        <Container>
           <WeHelpBlock
             topic="death"
             note="Беремо на себе процедурну частину — від перевірки права до контролю строків."
@@ -258,7 +258,7 @@ export default function DeathPaymentsPage() {
 
       {/* Блок 5: FAQ + юридичні застереження + джерела одним блоком */}
       <Section variant="transparent" padding={8} paddingBlock={10}>
-        <Container gap={8} maxWidth={980}>
+        <Container gap={8}>
           <VStack gap={4}>
             <VStack gap={3} maxWidth={720}>
               <span className="section-rule" aria-hidden="true" />

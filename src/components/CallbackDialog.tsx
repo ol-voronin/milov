@@ -60,7 +60,8 @@ export function CallbackDialogProvider({ children }: { children: ReactNode }) {
         maxHeight="90vh"
         purpose="form"
       >
-        <DialogHeader title="Замовити дзвінок юриста" />
+        {/* onOpenChange додає хрестик закриття у шапку діалогу */}
+        <DialogHeader title="Замовити дзвінок юриста" onOpenChange={setIsOpen} />
         <VStack paddingBlock={2} gap={3}>
           <Text as="p" type="supporting">
             Достатньо імені, телефону та теми.

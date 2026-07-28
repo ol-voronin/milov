@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import '@astryxdesign/core/reset.css';
 import '@astryxdesign/core/astryx.css';
 import '@fontsource-variable/manrope';
+import '@fontsource-variable/lora';
 import '@/theme/brandTheme.css';
 import './globals.css';
 import { Providers } from '@/components/Providers';

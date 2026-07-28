@@ -26,7 +26,7 @@ export default function TermsPage() {
       />
 
       <Section variant="transparent" padding={8} paddingBlock={8}>
-        <Container gap={6} maxWidth={820}>
+        <Container gap={6}>
           <ReviewNote>
             [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ] Текст є шаблоном
             і потребує затвердження адвокатом.

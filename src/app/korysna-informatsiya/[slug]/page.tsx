@@ -54,7 +54,7 @@ export default async function ArticlePage({ params }: Props) {
       />
 
       <Section variant="transparent" padding={8} paddingBlock={8}>
-        <Container gap={6} maxWidth={820}>
+        <Container gap={6}>
           {article.isChecklist ? (
             <ChecklistActions pdfHref="/downloads/pershi-kroky-checklist.pdf" />
           ) : null}

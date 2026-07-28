@@ -32,10 +32,16 @@ export const brandTheme = defineTheme({
       fallbacks:
         '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     },
+    /**
+     * Заголовки — Lora (serif з повною кирилицею).
+     * Контрастна пара serif+sans прибирає «шаблонність» дефолтного
+     * інтерфейсу і додає юридичній практиці ваги та людяності:
+     * serif читається як «документ, якому можна довіряти»,
+     * а не як черговий SaaS-лендінг.
+     */
     heading: {
-      family: 'Manrope Variable',
-      fallbacks:
-        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      family: 'Lora Variable',
+      fallbacks: 'Georgia, "Times New Roman", serif',
     },
   },
   tokens: {
