@@ -341,6 +341,66 @@ video {
   background: linear-gradient(90deg, var(--brand-navy), var(--brand-gold));
 }
 
+/* Варіант для темного тла */
+.section-rule--light {
+  background: linear-gradient(90deg, var(--brand-gold), #ffffff);
+}
+
+/* ---- Темно-синій блок довіри ----
+   Локальні токени: компоненти Astryx усередині автоматично
+   беруть світлий текст, як у футері. */
+.trust-band {
+  --color-text-primary: #f4f7fa;
+  --color-text-secondary: #c2d2e0;
+  --color-text-accent: #e4d3ae;
+  --color-icon-primary: #f4f7fa;
+  --color-icon-secondary: #c2d2e0;
+  --color-border: #ffffff26;
+  --color-border-emphasized: #ffffff40;
+  padding: var(--spacing-8, 2.5rem);
+  border-radius: var(--radius-page, 20px);
+  background: var(--brand-navy-deep);
+  background: linear-gradient(155deg, #1b4570, #0f2740 75%);
+  color: #f4f7fa;
+}
+
+/* Кнопка на темному тлі: синя зливалася б із фоном — робимо золоту */
+.trust-band .astryx-button[data-variant='primary'] {
+  background: var(--brand-gold);
+  color: #2b2410;
+  border-color: transparent;
+}
+
+.trust-band .astryx-button[data-variant='primary']:hover {
+  background: #d9b675;
+}
+
+.trust-card {
+  padding: var(--spacing-5, 1.25rem);
+  border-radius: var(--radius-container, 16px);
+  background: #ffffff12;
+  border: 1px solid #ffffff1f;
+}
+
+.trust-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: #e4d3ae1f;
+  color: var(--brand-gold);
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .trust-band {
+    padding: var(--spacing-5, 1.25rem);
+    border-radius: var(--radius-container, 16px);
+  }
+}
+
 /* ---- Акцентна картка (Коротко, підсумки) ---- */
 .accent-card {
   position: relative;

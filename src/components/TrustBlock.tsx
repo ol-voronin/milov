@@ -1,7 +1,6 @@
 'use client';
 
 import { Grid } from '@astryxdesign/core/Grid';
-import { Card } from '@astryxdesign/core/Card';
 import { VStack, HStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { Icon } from '@astryxdesign/core/Icon';
@@ -12,9 +11,10 @@ import {
   IdentificationIcon,
 } from '@heroicons/react/24/outline';
 import { hasAttorney } from '@/config/site';
+import { CallbackButton } from './CallbackDialog';
 
 /**
- * Блок довіри.
+ * Блок довіри — темно-синя панель (запит власника).
  * ⚠️ Без вигаданих цифр, статистики чи відгуків. Лише факти про процес.
  * Сертифікати, публікації та анонімізовані судові рішення додаються сюди
  * після надання власником сайту.
@@ -48,29 +48,43 @@ const trustItems = [
 
 export function TrustBlock() {
   return (
-    <VStack gap={4}>
-      <Heading level={2}>Чому нам можна довіряти</Heading>
-      <Text as="p" type="body" color="secondary">
-        Ми не обіцяємо результат без аналізу документів. Спочатку з’ясовуємо
-        обставини, перевіряємо правові підстави та пояснюємо можливі варіанти дій.
-      </Text>
-      <Grid columns={{ minWidth: 250, max: 4 }} gap={4}>
-        {trustItems.map((item) => (
-          <Card key={item.title} padding={5} variant="muted">
-            <VStack gap={2}>
-              <HStack gap={2} vAlign="center">
-                <Icon icon={item.icon} size="md" color="accent" />
+    <div className="trust-band">
+      <VStack gap={6}>
+        <VStack gap={3}>
+          <span className="section-rule section-rule--light" aria-hidden="true" />
+          <Heading level={2}>Чому нам можна довіряти</Heading>
+          <VStack maxWidth={760}>
+            <Text as="p" type="large" color="secondary" textWrap="pretty">
+              Ми не обіцяємо результат без аналізу документів. Спочатку
+              з’ясовуємо обставини, перевіряємо правові підстави та пояснюємо
+              можливі варіанти дій.
+            </Text>
+          </VStack>
+        </VStack>
+
+        <Grid columns={{ minWidth: 250, max: 4 }} gap={4}>
+          {trustItems.map((item) => (
+            <div className="trust-card" key={item.title}>
+              <VStack gap={3}>
+                <span className="trust-card__icon" aria-hidden="true">
+                  <Icon icon={item.icon} size="lg" color="inherit" />
+                </span>
                 <Text type="label" weight="semibold">
                   {item.title}
                 </Text>
-              </HStack>
-              <Text as="p" type="supporting">
-                {item.text}
-              </Text>
-            </VStack>
-          </Card>
-        ))}
-      </Grid>
-    </VStack>
+                <Text as="p" type="supporting">
+                  {item.text}
+                </Text>
+              </VStack>
+            </div>
+          ))}
+        </Grid>
+
+        <HStack gap={3} wrap="wrap" vAlign="center">
+          <CallbackButton label="Обговорити мою ситуацію" size="lg" />
+          <Text type="supporting">Достатньо імені та номера телефону.</Text>
+        </HStack>
+      </VStack>
+    </div>
   );
 }
