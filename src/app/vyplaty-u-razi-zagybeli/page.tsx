@@ -5,7 +5,17 @@ import { Heading, Text } from '@astryxdesign/core/Text';
 import { CheckList } from '@/components/CheckList';
 import { Container } from '@/components/Container';
 import { ButtonLink } from '@/components/ButtonLink';
-import { PageHero, PaymentsList, CaseFlow, SummaryBox, PageToc, FinalCta } from '@/components/ContentBlocks';
+import {
+  PageHero,
+  PaymentsList,
+  CaseFlow,
+  SummaryBox,
+  PageToc,
+  SectionTabs,
+  InlineCta,
+  FinalCta,
+} from '@/components/ContentBlocks';
+import { WeHelpBlock } from '@/components/WeHelpBlock';
 import {
   LegalNotice,
   LegalMeta,
@@ -49,7 +59,7 @@ const requiredDocs = [
   'документ, що засвідчує загибель або смерть (повідомлення частини, свідоцтво про смерть)',
   'документи, що підтверджують родинний зв’язок (свідоцтво про шлюб, про народження)',
   'паспорт та РНОКПП заявника (подаються безпосередньо до органу, не через сайт)',
-  'документи про перебування на утриманні або рішення суду про встановлення відповідних фактів — якщо застосовно',
+  'документи про перебування на утриманні або рішення суду — якщо застосовно',
   'заява встановленої форми до відповідного органу',
 ];
 
@@ -80,9 +90,9 @@ export default function DeathPaymentsPage() {
         photo={photos.payments}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={8}>
-        <Container gap={8} maxWidth={980}>
-          {/* Коротко — для тих, кому важко читати довгу сторінку (аудит C1) */}
+      {/* Блок 1: коротко + зміст. Відповідь за 20 секунд */}
+      <Section variant="transparent" padding={8} paddingBlock={10}>
+        <Container gap={6} maxWidth={980}>
           <SummaryBox
             items={[
               'Родині можуть належати кілька різних виплат — від одноразової допомоги до пенсії.',
@@ -91,135 +101,178 @@ export default function DeathPaymentsPage() {
               'Затримку і відмову можна оскаржити — головне зафіксувати подання документів.',
             ]}
           />
+          <div className="page-toc--sticky">
+            <PageToc
+              items={[
+                { label: 'Види виплат', anchor: 'vydy-vyplat' },
+                { label: 'Хто має право і які документи', anchor: 'pravo' },
+                { label: 'Куди звертатися', anchor: 'kudy' },
+                { label: 'Затримка та відмова', anchor: 'zatrymka' },
+                { label: 'Складні ситуації', anchor: 'skladni' },
+                { label: 'Запитання та відповіді', anchor: 'pytannia' },
+              ]}
+            />
+          </div>
+        </Container>
+      </Section>
 
-          <PageToc
-            items={[
-              { label: 'Які виплати можуть бути актуальними', anchor: 'vydy-vyplat' },
-              { label: 'Від чого залежить право на виплату', anchor: 'pravo' },
-              { label: 'Хто може бути отримувачем', anchor: 'khto-maye-pravo' },
-              { label: 'Особисте розпорядження', anchor: 'rozporiadzhennia' },
-              { label: 'Документи', anchor: 'dokumenty' },
-              { label: 'Куди звертатися', anchor: 'kudy' },
-              { label: 'Затримка та відмова', anchor: 'zatrymka' },
-              { label: 'Складні ситуації', anchor: 'skladni' },
-              { label: 'Запитання та відповіді', anchor: 'pytannia' },
-            ]}
-          />
+      {/* Темний якір 1: інфографіка шляху справи */}
+      <Section variant="transparent" padding={8} paddingBlock={0}>
+        <Container maxWidth={980}>
+          <CaseFlow tone="dark" />
+        </Container>
+      </Section>
 
-          <CaseFlow />
-
-          <VStack gap={4}>
+      {/* Блок 2: види виплат — акордеон замість 8 карток поспіль */}
+      <Section variant="transparent" padding={8} paddingBlock={10}>
+        <Container gap={5} maxWidth={980}>
+          <VStack gap={3} maxWidth={720}>
+            <span className="section-rule" aria-hidden="true" />
             <Heading level={2} id="vydy-vyplat">
-              Які виплати та оформлення можуть бути актуальними
-            </Heading>
-            <Text as="p" type="body" color="secondary">
-              Наявність кожної виплати залежить від обставин конкретної справи —
-              перелік нижче не означає, що всі виплати гарантовано доступні
-              кожній родині.
-            </Text>
-            <PaymentsList />
-          </VStack>
-
-          <VStack gap={4}>
-            <Heading level={2} id="pravo">
-              Від чого залежить право на виплату
-            </Heading>
-            <CheckList items={eligibilityFactors} tone="navy" />
-          </VStack>
-
-          <VStack gap={4}>
-            <Heading level={2} id="khto-maye-pravo">
-              Хто може належати до потенційних отримувачів
-            </Heading>
-            <Text as="p" type="body" color="secondary">
-              Коло отримувачів різниться залежно від виду виплати. Найчастіше до
-              нього можуть входити:
-            </Text>
-            <CheckList items={potentialRecipients} tone="gold" />
-          </VStack>
-
-          <VStack gap={4}>
-            <Heading level={2} id="rozporiadzhennia">
-              Як може впливати особисте розпорядження
+              Які виплати можуть бути актуальними
             </Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
-              Військовослужбовець за життя може визначити, хто саме отримає
-              одноразову грошову допомогу, або змінити розподіл часток між
-              членами родини. Якщо таке розпорядження існує, воно суттєво впливає
-              на те, кому і в яких частках призначається виплата. Перевірити його
-              наявність можна через військову частину — ми допомагаємо зробити це
-              коректно.
+              Натисніть на виплату, щоб побачити подробиці. Наявність кожної
+              залежить від обставин — перелік не означає, що всі виплати
+              гарантовано доступні кожній родині.
             </Text>
           </VStack>
+          <PaymentsList />
+        </Container>
+      </Section>
 
-          <VStack gap={4}>
-            <Heading level={2} id="dokumenty">
-              Які документи можуть знадобитися
+      {/* Темний якір 2: CTA в середині сторінки */}
+      <Section variant="transparent" padding={8} paddingBlock={0}>
+        <Container maxWidth={980}>
+          <InlineCta topic="death" />
+        </Container>
+      </Section>
+
+      {/* Блок 3: право, отримувачі, розпорядження, документи — у вкладках */}
+      <Section variant="transparent" padding={8} paddingBlock={10}>
+        <Container gap={5} maxWidth={980}>
+          <VStack gap={3} maxWidth={720}>
+            <span className="section-rule" aria-hidden="true" />
+            <Heading level={2} id="pravo">
+              Хто має право і які документи потрібні
             </Heading>
-            <CheckList items={requiredDocs} tone="navy" />
-            <Text as="p" type="supporting">
-              Точний перелік залежить від виду виплати та органу. Не надсилайте
-              персональні документи через форму на сайті — юрист пояснить, як
-              передати їх безпечно.
-            </Text>
           </VStack>
 
-          <VStack gap={4}>
+          <SectionTabs
+            defaultId="khto-maye-pravo"
+            sections={[
+              {
+                id: 'khto-maye-pravo',
+                label: 'Хто має право',
+                intro:
+                  'Коло отримувачів різниться залежно від виду виплати. Найчастіше до нього можуть входити:',
+                content: <CheckList items={potentialRecipients} tone="gold" />,
+              },
+              {
+                id: 'vid-choho-zalezhyt',
+                label: 'Від чого залежить',
+                content: <CheckList items={eligibilityFactors} tone="navy" />,
+              },
+              {
+                id: 'rozporiadzhennia',
+                label: 'Розпорядження',
+                content: (
+                  <Text as="p" type="body" color="secondary" textWrap="pretty">
+                    Військовослужбовець за життя може визначити, хто саме отримає
+                    одноразову грошову допомогу, або змінити розподіл часток. Якщо
+                    таке розпорядження існує, воно суттєво впливає на те, кому і в
+                    яких частках призначається виплата. Перевірити його наявність
+                    можна через військову частину — ми допомагаємо зробити це
+                    коректно.
+                  </Text>
+                ),
+              },
+              {
+                id: 'dokumenty',
+                label: 'Документи',
+                content: <CheckList items={requiredDocs} tone="navy" />,
+                note: 'Точний перелік залежить від виду виплати та органу. Не надсилайте персональні документи через форму на сайті — юрист пояснить, як передати їх безпечно.',
+              },
+            ]}
+          />
+        </Container>
+      </Section>
+
+      {/* Блок 4: куди звертатися + затримка/відмова + складні ситуації */}
+      <Section variant="muted" padding={8} paddingBlock={10}>
+        <Container gap={8} maxWidth={980}>
+          <VStack gap={3} maxWidth={720}>
+            <span className="section-rule" aria-hidden="true" />
             <Heading level={2} id="kudy">
               Куди звертатися
             </Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
-              Залежно від виплати — військова частина, ТЦК та СП, Пенсійний
-              фонд або соцзахист. Не знаєте, звідки почати? Зателефонуйте —
-              підкажемо маршрут.
+              Залежно від виплати — військова частина, ТЦК та СП, Пенсійний фонд
+              або соцзахист. Не знаєте, звідки почати? Зателефонуйте — підкажемо
+              маршрут.
             </Text>
           </VStack>
 
-          <VStack gap={4}>
+          <VStack gap={4} maxWidth={720}>
             <Heading level={2} id="zatrymka">
-              Затримка або відмова
+              Затримка та відмова
             </Heading>
             <Text as="p" type="body" color="secondary" textWrap="pretty">
               Зберігайте копії заяв і вхідні номери — це головний доказ подання.
               Мовчання органу після спливу строків і необґрунтована відмова
               оскаржуються.
             </Text>
-            <ButtonLink
-              label="Що робити при затримці чи відмові"
-              variant="secondary"
-              href="/zatrymka-abo-vidmova"
-            />
+            <VStack hAlign="start">
+              <ButtonLink
+                label="Що робити при затримці чи відмові"
+                variant="secondary"
+                href="/zatrymka-abo-vidmova"
+              />
+            </VStack>
           </VStack>
 
-          <VStack gap={4}>
+          <VStack gap={4} maxWidth={720}>
             <Heading level={2} id="skladni">
               Типові складні ситуації
             </Heading>
             <CheckList items={complexCases} tone="danger" />
-            <Text as="p" type="body" color="secondary">
-              У таких випадках краще не діяти навмання: одна невдала заява може
-              ускладнити подальший процес.
-            </Text>
           </VStack>
+        </Container>
+      </Section>
 
+      {/* Темний якір 3: чим допомагаємо */}
+      <Section variant="transparent" padding={8} paddingBlock={10}>
+        <Container maxWidth={980}>
+          <WeHelpBlock
+            topic="death"
+            note="Беремо на себе процедурну частину — від перевірки права до контролю строків."
+            items={[
+              'Перевіряємо, які виплати можуть стосуватися вашої ситуації.',
+              'Визначаємо коло отримувачів і частки, зокрема при спорах у родині.',
+              'Готуємо заяви, запити та адвокатські звернення до органів.',
+              'Оскаржуємо затримки й відмови, за потреби — представляємо в суді.',
+            ]}
+          />
+        </Container>
+      </Section>
+
+      {/* Блок 5: FAQ + юридичні застереження + джерела одним блоком */}
+      <Section variant="transparent" padding={8} paddingBlock={10}>
+        <Container gap={8} maxWidth={980}>
           <VStack gap={4}>
-            <Heading level={2} id="pytannia">
-              Поширені запитання
-            </Heading>
+            <VStack gap={3} maxWidth={720}>
+              <span className="section-rule" aria-hidden="true" />
+              <Heading level={2} id="pytannia">
+                Поширені запитання
+              </Heading>
+            </VStack>
             <FaqList items={pageFaq} />
           </VStack>
 
-          {/* Дисклеймер після контенту, а не перед ним (аудит T3) */}
-          <LegalNotice />
-
-          <OfficialSources sources={officialSources} />
-
-          <VStack gap={2}>
+          <VStack gap={4} maxWidth={720}>
+            <LegalNotice />
+            <OfficialSources sources={officialSources} />
             <LegalMeta updatedAt={site.lastLegalUpdate} />
-            <Text as="p" type="supporting">
-              Матеріал має інформаційний характер. Остаточний висновок залежить
-              від обставин конкретної справи та чинної редакції законодавства.
-            </Text>
           </VStack>
         </Container>
       </Section>

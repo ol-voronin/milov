@@ -37,9 +37,11 @@ import {
   NEEDS_LAWYER_REVIEW,
   type PaymentInfo,
 } from '@/content/payments';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Breadcrumbs, BreadcrumbItem } from '@astryxdesign/core/Breadcrumbs';
 import { Button } from '@astryxdesign/core/Button';
+import { Collapsible, CollapsibleGroup } from '@astryxdesign/core/Collapsible';
+import { Tab, TabList } from '@astryxdesign/core/TabList';
 import { Container } from './Container';
 import { ButtonLink } from './ButtonLink';
 import { OfficialSources, ReviewFlag } from './LegalComponents';
@@ -195,7 +197,43 @@ const flowStages = [
   { label: 'Виплата або оскарження', icon: BanknotesIcon },
 ];
 
-export function CaseFlow() {
+export function CaseFlow({ tone = 'light' }: { tone?: 'light' | 'dark' } = {}) {
+  if (tone === 'dark') {
+    return (
+      <div className="trust-band">
+        <VStack gap={5}>
+          <VStack gap={3}>
+            <span className="section-rule section-rule--light" aria-hidden="true" />
+            <Heading level={2}>Шлях справи: від звернення до результату</Heading>
+          </VStack>
+          <div className="case-flow">
+            {flowStages.map((stage, i) => (
+              <div className="case-flow__row" key={stage.label}>
+                <div className="case-flow__stage">
+                  <span className="trust-card__icon" aria-hidden="true">
+                    <Icon icon={stage.icon} size="lg" color="inherit" />
+                  </span>
+                  <Text type="label" weight="medium" justify="center" textWrap="balance">
+                    {stage.label}
+                  </Text>
+                </div>
+                {i < flowStages.length - 1 ? (
+                  <span className="case-flow__arrow" aria-hidden="true">
+                    <Icon icon={ArrowLongRightIcon} size="md" color="secondary" />
+                  </span>
+                ) : null}
+              </div>
+            ))}
+          </div>
+          <Text as="p" type="supporting">
+            Схема є узагальненою: послідовність і тривалість етапів залежать від
+            виду виплати та органу.
+          </Text>
+        </VStack>
+      </div>
+    );
+  }
+
   return (
     <VStack gap={4}>
       <VStack gap={3}>
@@ -404,44 +442,164 @@ export function NumberedSteps({ steps: stepItems }: { steps: string[] }) {
  * Неперевірені значення (позначка NEEDS_LAWYER_REVIEW) не показуються
  * відвідувачам як факти — замість них службова позначка для редактора.
  */
+/** Коротка підказка в рядку акордеона — щоб не розкривати все підряд */
+const paymentHints: Record<string, string> = {
+  'odnorazova-hroshova-dopomoha': 'Основна виплата родині',
+  'nevyplachene-hroshove-zabezpechennia': 'Зароблене, але не отримане',
+  'dodatkova-vynahoroda': 'За наявності законних підстав',
+  'kompensatsiia-za-vidpustky': 'За невикористані дні відпустки',
+  'pensiia-vtrata-hoduvalnyka': 'Щомісячна виплата',
+  'dopomoha-na-pokhovannia': 'Тому, хто організував поховання',
+  'derzhavni-ta-mistsevi-prohramy': 'Залежить від вашої громади',
+  'status-chlena-simi': 'Статус, а не гроші: відкриває пільги',
+};
+
 export function PaymentsList({ items = payments }: { items?: PaymentInfo[] }) {
   return (
+    <VStack gap={3}>
+      <CollapsibleGroup type="single" hasDividers>
+        {items.map((p) => (
+          <Collapsible
+            key={p.id}
+            value={p.id}
+            defaultIsOpen={false}
+            trigger={
+              <HStack gap={3} vAlign="center" wrap="wrap">
+                <Text type="large" weight="medium">
+                  {p.title}
+                </Text>
+                {paymentHints[p.id] ? (
+                  <Text type="supporting">{paymentHints[p.id]}</Text>
+                ) : null}
+              </HStack>
+            }
+          >
+            <VStack gap={3} paddingBlock={1} maxWidth={720} id={p.id}>
+              <Text as="p" type="body" color="secondary" textWrap="pretty">
+                {p.plainDescription}
+              </Text>
+
+              {isVerifiedValue(p.amount) ? (
+                <MetaRow label="Розмір" value={p.amount} />
+              ) : (
+                <ReviewFlag visible={p.amount === NEEDS_LAWYER_REVIEW} />
+              )}
+              {isVerifiedValue(p.eligibilitySummary) ? (
+                <MetaRow label="Хто може мати право" value={p.eligibilitySummary} />
+              ) : (
+                <ReviewFlag visible={p.eligibilitySummary === NEEDS_LAWYER_REVIEW} />
+              )}
+              {isVerifiedValue(p.paymentSchedule) ? (
+                <MetaRow label="Порядок виплати" value={p.paymentSchedule} />
+              ) : (
+                <ReviewFlag visible={p.paymentSchedule === NEEDS_LAWYER_REVIEW} />
+              )}
+              {isVerifiedValue(p.importantExceptions) ? (
+                <MetaRow label="Важливі винятки" value={p.importantExceptions} />
+              ) : (
+                <ReviewFlag
+                  visible={p.importantExceptions.includes(NEEDS_LAWYER_REVIEW)}
+                />
+              )}
+
+              <CallbackButton
+                label="Дізнатися, чи стосується це мене"
+                variant="secondary"
+                topic="death"
+              />
+            </VStack>
+          </Collapsible>
+        ))}
+      </CollapsibleGroup>
+      {/* Офіційні джерела — один блок наприкінці сторінки, а не в кожній картці */}
+    </VStack>
+  );
+}
+
+/**
+ * Вкладки замість чотирьох дрібних розділів, розбитих на однакові
+ * сірі шматки: людина бачить структуру одразу, без скролу.
+ */
+/**
+ * Компактна темна CTA-смуга для середини довгої сторінки —
+ * ловить тих, хто не дочитає до кінця.
+ */
+export function InlineCta({
+  title = 'Не впевнені, що саме стосується вас?',
+  text = 'Опишіть ситуацію телефоном — юрист підкаже, які виплати перевіряти першими.',
+  topic,
+}: {
+  title?: string;
+  text?: string;
+  topic?: string;
+}) {
+  return (
+    <div className="inline-cta">
+      <Grid columns={{ minWidth: 280, max: 2 }} gap={5} align="center">
+        <VStack gap={2}>
+          <Heading level={2}>{title}</Heading>
+          <Text as="p" type="body" color="secondary" textWrap="pretty">
+            {text}
+          </Text>
+        </VStack>
+        <VStack gap={2} hAlign="start">
+          <CallbackButton label="Замовити дзвінок юриста" size="lg" topic={topic} />
+          <Text type="supporting">Достатньо імені та номера телефону.</Text>
+        </VStack>
+      </Grid>
+    </div>
+  );
+}
+
+export type TabSection = {
+  id: string;
+  label: string;
+  intro?: string;
+  content: ReactNode;
+  note?: string;
+};
+
+export function SectionTabs({
+  sections,
+  defaultId,
+}: {
+  sections: TabSection[];
+  defaultId?: string;
+}) {
+  const [active, setActive] = useState(defaultId ?? sections[0]?.id);
+  const current = sections.find((s) => s.id === active) ?? sections[0];
+
+  return (
     <VStack gap={4}>
-      {items.map((p) => (
-        <Card key={p.id} padding={5}>
-          <VStack gap={3}>
-            <Heading level={3} id={p.id}>
-              {p.title}
-            </Heading>
-            <Text as="p" type="body" color="secondary">
-              {p.plainDescription}
+      <TabList
+        value={active}
+        onChange={setActive}
+        hasDivider
+        layout="hug"
+        aria-label="Розділи"
+      >
+        {sections.map((s) => (
+          <Tab key={s.id} value={s.id} label={s.label} />
+        ))}
+      </TabList>
+
+      {/* Astryx рендерить навігаційні таби (aria-current), тому не вдаємо
+          ARIA-паттерн tabpanel — просто озвучуємо зміну вмісту. */}
+      <div aria-live="polite">
+        <VStack gap={4} maxWidth={720} id={current.id}>
+          {current.intro ? (
+            <Text as="p" type="body" color="secondary" textWrap="pretty">
+              {current.intro}
             </Text>
-
-            {isVerifiedValue(p.amount) ? (
-              <MetaRow label="Розмір" value={p.amount} />
-            ) : (
-              <ReviewFlag visible={p.amount === NEEDS_LAWYER_REVIEW} />
-            )}
-            {isVerifiedValue(p.eligibilitySummary) ? (
-              <MetaRow label="Хто може мати право" value={p.eligibilitySummary} />
-            ) : (
-              <ReviewFlag visible={p.eligibilitySummary === NEEDS_LAWYER_REVIEW} />
-            )}
-            {isVerifiedValue(p.paymentSchedule) ? (
-              <MetaRow label="Порядок виплати" value={p.paymentSchedule} />
-            ) : (
-              <ReviewFlag visible={p.paymentSchedule === NEEDS_LAWYER_REVIEW} />
-            )}
-            {isVerifiedValue(p.importantExceptions) ? (
-              <MetaRow label="Важливі винятки" value={p.importantExceptions} />
-            ) : (
-              <ReviewFlag visible={p.importantExceptions.includes(NEEDS_LAWYER_REVIEW)} />
-            )}
-
-            <OfficialSources sources={p.officialSource} />
-          </VStack>
-        </Card>
-      ))}
+          ) : null}
+          {current.content}
+          {current.note ? (
+            <Text as="p" type="supporting">
+              {current.note}
+            </Text>
+          ) : null}
+        </VStack>
+      </div>
     </VStack>
   );
 }

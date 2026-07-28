@@ -375,6 +375,35 @@ video {
   background: #d9b675;
 }
 
+/* Компактна темна CTA-смуга в середині довгої сторінки */
+.inline-cta {
+  --color-text-primary: #f4f7fa;
+  --color-text-secondary: #c2d2e0;
+  padding: var(--spacing-6, 1.75rem);
+  border-radius: var(--radius-container, 16px);
+  background: linear-gradient(145deg, #1b4570, #0f2740 80%);
+  color: #f4f7fa;
+}
+
+.inline-cta .astryx-button[data-variant='primary'] {
+  background: var(--brand-gold);
+  color: #2b2410;
+  border-color: transparent;
+}
+
+.inline-cta .astryx-button[data-variant='primary']:hover {
+  background: #d9b675;
+}
+
+/* Липкий зміст сторінки на широких екранах */
+@media (min-width: 1100px) {
+  .page-toc--sticky {
+    position: sticky;
+    top: 5rem;
+    z-index: 1;
+  }
+}
+
 .trust-card {
   padding: var(--spacing-5, 1.25rem);
   border-radius: var(--radius-container, 16px);
