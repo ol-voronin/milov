@@ -83,7 +83,14 @@ export async function notifyTelegram(lead: LeadNotification): Promise<boolean> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
-  if (!token || !chatId) return false;
+  // Явний лог: у Vercel Logs одразу видно, чому сповіщення не пішло
+  if (!token || !chatId) {
+    console.warn('[telegram] disabled — не задані змінні', {
+      hasToken: Boolean(token),
+      hasChatId: Boolean(chatId),
+    });
+    return false;
+  }
 
   try {
     // TELEGRAM_API_BASE — лише для локальних тестів; у проді не задається
@@ -108,10 +115,19 @@ export async function notifyTelegram(lead: LeadNotification): Promise<boolean> {
     });
 
     if (!res.ok) {
-      // Логуємо код помилки без вмісту заявки
-      console.error('[telegram] send failed', { status: res.status });
+      // Логуємо код і пояснення від Telegram (без вмісту заявки),
+      // щоб причина була видна прямо у Vercel Logs
+      let description = '';
+      try {
+        const body = (await res.json()) as { description?: string };
+        description = body.description ?? '';
+      } catch {
+        /* тіло не JSON — байдуже */
+      }
+      console.error('[telegram] send failed', { status: res.status, description });
       return false;
     }
+    console.info('[telegram] sent');
     return true;
   } catch (e) {
     console.error('[telegram] unexpected error', {
