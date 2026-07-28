@@ -18,7 +18,6 @@ import { IconButton } from '@astryxdesign/core/IconButton';
 import { Dialog, DialogHeader } from '@astryxdesign/core/Dialog';
 import { Button } from '@astryxdesign/core/Button';
 import {
-  ScaleIcon,
   PhoneIcon,
   Bars3Icon,
   MagnifyingGlassIcon,
@@ -28,6 +27,7 @@ import {
   BanknotesIcon,
   QuestionMarkCircleIcon,
 } from '@heroicons/react/24/outline';
+import { BrandMark } from './BrandMark';
 import { site } from '@/config/site';
 import { SiteFooter } from './SiteFooter';
 import { MobileCallCta } from './MobileCallCta';
@@ -119,7 +119,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <TopNavHeading
                 heading={site.brandName}
                 headingHref="/"
-                logo={<Icon icon={ScaleIcon} size="md" color="accent" />}
+                logo={<BrandMark size={32} />}
               />
             }
             startContent={

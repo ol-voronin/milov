@@ -138,6 +138,11 @@ video {
     max-height: 92dvh !important;
   }
 
+  /* Нижня CTA не має перекривати вміст відкритої модалки */
+  body:has(dialog[open]) .mobile-call-cta {
+    display: none;
+  }
+
   /* Таблиці не ламають ширину — горизонтальний скрол усередині */
   .table-scroll {
     overflow-x: auto;
@@ -375,6 +380,59 @@ video {
   background: #d9b675;
 }
 
+/* ---- Модалки: вміст має прокручуватися ----
+   Внутрішній контейнер Dialog має overflow: hidden. Поки форма коротка —
+   це непомітно, але щойно людина розкриває блок «Додати деталі», нижня
+   частина форми (разом із кнопкою надсилання) обрізається, а прокрутка
+   сторінки на цей момент заблокована. Тому робимо тіло діалогу
+   самостійно прокручуваним, а шапку з хрестиком лишаємо на місці. */
+dialog > div {
+  overflow: hidden;
+}
+
+dialog > div > :last-child:not(:only-child) {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Шапка діалогу не стискається під тиском довгого вмісту */
+dialog > div > :first-child:not(:only-child) {
+  flex: 0 0 auto;
+}
+
+/* ---- Картка показника практики ---- */
+.stat-card {
+  position: relative;
+  padding: var(--spacing-6, 1.75rem);
+  padding-inline-start: calc(var(--spacing-6, 1.75rem) + 0.375rem);
+  border-radius: var(--radius-container, 6px);
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 0.375rem;
+  border-start-start-radius: var(--radius-container, 6px);
+  border-end-start-radius: var(--radius-container, 6px);
+  background: linear-gradient(180deg, var(--brand-navy), var(--brand-gold));
+}
+
+.stat-card__value {
+  font-family: var(--font-family-heading);
+  font-size: 2.75rem;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--brand-navy);
+  font-variant-numeric: tabular-nums;
+}
+
 /* ---- Картка спеціаліста ---- */
 .person-card {
   display: flex;
@@ -544,37 +602,46 @@ video {
   color: var(--color-text-secondary);
 }
 
-/* ---- Інфографіка «Шлях справи» ---- */
+/* ---- Інфографіка «Шлях справи» ----
+   Сітка з фіксованими доріжками: іконки й підписи стоять на одній
+   лінії незалежно від того, у скільки рядків переноситься текст. */
 .case-flow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-3, 0.75rem);
+  display: grid;
+  grid-template-columns: repeat(9, auto);
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--spacing-2, 0.5rem);
 }
 
 .case-flow__row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3, 0.75rem);
+  display: contents;
 }
 
 .case-flow__stage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-2, 0.5rem);
-  width: 8rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-items: center;
+  gap: var(--spacing-3, 0.75rem);
+  width: 8.5rem;
   text-align: center;
+}
+
+/* Стрілка вирівняна по центру іконок, а не по центру всієї колонки */
+.case-flow__arrow {
+  display: flex;
+  align-items: center;
+  height: 3rem;
 }
 
 @media (max-width: 768px) {
   .case-flow {
-    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
     gap: var(--spacing-5, 1.25rem);
   }
 
   .case-flow__row {
+    display: flex;
     justify-content: center;
   }
 }

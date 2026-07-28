@@ -14,7 +14,7 @@ import {
   PrepChecklist,
   FinalCta,
 } from '@/components/ContentBlocks';
-import { TeamBlock } from '@/components/TeamBlock';
+import { PracticeStats } from '@/components/PracticeStats';
 import { TrustBlock } from '@/components/TrustBlock';
 import { Reviews } from '@/components/Reviews';
 import { FaqList } from '@/components/FaqList';
@@ -81,11 +81,11 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* Команда */}
+      {/* Практика в цифрах */}
       <Section variant="muted" padding={8} paddingBlock={10}>
         <Container>
           <Reveal>
-            <TeamBlock />
+            <PracticeStats />
           </Reveal>
         </Container>
       </Section>
