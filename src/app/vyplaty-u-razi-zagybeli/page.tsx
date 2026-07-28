@@ -87,7 +87,7 @@ export default function DeathPaymentsPage() {
         photo={photos.payments}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container gap={8} maxWidth={980}>
           {/* Коротко — для тих, кому важко читати довгу сторінку (аудит C1) */}
           <SummaryBox

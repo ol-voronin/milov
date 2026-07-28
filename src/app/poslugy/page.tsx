@@ -31,7 +31,7 @@ export default function ServicesPage() {
         photo={photos.services}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container gap={8}>
           <HelpGrid />
           <StepsBlock />

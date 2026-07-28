@@ -6,7 +6,9 @@ import { Grid } from '@astryxdesign/core/Grid';
 import { Text } from '@astryxdesign/core/Text';
 import { Link } from '@astryxdesign/core/Link';
 import { Divider } from '@astryxdesign/core/Divider';
+import { Theme } from '@astryxdesign/core/theme';
 import { site } from '@/config/site';
+import { brandTheme } from '@/theme/brandTheme';
 import { Container } from './Container';
 
 const navColumns = [
@@ -41,7 +43,11 @@ const navColumns = [
 
 export function SiteFooter() {
   return (
-    <Section variant="muted" padding={8}>
+    <footer>
+      {/* Футер виділяється: брендова смуга + темна тема (запит власника) */}
+      <div className="footer-accent" aria-hidden="true" />
+      <Theme theme={brandTheme} mode="dark">
+        <Section variant="muted" padding={8} paddingBlock={10}>
       <Container gap={8}>
         <Grid columns={{ minWidth: 230 }} gap={6}>
           <VStack gap={3}>
@@ -110,6 +116,8 @@ export function SiteFooter() {
           </HStack>
         </VStack>
       </Container>
-    </Section>
+        </Section>
+      </Theme>
+    </footer>
   );
 }

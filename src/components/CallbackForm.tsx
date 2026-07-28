@@ -29,6 +29,8 @@ import { SensitiveDataNotice } from './LegalComponents';
 type Props = {
   /** Попередньо обрана тема (напр. з картки ситуації) */
   defaultTopic?: string;
+  /** Викликається після успішного надсилання (напр. закрити модалку) */
+  onSuccess?: () => void;
 };
 
 /** Легке форматування телефону без жорсткої маски (аудит F7) */
@@ -45,7 +47,7 @@ function formatPhone(raw: string): string {
  * Privacy by design + прогресивне розкриття: 3 обов'язкові поля одразу,
  * опційні — за бажанням (аудит F3, патерн GOV.UK «одна дія за раз»).
  */
-export function CallbackForm({ defaultTopic }: Props) {
+export function CallbackForm({ defaultTopic, onSuccess }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -103,6 +105,7 @@ export function CallbackForm({ defaultTopic }: Props) {
       }
 
       setStatus('success');
+      onSuccess?.();
       router.push('/dyakuyemo');
     } catch (e) {
       setStatus('idle');

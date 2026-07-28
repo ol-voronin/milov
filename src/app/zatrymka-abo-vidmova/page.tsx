@@ -49,7 +49,7 @@ export default function DelayRefusalPage() {
         photo={photos.delay}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container gap={8} maxWidth={980}>
           <VStack gap={4}>
             <Heading level={2}>Виплату затримують: покроково</Heading>

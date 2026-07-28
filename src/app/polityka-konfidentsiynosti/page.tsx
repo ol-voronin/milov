@@ -29,7 +29,7 @@ export default function PrivacyPage() {
         lead="Ми збираємо мінімум даних — лише те, що потрібно, щоб зв’язатися з вами та опрацювати звернення."
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container gap={6} maxWidth={820}>
           <ReviewNote>
             [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ] Цей текст є

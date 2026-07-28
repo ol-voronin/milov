@@ -33,7 +33,7 @@ export default function FaqPage() {
         photo={photos.faq}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container>
           <FaqList items={faqItems} />
         </Container>

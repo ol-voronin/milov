@@ -17,6 +17,7 @@ import {
   ChatBubbleLeftRightIcon,
 } from '@heroicons/react/24/outline';
 import { situations } from '@/content/situations';
+import { useCallbackDialog } from './CallbackDialog';
 
 type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -43,15 +44,18 @@ const medallionVariant: Record<string, string> = {
  * Блок «Що сталося?» — великі картки ситуацій з іконками.
  */
 export function SituationCards() {
+  const { openCallback } = useCallbackDialog();
   return (
     <Grid columns={{ minWidth: 300, max: 3 }} gap={4}>
       {situations.map((s) => {
         const CardIcon = situationIcons[s.id] ?? DocumentTextIcon;
+        const isOther = s.id === 'other';
         return (
           <ClickableCard
             key={s.id}
             label={s.title}
-            href={s.id === 'other' ? `/#callback` : s.href}
+            href={isOther ? undefined : s.href}
+            onClick={isOther ? () => openCallback('other') : undefined}
             padding={5}
           >
             <VStack gap={3} minHeight={170} vAlign="between">
@@ -68,12 +72,21 @@ export function SituationCards() {
                 </Text>
               </VStack>
               {/* Справжнє посилання всередині картки — краща семантика для SR (аудит A2) */}
-              <Link href={s.id === 'other' ? '/zamovyty-dzvinok?tema=other' : s.href} isStandalone>
+              {isOther ? (
                 <HStack gap={1} vAlign="center">
-                  Докладніше
-                  <Icon icon={ArrowRightIcon} size="sm" color="inherit" />
+                  <Text type="label" color="accent" weight="medium">
+                    Замовити дзвінок
+                  </Text>
+                  <Icon icon={ArrowRightIcon} size="sm" color="accent" />
                 </HStack>
-              </Link>
+              ) : (
+                <Link href={s.href} isStandalone>
+                  <HStack gap={1} vAlign="center">
+                    Докладніше
+                    <Icon icon={ArrowRightIcon} size="sm" color="inherit" />
+                  </HStack>
+                </Link>
+              )}
             </VStack>
           </ClickableCard>
         );

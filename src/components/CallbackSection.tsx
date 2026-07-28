@@ -32,7 +32,7 @@ export function CallbackSection({
   defaultTopic,
 }: Props) {
   return (
-    <Section variant="muted" padding={8}>
+    <Section variant="muted" padding={8} paddingBlock={10}>
       <Container>
         <VStack gap={4}>
           <Heading level={2} id="callback">

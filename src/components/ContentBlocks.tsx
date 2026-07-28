@@ -44,6 +44,7 @@ import { ButtonLink } from './ButtonLink';
 import { OfficialSources, ReviewFlag } from './LegalComponents';
 import { SectionAccent } from './HeroVisual';
 import { PagePictogram, type PictogramName } from './PagePictogram';
+import { CallbackButton } from './CallbackDialog';
 
 export type Crumb = { label: string; href?: string };
 
@@ -81,13 +82,13 @@ export function PageHero({
         </Text>
       ) : null}
       <HStack gap={3} wrap="wrap">
-        <ButtonLink label="Замовити дзвінок" variant="primary" href="/zamovyty-dzvinok" />
+        <CallbackButton />
       </HStack>
     </VStack>
   );
 
   return (
-    <Section variant="muted" padding={8} paddingBlock={6}>
+    <Section variant="muted" padding={8} paddingBlock={8}>
       <Container gap={4}>
         {crumbs ? (
           <Breadcrumbs variant="supporting" label="Ви тут">
@@ -152,18 +153,16 @@ const steps = [
 
 export function StepsBlock() {
   return (
-    <VStack gap={4}>
+    <VStack gap={5}>
       <Heading level={2}>Як проходить робота</Heading>
       <Grid columns={{ minWidth: 240, max: 4 }} gap={4}>
-        {steps.map((step, i) => (
+        {steps.map((step) => (
           <Card key={step.title} padding={5}>
             <VStack gap={3}>
-              <HStack gap={3} vAlign="center">
-                <span className="step-circle" aria-hidden="true">
-                  {i + 1}
-                </span>
+              {/* Іконка в сірому кружечку (запит власника) */}
+              <span className="icon-circle" aria-hidden="true">
                 <Icon icon={step.icon} size="lg" color="accent" />
-              </HStack>
+              </span>
               <Heading level={3}>{step.title}</Heading>
               <Text as="p" type="body" color="secondary">
                 {step.text}
@@ -301,7 +300,7 @@ export function HelpGrid({ limit = 6 }: { limit?: number }) {
 
 export function FinalCta() {
   return (
-    <Section variant="transparent" padding={8}>
+    <Section variant="transparent" padding={8} paddingBlock={10}>
       <Container gap={4}>
         <SectionAccent />
         <Heading level={2} textWrap="balance">
@@ -312,12 +311,7 @@ export function FinalCta() {
           який наступний крок може бути доречним у вашій ситуації.
         </Text>
         <VStack gap={2} hAlign="start">
-          <ButtonLink
-            label="Замовити дзвінок юриста"
-            variant="primary"
-            size="lg"
-            href="/zamovyty-dzvinok"
-          />
+          <CallbackButton label="Замовити дзвінок юриста" size="lg" />
           <Text as="p" type="supporting">
             Не потрібно одразу надсилати документи або детально описувати
             особисті обставини.

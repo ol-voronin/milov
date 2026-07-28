@@ -31,7 +31,7 @@ export default function ArticlesPage() {
         photo={photos.info}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container>
           <ArticleSearch includePages />
         </Container>

@@ -25,7 +25,7 @@ export default function TermsPage() {
         lead="Коротко і чесно про те, чим є цей сайт і чим він не є."
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container gap={6} maxWidth={820}>
           <ReviewNote>
             [ПОТРІБНА ПЕРЕВІРКА АДВОКАТОМ ПЕРЕД ПУБЛІКАЦІЄЮ] Текст є шаблоном

@@ -37,7 +37,7 @@ export default function ContactsPage() {
         photo={photos.contacts}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container>
           <Grid columns={{ minWidth: 260, max: 3 }} gap={4}>
             <Card padding={5}>

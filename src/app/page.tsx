@@ -6,6 +6,7 @@ import { Heading, Text } from '@astryxdesign/core/Text';
 import { Badge } from '@astryxdesign/core/Badge';
 import { Container } from '@/components/Container';
 import { ButtonLink } from '@/components/ButtonLink';
+import { CallbackButton } from '@/components/CallbackDialog';
 import { SituationCards } from '@/components/SituationCards';
 import { SectionAccent } from '@/components/HeroVisual';
 import { Reveal } from '@/components/Reveal';
@@ -48,7 +49,7 @@ export default function HomePage() {
       <JsonLd data={faqSchema(homeFaq)} />
 
       {/* Hero */}
-      <Section variant="transparent" padding={8}>
+      <Section variant="transparent" padding={8} paddingBlock={10}>
         <Container gap={6}>
           <Grid columns={{ minWidth: 340, max: 2 }} gap={8} align="center">
             <VStack gap={4}>
@@ -61,12 +62,7 @@ export default function HomePage() {
                 відмову. Просто залиште номер — юрист пояснить, з чого почати.
               </Text>
               <HStack gap={3} wrap="wrap">
-                <ButtonLink
-                  label="Замовити дзвінок"
-                  variant="primary"
-                  size="lg"
-                  href="/zamovyty-dzvinok"
-                />
+                <CallbackButton label="Замовити дзвінок" size="lg" />
                 <ButtonLink
                   label="Обрати свою ситуацію"
                   variant="secondary"
@@ -101,7 +97,7 @@ export default function HomePage() {
       </Section>
 
       {/* Що сталося? */}
-      <Section variant="muted" padding={8}>
+      <Section variant="muted" padding={8} paddingBlock={10}>
         <Container gap={4}>
           <Reveal>
             <VStack gap={4}>
@@ -115,7 +111,7 @@ export default function HomePage() {
       </Section>
 
       {/* З чим допомагаємо */}
-      <Section variant="transparent" padding={8}>
+      <Section variant="transparent" padding={8} paddingBlock={10}>
         <Container>
           <Reveal>
             <HelpGrid />
@@ -124,7 +120,7 @@ export default function HomePage() {
       </Section>
 
       {/* Як проходить робота + шлях справи */}
-      <Section variant="muted" padding={8}>
+      <Section variant="muted" padding={8} paddingBlock={10}>
         <Container gap={8}>
           <Reveal>
             <StepsBlock />
@@ -136,7 +132,7 @@ export default function HomePage() {
       </Section>
 
       {/* Що підготувати */}
-      <Section variant="transparent" padding={8}>
+      <Section variant="transparent" padding={8} paddingBlock={10}>
         <Container>
           <Reveal>
             <PrepChecklist />
@@ -145,7 +141,7 @@ export default function HomePage() {
       </Section>
 
       {/* Команда */}
-      <Section variant="muted" padding={8}>
+      <Section variant="muted" padding={8} paddingBlock={10}>
         <Container>
           <Reveal>
             <TeamBlock />
@@ -154,7 +150,7 @@ export default function HomePage() {
       </Section>
 
       {/* Довіра */}
-      <Section variant="transparent" padding={8}>
+      <Section variant="transparent" padding={8} paddingBlock={10}>
         <Container>
           <Reveal>
             <TrustBlock />
@@ -166,7 +162,7 @@ export default function HomePage() {
       <Reviews />
 
       {/* FAQ */}
-      <Section variant="muted" padding={8}>
+      <Section variant="muted" padding={8} paddingBlock={10}>
         <Container gap={4}>
           <Reveal>
             <VStack gap={4}>

@@ -45,7 +45,7 @@ export default function OtherPaymentsPage() {
         photo={photos.otherPayments}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container gap={8} maxWidth={980}>
           <VStack gap={4}>
             <Heading level={2}>Що може належати родині</Heading>

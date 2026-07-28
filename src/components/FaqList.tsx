@@ -4,7 +4,7 @@ import { Collapsible, CollapsibleGroup } from '@astryxdesign/core/Collapsible';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Text } from '@astryxdesign/core/Text';
 import type { FaqItem } from '@/content/faq';
-import { ButtonLink } from './ButtonLink';
+import { CallbackButton } from './CallbackDialog';
 
 /**
  * FAQ на CollapsibleGroup із кнопкою «Обговорити мою ситуацію»
@@ -24,11 +24,7 @@ export function FaqList({ items }: { items: FaqItem[] }) {
             <Text as="p" type="body" color="secondary">
               {item.answer}
             </Text>
-            <ButtonLink
-              label="Обговорити мою ситуацію"
-              variant="secondary"
-              href="/zamovyty-dzvinok"
-            />
+            <CallbackButton label="Обговорити мою ситуацію" variant="secondary" />
           </VStack>
         </Collapsible>
       ))}

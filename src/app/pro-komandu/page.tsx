@@ -35,7 +35,7 @@ export default function TeamPage() {
         photo={photos.team}
       />
 
-      <Section variant="transparent" padding={8} paddingBlock={0}>
+      <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container gap={8} maxWidth={980}>
           {/* Місія — чому ми цим займаємось (аудит T6) */}
           <VStack gap={3}>
