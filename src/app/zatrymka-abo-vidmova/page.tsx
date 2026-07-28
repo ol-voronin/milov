@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
-import { List, ListItem } from '@astryxdesign/core/List';
 import { Container } from '@/components/Container';
+import { WeHelpBlock } from '@/components/WeHelpBlock';
 import { PageHero, NumberedSteps, FinalCta } from '@/components/ContentBlocks';
 import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalComponents';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
@@ -75,15 +75,16 @@ export default function DelayRefusalPage() {
             </Text>
           </VStack>
 
-          <VStack gap={4}>
-            <Heading level={2}>Чим допомагаємо ми</Heading>
-            <List>
-              <ListItem label="Аналізуємо відповідь або її відсутність і визначаємо правову позицію." />
-              <ListItem label="Готуємо запити, скарги та адвокатські звернення." />
-              <ListItem label="Контролюємо строки та проходження документів." />
-              <ListItem label="За потреби — представляємо інтереси в суді." />
-            </List>
-          </VStack>
+          <WeHelpBlock
+            topic="delay"
+            note="Працюємо з документами і строками, поки ви займаєтесь важливішим."
+            items={[
+              'Аналізуємо відповідь або її відсутність і визначаємо правову позицію.',
+              'Готуємо запити, скарги та адвокатські звернення.',
+              'Контролюємо строки та проходження документів.',
+              'За потреби — представляємо інтереси в суді.',
+            ]}
+          />
 
           <LegalNotice />
           <OfficialSources sources={officialSources} />

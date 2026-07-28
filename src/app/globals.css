@@ -110,6 +110,53 @@
   flex-shrink: 0;
 }
 
+/* ---- Акцентний блок «Чим допомагаємо ми» ---- */
+.we-help {
+  position: relative;
+  padding: var(--spacing-6, 1.75rem);
+  padding-inline-start: calc(var(--spacing-6, 1.75rem) + 0.375rem);
+  border-radius: var(--radius-container, 16px);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-navy) 7%, transparent),
+    color-mix(in srgb, var(--brand-gold) 7%, transparent)
+  );
+  border: 1px solid var(--color-border);
+}
+
+/* Брендова смуга на лівому краї — головний акцент блоку */
+.we-help::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 0.375rem;
+  border-start-start-radius: var(--radius-container, 16px);
+  border-end-start-radius: var(--radius-container, 16px);
+  background: linear-gradient(180deg, var(--brand-navy), var(--brand-gold));
+}
+
+.we-help__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--brand-navy);
+  color: #ffffff;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-block-start: 0.125rem;
+}
+
+@media (max-width: 768px) {
+  .we-help {
+    padding: var(--spacing-5, 1.25rem);
+    padding-inline-start: calc(var(--spacing-5, 1.25rem) + 0.375rem);
+  }
+}
+
 /* Велика позначка успіху на сторінці подяки */
 .success-mark {
   display: inline-flex;

@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { VStack } from '@astryxdesign/core/Stack';
 import { Heading, Text } from '@astryxdesign/core/Text';
-import { List, ListItem } from '@astryxdesign/core/List';
 import { Banner } from '@astryxdesign/core/Banner';
+import { WeHelpBlock } from '@/components/WeHelpBlock';
 import { Container } from '@/components/Container';
 import { PageHero, NumberedSteps, FinalCta } from '@/components/ContentBlocks';
 import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalComponents';
@@ -65,15 +65,16 @@ export default function MissingPage() {
             description="Не сплачуйте нікому за «інформацію про полонених» чи «пришвидшення обміну». Такі пропозиції — типова схема шахрайства щодо родин зниклих безвісти. Офіційна інформація надається державними органами безкоштовно."
           />
 
-          <VStack gap={4}>
-            <Heading level={2}>Чим допомагаємо ми</Heading>
-            <List>
-              <ListItem label="Пояснюємо права родини та порядок звернень до державних органів." />
-              <ListItem label="Готуємо заяви й запити щодо статусу та виплат." />
-              <ListItem label="Супроводжуємо отримання грошового забезпечення на період відсутності." />
-              <ListItem label="Допомагаємо, якщо органи не відповідають або відмовляють." />
-            </List>
-          </VStack>
+          <WeHelpBlock
+            topic="missing"
+            note="Беремо на себе процедурну частину — від першого звернення до контролю строків."
+            items={[
+              'Пояснюємо права родини та порядок звернень до державних органів.',
+              'Готуємо заяви й запити щодо статусу та виплат.',
+              'Супроводжуємо отримання грошового забезпечення на період відсутності.',
+              'Допомагаємо, якщо органи не відповідають або відмовляють.',
+            ]}
+          />
 
           <LegalNotice />
           <OfficialSources sources={officialSources} />

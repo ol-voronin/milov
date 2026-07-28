@@ -42,4 +42,16 @@ export const brandTheme = defineTheme({
     // Теплий білий / світло-бежевий фон сторінки
     '--color-background-body': ['#F8F6F2', '#141517'],
   },
+  components: {
+    /**
+     * Кнопки більші: цільова аудиторія часто користується телефоном,
+     * тому тап-зона і кегль підняті понад дефолт (мінімум 44px за WCAG 2.2).
+     */
+    button: {
+      base: { fontWeight: '600' },
+      'size:sm': { minHeight: '2.5rem', paddingInline: '1rem' },
+      'size:md': { minHeight: '3rem', paddingInline: '1.5rem' },
+      'size:lg': { minHeight: '3.5rem', paddingInline: '2rem' },
+    },
+  },
 });
