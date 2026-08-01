@@ -12,9 +12,9 @@ import {
   StepsBlock,
   CaseFlow,
   PrepChecklist,
-  FinalCta,
 } from '@/components/ContentBlocks';
 import { PracticeStats } from '@/components/PracticeStats';
+import { NextSteps } from '@/components/NextSteps';
 import { TrustBlock } from '@/components/TrustBlock';
 import { Reviews } from '@/components/Reviews';
 import { FaqList } from '@/components/FaqList';
@@ -119,8 +119,8 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* Фінальний CTA */}
-      <FinalCta />
+      {/* Куди йти далі — з головної веде найширший вибір тем */}
+      <NextSteps page="info" />
     </>
   );
 }

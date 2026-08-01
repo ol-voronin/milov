@@ -13,7 +13,6 @@ import {
   PageToc,
   SectionTabs,
   InlineCta,
-  FinalCta,
 } from '@/components/ContentBlocks';
 import { WeHelpBlock } from '@/components/WeHelpBlock';
 import {
@@ -22,6 +21,7 @@ import {
   OfficialSources,
 } from '@/components/LegalComponents';
 import { FaqList } from '@/components/FaqList';
+import { NextSteps } from '@/components/NextSteps';
 import { JsonLd, breadcrumbSchema, faqSchema } from '@/components/JsonLd';
 import { officialSources } from '@/content/payments';
 import { faqItems } from '@/content/faq';
@@ -277,7 +277,7 @@ export default function DeathPaymentsPage() {
         </Container>
       </Section>
 
-      <FinalCta topic="death" />
+      <NextSteps page="payments" />
     </>
   );
 }

@@ -5,8 +5,9 @@ import { Heading, Text } from '@astryxdesign/core/Text';
 import { Banner } from '@astryxdesign/core/Banner';
 import { WeHelpBlock } from '@/components/WeHelpBlock';
 import { Container } from '@/components/Container';
-import { PageHero, NumberedSteps, FinalCta } from '@/components/ContentBlocks';
+import { PageHero, NumberedSteps } from '@/components/ContentBlocks';
 import { LegalNotice, LegalMeta, OfficialSources } from '@/components/LegalComponents';
+import { NextSteps } from '@/components/NextSteps';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { officialSources } from '@/content/payments';
 import { photos } from '@/config/photos';
@@ -82,7 +83,7 @@ export default function MissingPage() {
         </Container>
       </Section>
 
-      <FinalCta topic="missing" />
+      <NextSteps page="missing" />
     </>
   );
 }

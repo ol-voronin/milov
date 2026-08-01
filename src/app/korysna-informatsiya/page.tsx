@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Section } from '@astryxdesign/core/Section';
 import { Container } from '@/components/Container';
-import { PageHero, FinalCta } from '@/components/ContentBlocks';
+import { PageHero } from '@/components/ContentBlocks';
 import { KnowledgeHub } from '@/components/KnowledgeHub';
+import { NextSteps } from '@/components/NextSteps';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { photos } from '@/config/photos';
 
@@ -36,7 +37,7 @@ export default function ArticlesPage() {
         </Container>
       </Section>
 
-      <FinalCta />
+      <NextSteps page="info" />
     </>
   );
 }

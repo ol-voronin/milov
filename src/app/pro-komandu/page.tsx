@@ -4,10 +4,11 @@ import { VStack } from '@astryxdesign/core/Stack';
 import { Grid } from '@astryxdesign/core/Grid';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { Container } from '@/components/Container';
-import { PageHero, InlineCta, FinalCta } from '@/components/ContentBlocks';
+import { PageHero, InlineCta } from '@/components/ContentBlocks';
 import { TeamBlock } from '@/components/TeamBlock';
 import { TrustBlock } from '@/components/TrustBlock';
 import { CheckList } from '@/components/CheckList';
+import { NextSteps } from '@/components/NextSteps';
 import { JsonLd, breadcrumbSchema, organizationSchema } from '@/components/JsonLd';
 import { photos } from '@/config/photos';
 
@@ -148,7 +149,7 @@ export default function TeamPage() {
         </Container>
       </Section>
 
-      <FinalCta />
+      <NextSteps page="team" />
     </>
   );
 }

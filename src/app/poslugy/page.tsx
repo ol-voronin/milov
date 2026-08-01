@@ -9,10 +9,10 @@ import {
   StepsBlock,
   CaseFlow,
   InlineCta,
-  FinalCta,
 } from '@/components/ContentBlocks';
 import { PriceBlock } from '@/components/PriceBlock';
 import { WeHelpBlock } from '@/components/WeHelpBlock';
+import { NextSteps } from '@/components/NextSteps';
 import { JsonLd, breadcrumbSchema } from '@/components/JsonLd';
 import { photos } from '@/config/photos';
 
@@ -102,7 +102,7 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      <FinalCta />
+      <NextSteps page="services" />
     </>
   );
 }

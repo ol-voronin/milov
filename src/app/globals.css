@@ -517,6 +517,181 @@ dialog > div > :first-child:not(:only-child) {
   flex: 0 0 auto;
 }
 
+/* ---- Блок «Далі за темою» ----
+   Асиметрична сітка: переходи ліворуч на дві третини, заклик до дії
+   праворуч вужчою колонкою. Це навмисно НЕ схоже на решту секцій
+   сайту, побудованих на симетричних сітках карток. */
+.next-steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.next-steps__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.next-steps__item {
+  border-bottom: 1px solid var(--color-border);
+  max-inline-size: none;
+}
+
+.next-steps__link {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'label arrow'
+    'hint  arrow';
+  align-items: center;
+  gap: 0.25rem 1rem;
+  padding-block: 1.125rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s ease, padding-inline-start 0.15s ease;
+}
+
+.next-steps__link:hover,
+.next-steps__link:focus-visible {
+  background: var(--color-background-muted);
+  padding-inline-start: 0.75rem;
+}
+
+.next-steps__label {
+  grid-area: label;
+  font-family: var(--font-family-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+}
+
+.next-steps__hint {
+  grid-area: hint;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.next-steps__link > [class*='icon'],
+.next-steps__link svg {
+  grid-area: arrow;
+}
+
+/* Заклик до дії — тиха рамка з боковою лінією, а не ще один синій блок:
+   таких на сторінці вже досить. */
+.next-steps__cta {
+  padding: var(--spacing-5, 1.25rem);
+  padding-inline-start: calc(var(--spacing-5, 1.25rem) + 0.25rem);
+  border-radius: var(--radius-container, 6px);
+  background: var(--color-background-muted);
+  border-inline-start: 3px solid var(--brand-gold);
+}
+
+@media (max-width: 860px) {
+  .next-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Команда: горизонтальні смуги замість сітки карток ---- */
+.team-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+  /* Текст усередині обмежений довжиною рядка, тому на всю ширину 1120px
+     смуга виглядала б наполовину порожньою. Обмежуємо весь список —
+     тоді вільне поле праворуч читається як поле, а не як діра. */
+  max-inline-size: 54rem;
+}
+
+.team-row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: start;
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
+  border-bottom: 1px solid var(--color-border);
+  max-inline-size: none;
+}
+
+.team-row__portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-container, 6px);
+  overflow: hidden;
+  background: var(--color-background-muted);
+  display: grid;
+  place-items: center;
+}
+
+.team-row__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Номер напряму замість силуету, поки немає реального портрета */
+.team-row__mark {
+  font-family: var(--font-family-heading);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--brand-navy);
+  opacity: 0.35;
+  font-variant-numeric: tabular-nums;
+}
+
+.team-row__portrait::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 0.25rem;
+  background: var(--brand-gold);
+}
+
+/* Завдання напряму — тире на полях, а не чергові галочки в кружечках:
+   кружечків на сайті вже достатньо */
+.team-row__tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.375rem;
+}
+
+.team-row__tasks li {
+  position: relative;
+  padding-inline-start: 1.125rem;
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.team-row__tasks li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.7em;
+  width: 0.5rem;
+  height: 1px;
+  background: var(--brand-gold);
+}
+
+@media (max-width: 560px) {
+  .team-row {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+  }
+
+  .team-row__mark {
+    font-size: 1.375rem;
+  }
+}
+
 /* ---- Картка показника практики ---- */
 .stat-card {
   position: relative;
