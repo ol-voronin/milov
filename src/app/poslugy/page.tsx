@@ -90,7 +90,7 @@ export default function ServicesPage() {
       <Section variant="transparent" padding={8} paddingBlock={0}>
         <Container>
           <WeHelpBlock
-            title="Що ви отримуєте на практиці"
+            title="Що саме ми зробимо з вашими документами"
             note="Не абстрактні «юридичні послуги», а конкретні дії з вашими документами."
             items={[
               'Письмовий висновок: які виплати вам належать і чого бракує.',

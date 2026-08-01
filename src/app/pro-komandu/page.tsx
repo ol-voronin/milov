@@ -79,7 +79,7 @@ export default function TeamPage() {
           <VStack gap={5}>
             <VStack gap={3} maxWidth={720}>
               <span className="section-rule" aria-hidden="true" />
-              <Heading level={2}>Наші принципи</Heading>
+              <Heading level={2}>Правила, за якими працюємо</Heading>
               <Text as="p" type="body" color="secondary" textWrap="pretty">
                 Це не гасла, а правила, за якими нас можна перевірити на першій
                 же розмові.

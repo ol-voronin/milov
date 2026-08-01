@@ -347,7 +347,7 @@ export function HelpGrid({ limit = 6 }: { limit?: number }) {
     <VStack gap={4}>
       <VStack gap={3}>
         <span className="section-rule" aria-hidden="true" />
-        <Heading level={2}>З чим допомагаємо</Heading>
+        <Heading level={2}>З чим ми допомагаємо родинам</Heading>
       </VStack>
       <Grid columns={{ minWidth: 280, max: 3 }} gap={4}>
         {items.map((item, i) => (
@@ -425,7 +425,7 @@ export function SummaryBox({ items }: { items: string[] }) {
           <span className="step-circle" aria-hidden="true">
             !
           </span>
-          <Heading level={2}>Коротко</Heading>
+          <Heading level={2}>Головне за хвилину</Heading>
         </HStack>
         <CheckList items={items} tone="gold" />
       </VStack>

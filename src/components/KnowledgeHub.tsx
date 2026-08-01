@@ -116,7 +116,7 @@ export function KnowledgeHub() {
 
       {/* Пошук + фільтри */}
       <VStack gap={4}>
-        <Heading level={2}>Усі матеріали</Heading>
+        <Heading level={2}>Інструкції та зразки</Heading>
         <TextInput
           label="Пошук по матеріалах"
           value={query}

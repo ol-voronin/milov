@@ -47,7 +47,7 @@ export default function MissingPage() {
       <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container rhythm="major">
           <VStack gap={4}>
-            <Heading level={2}>Основні кроки для родини</Heading>
+            <Heading level={2}>З чого починати родині</Heading>
             <NumberedSteps steps={familySteps} />
           </VStack>
 

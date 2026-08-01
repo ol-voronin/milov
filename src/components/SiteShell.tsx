@@ -12,6 +12,7 @@ import {
 import { SideNavItem, SideNavSection } from '@astryxdesign/core/SideNav';
 import { MobileNav } from '@astryxdesign/core/MobileNav';
 import { Link } from '@astryxdesign/core/Link';
+import { Text } from '@astryxdesign/core/Text';
 import { HStack, VStack } from '@astryxdesign/core/Stack';
 import { Icon } from '@astryxdesign/core/Icon';
 import { IconButton } from '@astryxdesign/core/IconButton';
@@ -153,8 +154,17 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <MobileNav
             isOpen={isMenuOpen}
             onOpenChange={setIsMenuOpen}
-            header={site.brandName}
-            width={300}
+            /* Не рядок, а власний вузол: рядок Astryx рендерить як h2 (32px),
+               і в колонці 300px назва ламалася на два рядки й обрізалася */
+            header={
+              <HStack gap={2} vAlign="center">
+                <BrandMark size={24} />
+                <Text type="label" weight="semibold">
+                  {site.brandName}
+                </Text>
+              </HStack>
+            }
+            width={320}
           >
             <VStack gap={4}>
               <Button
