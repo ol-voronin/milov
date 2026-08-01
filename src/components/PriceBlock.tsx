@@ -19,12 +19,18 @@ const priceRows = [
   { label: 'Супровід справи', value: pricing.caseSupportPricingModel },
 ];
 
-export function PriceBlock() {
+/**
+ * @param withHeading — власний заголовок потрібен лише тоді, коли блок
+ * стоїть окремо. На сторінці «Послуги» над ним уже є h2 «Вартість і
+ * формати допомоги», і два майже однакові заголовки поспіль читалися
+ * як помилка верстки (замір показав між ними всього 20px).
+ */
+export function PriceBlock({ withHeading = true }: { withHeading?: boolean }) {
   const hasAnyPrice = priceRows.some((r) => r.value !== '');
 
   return (
     <VStack gap={4}>
-      <Heading level={2}>Вартість послуг</Heading>
+      {withHeading ? <Heading level={2}>Вартість послуг</Heading> : null}
       <Text as="p" type="body" color="secondary">
         {pricing.fallbackText}
       </Text>

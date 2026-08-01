@@ -73,7 +73,7 @@ export default function ServicesPage() {
 
       {/* Вартість */}
       <Section variant="transparent" padding={8} paddingBlock={10}>
-        <Container gap={5}>
+        <Container rhythm="minor">
           <VStack gap={3} maxWidth={720}>
             <span className="section-rule" aria-hidden="true" />
             <Heading level={2}>Вартість і формати допомоги</Heading>
@@ -82,7 +82,7 @@ export default function ServicesPage() {
               справи — щоб ви платили лише за те, що дійсно потрібно.
             </Text>
           </VStack>
-          <PriceBlock />
+          <PriceBlock withHeading={false} />
         </Container>
       </Section>
 

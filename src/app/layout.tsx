@@ -2,8 +2,20 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import '@astryxdesign/core/reset.css';
 import '@astryxdesign/core/astryx.css';
-import '@fontsource-variable/source-sans-3';
-import '@fontsource-variable/source-serif-4';
+/**
+ * Шрифти.
+ *
+ * IBM Plex Sans — лише вісь ваги (wght). Тілу тексту більше нічого не треба,
+ * а зайві осі це зайві кілобайти.
+ *
+ * Literata — варіант standard, тобто вісь ваги ПЛЮС вісь optical size.
+ * Кирилична підмножина важить 64 КБ замість 28 КБ, і ці 36 КБ витрачаються
+ * свідомо: саме opsz робить заголовок на 44px гострішим і контрастнішим,
+ * а дрібний серіф — міцнішим. Латинська підмножина на україномовних
+ * заголовках майже не завантажується (unicode-range).
+ */
+import '@fontsource-variable/ibm-plex-sans';
+import '@fontsource-variable/literata/standard.css';
 import '@/theme/brandTheme.css';
 import './globals.css';
 import { Providers } from '@/components/Providers';

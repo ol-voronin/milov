@@ -45,7 +45,7 @@ export default function OtherPaymentsPage() {
       />
 
       <Section variant="transparent" padding={8} paddingBlock={8}>
-        <Container gap={8}>
+        <Container rhythm="major">
           <VStack gap={4}>
             <Heading level={2}>Що може належати родині</Heading>
             <Text as="p" type="body" color="secondary">

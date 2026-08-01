@@ -25,18 +25,26 @@ export const brandTheme = defineTheme({
      */
     scale: { base: 16, ratio: 1.28 },
     /**
-     * Шрифтова пара — суперсімейство Source (Adobe): Source Sans 3
-     * для тексту і Source Serif 4 для заголовків. Вони спроєктовані
-     * разом, мають однакові пропорції та повну кирилицю, тому не
-     * «сперечаються» одне з одним, як випадкова пара з різних сімейств.
+     * Шрифтова пара.
+     *
+     * Literata — читацький серіф зі змінною віссю optical size: у великому
+     * кеглі стає контрастнішою й гострішою, у дрібному — міцнішою та
+     * відкритішою. Саме через це заголовки не виглядають «розтягнутим
+     * дефолтом». Малювалася для довгого читання з екрана, повна кирилиця.
+     *
+     * IBM Plex Sans — гротеск із упізнаваними скошеними терміналами;
+     * не сплутати з Inter / Roboto / Source, які стоять на кожному
+     * другому сайті. Кирилиця від ParaType.
+     *
+     * Разом: серйозна редакційна інтонація без «юрфірмового шаблону».
      */
     body: {
-      family: 'Source Sans 3 Variable',
+      family: 'IBM Plex Sans Variable',
       fallbacks:
         '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     },
     heading: {
-      family: 'Source Serif 4 Variable',
+      family: 'Literata Variable',
       fallbacks: 'Georgia, "Times New Roman", serif',
     },
   },
@@ -60,6 +68,52 @@ export const brandTheme = defineTheme({
     '--radius-container': '6px',
     '--radius-page': '6px',
     '--radius-chat': '6px',
+
+    /**
+     * ТИПОГРАФІЧНА ШКАЛА — задана поштучно, а не одним коефіцієнтом.
+     *
+     * Геометрична прогресія (scale.ratio) не може одночасно дати
+     * великі заголовки і НЕ дати мікроскопічний допоміжний текст:
+     * щоб h1 виріс до 44px, ratio має бути ~1.36, і тоді допоміжний
+     * падає до 12,5px. Тому шкалу фіксуємо вручну.
+     *
+     * Було → стало:
+     *   h1        34 → 44    (ієрархія була заслабка: h1 лише в 1,3× h2)
+     *   h2        26 → 32
+     *   h3/lead   20 → 22
+     *   текст     16 → 17
+     *   допоміжн. 13 → 15    (13px на екрані читається важко)
+     *   найдрібн. 10 → 14    (нижче 14px не опускаємось ніде)
+     */
+    '--font-size-xs': '0.875rem', //  14px — бейджі, дрібні мітки
+    '--font-size-sm': '0.9375rem', //  15px — допоміжний текст
+    '--font-size-base': '1.0625rem', // 17px — основний текст
+    '--font-size-lg': '1.375rem', //  22px — лід і h3
+    '--font-size-xl': '2rem', //      32px — h2
+    '--font-size-2xl': '2.75rem', //  44px — h1
+    '--font-size-3xl': '3.375rem', // 54px — display
+    '--font-size-4xl': '4.25rem', //  68px
+    '--font-size-5xl': '5.25rem', //  84px
+
+    /**
+     * Інтерліньяж. Українська має довші слова за англійську, а тексти
+     * тут юридичні — читати доводиться уважно. 1,5 було тісно.
+     */
+    '--text-body-leading': '1.65', //       17 → 28px
+    '--text-label-leading': '1.5',
+    '--text-supporting-leading': '1.6', //  15 → 24px
+    '--text-large-leading': '1.45', //      22 → 32px
+    '--text-heading-1-leading': '1.18', //  44 → 52px
+    '--text-heading-2-leading': '1.3', //   32 → 42px
+    '--text-heading-3-leading': '1.36', //  22 → 30px
+    '--text-heading-4-leading': '1.45',
+
+    /**
+     * Лід-абзац під заголовком був semibold — на 22px це читалося як
+     * другий заголовок і сперечалося з h1. Робимо звичайну вагу:
+     * розмір уже виділяє його достатньо.
+     */
+    '--text-large-weight': 'var(--font-weight-normal)',
   },
   components: {
     /**

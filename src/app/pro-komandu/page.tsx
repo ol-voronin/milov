@@ -58,7 +58,7 @@ export default function TeamPage() {
 
       {/* Місія — чому ми цим займаємось */}
       <Section variant="transparent" padding={8} paddingBlock={10}>
-        <Container gap={8}>
+        <Container rhythm="major">
           <VStack gap={3} maxWidth={720}>
             <span className="section-rule" aria-hidden="true" />
             <Heading level={2}>Чому ми цим займаємось</Heading>

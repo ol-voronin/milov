@@ -17,6 +17,7 @@ import { CallbackButton } from './CallbackDialog';
 import { SectionAccent } from './HeroVisual';
 import { Reveal } from './Reveal';
 import { photos } from '@/config/photos';
+import { PageHeroPhoto } from './PageHeroPhoto';
 
 const trustSignals = [
   'Конфіденційно',
@@ -62,14 +63,11 @@ export function HomeHero() {
           </VStack>
           <Reveal delay={1}>
             {/* Фото — безкоштовний фотосток Unsplash (src/config/photos.ts).
+                Проксіюється через next/image, щоб IP відвідувача не йшов
+                до стороннього CDN — див. PageHeroPhoto.tsx.
                 TODO: за бажанням замініть на власне фото — без сцен горя. */}
             <span className="hero-photo-frame">
-              <img
-                src={photos.home.src}
-                alt={photos.home.alt}
-                loading="eager"
-                fetchPriority="high"
-              />
+              <PageHeroPhoto src={photos.home.src} alt={photos.home.alt} />
               <span className="hero-photo-accent" aria-hidden="true" />
             </span>
           </Reveal>

@@ -26,73 +26,46 @@ import {
   UsersIcon,
   BanknotesIcon,
   QuestionMarkCircleIcon,
+  BriefcaseIcon,
 } from '@heroicons/react/24/outline';
 import { BrandMark } from './BrandMark';
 import { site } from '@/config/site';
+import {
+  primaryNav,
+  situationLinks,
+  helpLinks,
+  type NavLink,
+} from '@/config/navigation';
 import { SiteFooter } from './SiteFooter';
 import { MobileCallCta } from './MobileCallCta';
 import { ButtonLink } from './ButtonLink';
 import { CallbackDialogProvider, CallbackButton } from './CallbackDialog';
 import { ArticleSearch } from './ArticleComponents';
 
-/** Меню «Ситуації» з іконками — всі сценарії доступні звідусіль (аудит N1) */
-const situationMenu = [
-  {
-    title: 'Виплати у разі загибелі',
-    description: 'Хто має право, документи, порядок дій',
-    href: '/vyplaty-u-razi-zagybeli',
-    icon: <Icon icon={DocumentTextIcon} size="md" color="accent" />,
-  },
-  {
-    title: 'Затримка або відмова у виплаті',
-    description: 'Як зафіксувати бездіяльність та оскаржити',
-    href: '/zatrymka-abo-vidmova',
-    icon: <Icon icon={ClockIcon} size="md" color="accent" />,
-  },
-  {
-    title: 'Зниклі безвісти та полонені',
-    description: 'Права родини та порядок звернень',
-    href: '/znykli-bezvisty-ta-poloneni',
-    icon: <Icon icon={MagnifyingGlassIcon} size="md" color="accent" />,
-  },
-  {
-    title: 'Пенсія, компенсації, статуси',
-    description: 'Інші виплати та оформлення для родини',
-    href: '/inshi-vyplaty',
-    icon: <Icon icon={BanknotesIcon} size="md" color="accent" />,
-  },
-  {
-    title: 'Спір між членами родини',
-    description: 'Хто має право на виплату та частки',
-    href: '/vyplaty-u-razi-zagybeli#khto-maye-pravo',
-    icon: <Icon icon={UsersIcon} size="md" color="accent" />,
-  },
-  {
-    title: 'Поширені запитання',
-    description: 'Короткі відповіді на найчастіші питання',
-    href: '/faq',
-    icon: <Icon icon={QuestionMarkCircleIcon} size="md" color="accent" />,
-  },
-];
+/**
+ * Іконки для пунктів меню — окремо від назв, бо назви живуть
+ * у src/config/navigation.ts (єдине джерело для шапки, футера й
+ * блоків «Далі за темою»).
+ */
+const menuIcons: Record<string, typeof DocumentTextIcon> = {
+  '/vyplaty-u-razi-zagybeli': DocumentTextIcon,
+  '/zatrymka-abo-vidmova': ClockIcon,
+  '/znykli-bezvisty-ta-poloneni': MagnifyingGlassIcon,
+  '/inshi-vyplaty': BanknotesIcon,
+  '/poslugy': BriefcaseIcon,
+  '/pro-komandu': UsersIcon,
+  '/faq': QuestionMarkCircleIcon,
+};
 
-const navItems = [
-  { label: 'Послуги', href: '/poslugy' },
-  { label: 'Корисна інформація', href: '/korysna-informatsiya' },
-  { label: 'Про нас', href: '/pro-komandu' },
-  { label: 'Контакти', href: '/kontakty' },
-];
-
-const mobileNavItems = [
-  { label: 'Виплати у разі загибелі', href: '/vyplaty-u-razi-zagybeli' },
-  { label: 'Затримка або відмова', href: '/zatrymka-abo-vidmova' },
-  { label: 'Зниклі безвісти та полонені', href: '/znykli-bezvisty-ta-poloneni' },
-  { label: 'Пенсія, компенсації, статуси', href: '/inshi-vyplaty' },
-  { label: 'Послуги', href: '/poslugy' },
-  { label: 'Корисна інформація', href: '/korysna-informatsiya' },
-  { label: 'Поширені запитання', href: '/faq' },
-  { label: 'Про нас', href: '/pro-komandu' },
-  { label: 'Контакти', href: '/kontakty' },
-];
+const toMenuItems = (links: NavLink[]) =>
+  links.map((l) => ({
+    title: l.label,
+    description: l.description,
+    href: l.href,
+    icon: menuIcons[l.href] ? (
+      <Icon icon={menuIcons[l.href]} size="md" color="accent" />
+    ) : undefined,
+  }));
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -124,15 +97,22 @@ export function SiteShell({ children }: { children: ReactNode }) {
             }
             startContent={
               <>
-                <TopNavMenu label="Ситуації" items={situationMenu} />
-                {navItems.map((item) => (
-                  <TopNavItem
-                    key={item.href}
-                    label={item.label}
-                    href={item.href}
-                    isSelected={isSelected(item.href)}
-                  />
-                ))}
+                {primaryNav.map((entry) =>
+                  entry.items ? (
+                    <TopNavMenu
+                      key={entry.label}
+                      label={entry.label}
+                      items={toMenuItems(entry.items)}
+                    />
+                  ) : (
+                    <TopNavItem
+                      key={entry.href}
+                      label={entry.label}
+                      href={entry.href!}
+                      isSelected={isSelected(entry.href!)}
+                    />
+                  ),
+                )}
               </>
             }
             endContent={
@@ -187,8 +167,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   setIsSearchOpen(true);
                 }}
               />
-              <SideNavSection title="Розділи сайту">
-                {mobileNavItems.map((item) => (
+              {/* Ті самі групи, що й у шапці — щоб на телефоні структура
+                  сайту читалася так само, а не плоским списком із 9 пунктів */}
+              <SideNavSection title="Що сталося">
+                {situationLinks.map((item) => (
                   <SideNavItem
                     key={item.href}
                     label={item.label}
@@ -197,6 +179,31 @@ export function SiteShell({ children }: { children: ReactNode }) {
                     onClick={() => setIsMenuOpen(false)}
                   />
                 ))}
+              </SideNavSection>
+              <SideNavSection title="Наша допомога">
+                {helpLinks.map((item) => (
+                  <SideNavItem
+                    key={item.href}
+                    label={item.label}
+                    href={item.href}
+                    isSelected={isSelected(item.href)}
+                    onClick={() => setIsMenuOpen(false)}
+                  />
+                ))}
+              </SideNavSection>
+              <SideNavSection title="Матеріали">
+                <SideNavItem
+                  label="Інструкції та чеклісти"
+                  href="/korysna-informatsiya"
+                  isSelected={isSelected('/korysna-informatsiya')}
+                  onClick={() => setIsMenuOpen(false)}
+                />
+                <SideNavItem
+                  label="Контакти"
+                  href="/kontakty"
+                  isSelected={isSelected('/kontakty')}
+                  onClick={() => setIsMenuOpen(false)}
+                />
               </SideNavSection>
               <VStack gap={2}>
                 <CallbackButton width="100%" />

@@ -48,6 +48,7 @@ import { OfficialSources, ReviewFlag } from './LegalComponents';
 import { SectionAccent } from './HeroVisual';
 import { PagePictogram, type PictogramName } from './PagePictogram';
 import { CallbackButton } from './CallbackDialog';
+import { PageHeroPhoto } from './PageHeroPhoto';
 
 export type Crumb = { label: string; href?: string };
 
@@ -112,13 +113,7 @@ export function PageHero({
         {photo ? (
           <Grid columns={{ minWidth: 340, max: 2 }} gap={6} align="center">
             {textBlock}
-            <img
-              className="page-hero-img"
-              src={photo.src}
-              alt={photo.alt}
-              loading="eager"
-              fetchPriority="high"
-            />
+            <PageHeroPhoto src={photo.src} alt={photo.alt} />
           </Grid>
         ) : (
           <HStack gap={5} vAlign="center" wrap="wrap">

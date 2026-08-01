@@ -8,35 +8,8 @@ import { Link } from '@astryxdesign/core/Link';
 import { Divider } from '@astryxdesign/core/Divider';
 import { site } from '@/config/site';
 import { Container } from './Container';
+import { footerColumns } from '@/config/navigation';
 
-const navColumns = [
-  {
-    title: 'Ситуації',
-    links: [
-      { label: 'Виплати у разі загибелі', href: '/vyplaty-u-razi-zagybeli' },
-      { label: 'Затримка або відмова', href: '/zatrymka-abo-vidmova' },
-      { label: 'Зниклі безвісти та полонені', href: '/znykli-bezvisty-ta-poloneni' },
-      { label: 'Пенсія, компенсації, статуси', href: '/inshi-vyplaty' },
-    ],
-  },
-  {
-    title: 'Практика',
-    links: [
-      { label: 'Послуги', href: '/poslugy' },
-      { label: 'Про команду', href: '/pro-komandu' },
-      { label: 'Поширені запитання', href: '/faq' },
-      { label: 'Корисна інформація', href: '/korysna-informatsiya' },
-    ],
-  },
-  {
-    title: 'Правова інформація',
-    links: [
-      { label: 'Політика конфіденційності', href: '/polityka-konfidentsiynosti' },
-      { label: 'Умови користування сайтом', href: '/umovy-korystuvannia' },
-      { label: 'Контакти', href: '/kontakty' },
-    ],
-  },
-];
 
 export function SiteFooter() {
   return (
@@ -69,7 +42,7 @@ export function SiteFooter() {
               </Text>
             </VStack>
           </VStack>
-          {navColumns.map((col) => (
+          {footerColumns.map((col) => (
             <VStack gap={3} key={col.title}>
               <Text as="p" type="label" weight="semibold">
                 {col.title}

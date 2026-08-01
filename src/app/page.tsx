@@ -62,7 +62,7 @@ export default function HomePage() {
 
       {/* Як проходить робота + шлях справи */}
       <Section variant="muted" padding={8} paddingBlock={10}>
-        <Container gap={8}>
+        <Container rhythm="major">
           <Reveal>
             <StepsBlock />
           </Reveal>

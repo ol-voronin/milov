@@ -200,7 +200,7 @@ export default function DeathPaymentsPage() {
 
       {/* Блок 4: куди звертатися + затримка/відмова + складні ситуації */}
       <Section variant="muted" padding={8} paddingBlock={10}>
-        <Container gap={8}>
+        <Container rhythm="major">
           <VStack gap={3} maxWidth={720}>
             <span className="section-rule" aria-hidden="true" />
             <Heading level={2} id="kudy">
@@ -258,7 +258,7 @@ export default function DeathPaymentsPage() {
 
       {/* Блок 5: FAQ + юридичні застереження + джерела одним блоком */}
       <Section variant="transparent" padding={8} paddingBlock={10}>
-        <Container gap={8}>
+        <Container rhythm="major">
           <VStack gap={4}>
             <VStack gap={3} maxWidth={720}>
               <span className="section-rule" aria-hidden="true" />
