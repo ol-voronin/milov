@@ -35,7 +35,7 @@ export default function FaqPage() {
 
       <Section variant="transparent" padding={8} paddingBlock={8}>
         <Container>
-          <FaqList items={faqItems} />
+          <FaqList items={faqItems} grouped />
         </Container>
       </Section>
 

@@ -32,25 +32,34 @@ export function LegalNotice() {
   );
 }
 
+/**
+ * Офіційні джерела.
+ *
+ * Було: стовпчик однакових синіх посилань без пояснень — людина не
+ * розуміла, куди саме її відправляють і навіщо. Стало: два стовпці
+ * з підписом, що шукати на кожному ресурсі, у тихій рамці.
+ */
 export function OfficialSources({ sources }: { sources: OfficialSource[] }) {
   if (sources.length === 0) return null;
   return (
-    <VStack gap={2}>
+    <aside className="sources">
       <Text as="p" type="label" weight="semibold">
-        Офіційні джерела
+        Перевірити в першоджерелі
       </Text>
-      <VStack gap={1} hAlign="start">
+      <ul className="sources__list">
         {sources.map((s) => (
-          <Link key={s.url} href={s.url} isExternalLink isStandalone>
-            {s.title}
-          </Link>
+          <li key={s.url}>
+            <Link href={s.url} isExternalLink isStandalone>
+              {s.title}
+            </Link>
+          </li>
         ))}
-      </VStack>
+      </ul>
       <Text as="p" type="supporting">
-        Норми законодавства змінюються. Перевіряйте актуальну редакцію на
-        офіційних ресурсах або уточнюйте в юриста.
+        Норми законодавства змінюються. Перед тим як діяти, перевірте
+        актуальну редакцію на офіційному ресурсі або уточніть у юриста.
       </Text>
-    </VStack>
+    </aside>
   );
 }
 

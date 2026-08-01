@@ -60,6 +60,9 @@ export function PageHero({
   crumbs,
   pictogram,
   photo,
+  compact = false,
+  cta = true,
+  statement,
 }: {
   title: string;
   lead: string;
@@ -71,6 +74,25 @@ export function PageHero({
   pictogram?: PictogramName;
   /** Фотобанер сторінки (безкоштовний фотосток, src/config/photos.ts) */
   photo?: { src: string; alt: string };
+  /**
+   * Стислий вступ без фотобанера — для коротких службових сторінок
+   * (контакти, політика, умови). Замір показав, що на «Контактах» банер
+   * з'їдав 428px, тобто 28% сторінки, заради 207 слів тексту.
+   *
+   * Побічний, але важливий ефект: не всі сторінки більше починаються
+   * однаковим фото-полотном — саме ця одноманітність і читалася
+   * як «зроблено за шаблоном».
+   */
+  compact?: boolean;
+  /** Кнопка заявки у вступі. Для службових сторінок недоречна */
+  cta?: boolean;
+  /**
+   * Коротке твердження замість фотобанера — для сторінок про нас
+   * («Послуги», «Про команду»). Сторінки про ситуацію людини
+   * відкриваються фото, сторінки про практику — словом: різний вхід
+   * замість тринадцяти однакових фото-полотен поспіль.
+   */
+  statement?: string;
 }) {
   const textBlock = (
     <VStack gap={3} maxWidth={720}>
@@ -85,14 +107,20 @@ export function PageHero({
           {extra}
         </Text>
       ) : null}
-      <HStack gap={3} wrap="wrap">
-        <CallbackButton />
-      </HStack>
+      {cta ? (
+        <HStack gap={3} wrap="wrap">
+          <CallbackButton />
+        </HStack>
+      ) : null}
     </VStack>
   );
 
   return (
-    <Section variant="muted" padding={8} paddingBlock={8}>
+    <Section
+      variant={compact ? 'transparent' : 'muted'}
+      padding={8}
+      paddingBlock={compact ? 6 : 8}
+    >
       <Container gap={4}>
         {crumbs ? (
           <Breadcrumbs variant="supporting" label="Ви тут">
@@ -110,7 +138,23 @@ export function PageHero({
         ) : (
           <SectionAccent />
         )}
-        {photo ? (
+        {statement ? (
+          /* Типографічний вступ: сторінка відкривається твердженням,
+             а не фотографією. Застосовується там, де мова про нас,
+             а не про ситуацію людини — щоб усі сторінки сайту не
+             починалися однаковим фото-полотном. */
+          <div className="page-hero-statement">
+            {textBlock}
+            <p className="page-hero-statement__quote">{statement}</p>
+          </div>
+        ) : compact ? (
+          <>
+            {textBlock}
+            {/* Тонка брендова лінія замість фотополотна: сторінка
+                починається одразу зі змісту, але не «голо» */}
+            <span className="page-hero-rule" aria-hidden="true" />
+          </>
+        ) : photo ? (
           <Grid columns={{ minWidth: 340, max: 2 }} gap={6} align="center">
             {textBlock}
             <PageHeroPhoto src={photo.src} alt={photo.alt} />

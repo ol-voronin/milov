@@ -27,6 +27,8 @@ export default function PrivacyPage() {
       <PageHero
         title="Політика конфіденційності"
         lead="Ми збираємо мінімум даних — лише те, що потрібно, щоб зв’язатися з вами та опрацювати звернення."
+        compact
+        cta={false}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={8}>

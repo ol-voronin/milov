@@ -597,6 +597,115 @@ dialog > div > :first-child:not(:only-child) {
   }
 }
 
+/* ---- Офіційні джерела ----
+   Раніше — стовпчик однакових синіх посилань, який читався як звалище.
+   Тепер тиха рамка з бічною лінією і посилання у дві колонки. */
+.sources {
+  padding: var(--spacing-5, 1.25rem);
+  padding-inline-start: calc(var(--spacing-5, 1.25rem) + 0.25rem);
+  border-radius: var(--radius-container, 6px);
+  background: var(--color-background-muted);
+  border-inline-start: 3px solid var(--color-border-emphasized);
+  display: grid;
+  gap: 0.875rem;
+  max-inline-size: 52rem;
+}
+
+.sources__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.5rem 2rem;
+}
+
+.sources__list li {
+  max-inline-size: none;
+}
+
+/* ---- Типографічний вступ (сторінки про практику) ----
+   Замість фото — твердження на полях справа. Дає сторінкам про нас
+   інший вхід, ніж сторінкам про ситуацію людини. */
+.page-hero-statement {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.page-hero-statement__quote {
+  margin: 0;
+  padding-inline-start: 1.5rem;
+  border-inline-start: 3px solid var(--brand-gold);
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  line-height: 1.45;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  color: var(--color-text-primary);
+  max-inline-size: none;
+}
+
+@media (max-width: 860px) {
+  .page-hero-statement {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Тонка лінія замість фотобанера на службових сторінках ---- */
+.page-hero-rule {
+  display: block;
+  width: 100%;
+  max-width: 8rem;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-gold) 100%);
+}
+
+/* ---- Контакти: список замість сітки карток ---- */
+.contact-list {
+  margin: 0;
+  padding: 0;
+  max-inline-size: 44rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-row {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 0.5rem 2rem;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact-row dt {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding-top: 0.15rem;
+}
+
+.contact-row dd {
+  margin: 0;
+  display: grid;
+  gap: 0.25rem;
+  justify-items: start;
+}
+
+/* Телефон і пошта — головне на цій сторінці, тому крупніше за решту */
+.contact-row dd > a {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+@media (max-width: 560px) {
+  .contact-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
 /* ---- Команда: горизонтальні смуги замість сітки карток ---- */
 .team-list {
   list-style: none;

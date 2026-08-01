@@ -23,6 +23,8 @@ export default function TermsPage() {
       <PageHero
         title="Умови користування сайтом"
         lead="Коротко і чесно про те, чим є цей сайт і чим він не є."
+        compact
+        cta={false}
       />
 
       <Section variant="transparent" padding={8} paddingBlock={8}>
