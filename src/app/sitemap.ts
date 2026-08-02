@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/faq',
     '/korysna-informatsiya',
     '/kontakty',
+    '/dlya-organizatsiy',
     '/polityka-konfidentsiynosti',
     '/umovy-korystuvannia',
   ];

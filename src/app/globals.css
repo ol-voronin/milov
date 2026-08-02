@@ -683,6 +683,67 @@ dialog > div > :first-child:not(:only-child) {
   background: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-gold) 100%);
 }
 
+/* ---- Сторінка для партнерів ---- */
+.partner-steps {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+  max-inline-size: 46rem;
+}
+
+.partner-steps li {
+  counter-increment: step;
+  position: relative;
+  padding-inline-start: 3rem;
+  max-inline-size: none;
+}
+
+/* Номер на полях, а не в сірому кружечку: кружечків на сайті вже досить */
+.partner-steps li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  inset-inline-start: 0;
+  top: -0.1em;
+  font-family: var(--font-family-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--brand-navy);
+  opacity: 0.4;
+  font-variant-numeric: tabular-nums;
+}
+
+.partner-limits {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.625rem;
+  max-inline-size: 46rem;
+}
+
+.partner-limits li {
+  position: relative;
+  padding-inline-start: 1.5rem;
+  color: var(--color-text-secondary);
+  max-inline-size: none;
+}
+
+.partner-limits li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.72em;
+  width: 0.75rem;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
 /* ---- Контакти: список замість сітки карток ---- */
 .contact-list {
   margin: 0;

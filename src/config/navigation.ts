@@ -113,7 +113,13 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
   },
   {
     title: 'Про сайт',
-    links: [{ label: 'Контакти', href: '/kontakty' }, ...legalLinks],
+    links: [
+      { label: 'Контакти', href: '/kontakty' },
+      /* Сторінка для фондів і волонтерів — у шапку не виноситься,
+         бо адресована не родинам, а організаціям */
+      { label: 'Для організацій', href: '/dlya-organizatsiy' },
+      ...legalLinks,
+    ],
   },
 ];
 
