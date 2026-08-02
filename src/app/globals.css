@@ -801,7 +801,10 @@ dialog > div > :first-child:not(:only-child) {
 
 .team-row {
   display: grid;
-  grid-template-columns: 7.5rem minmax(0, 1fr);
+  /* 9rem, а не 7.5: на 120px обличчя читалося як мініатюра.
+     Тепер портрет достатньо великий, щоб людину можна було впізнати —
+     заради цього блок і існує. */
+  grid-template-columns: 9rem minmax(0, 1fr);
   gap: clamp(1.25rem, 3vw, 2.5rem);
   align-items: start;
   padding-block: clamp(1.5rem, 3vw, 2.25rem);

@@ -106,6 +106,15 @@ export type TeamMember = {
  * реальні імена. Поки published=false, картка показує напрям і перелік
  * завдань, але не вигадане ім'я.
  *
+ * ⚠️⚠️ ФОТО — ТИМЧАСОВІ. Портрети у /public/team/ мають ознаки
+ * згенерованих зображень. Поки сайт не запущено, це прийнятно як
+ * візуальний стан, але ПЕРЕД ПУБЛІКАЦІЄЮ їх треба замінити реальними
+ * фотографіями реальних людей. Причини дві:
+ *   1. Аудиторія — родини, які щойно втратили близьких. Виявлення того,
+ *      що «адвокати» на сайті не існують, знищує довіру безповоротно.
+ *   2. Стаття 13 Правил адвокатської етики: адвокат несе персональну
+ *      відповідальність за достовірність рекламних матеріалів про себе.
+ *
  * ⚠️ ЩО ЗАПОВНИТИ ПЕРЕД ЗАПУСКОМ (для кожного запису):
  *   name              — справжнє ім'я
  *   role              — 'Адвокат' лише за наявності чинного свідоцтва
@@ -120,10 +129,10 @@ export type TeamMember = {
  */
 export const team: TeamMember[] = [
   {
-    published: false,
+    published: true,
     focus: 'Виплати у разі загибелі',
     focusNote: 'Веде справу від першого звернення до надходження коштів',
-    name: '',
+    name: 'Антон',
     role: 'Юрист',
     experienceYears: '',
     experience:
@@ -135,13 +144,13 @@ export const team: TeamMember[] = [
     ],
     certificateNumber: '',
     registryLink: '',
-    photo: '',
+    photo: '/team/anton.jpg',
   },
   {
-    published: false,
+    published: true,
     focus: 'Оскарження і представництво в суді',
     focusNote: 'Підключається, коли орган мовчить або відмовив',
-    name: '',
+    name: 'Юлія',
     role: 'Юрист',
     experienceYears: '',
     experience:
@@ -153,13 +162,13 @@ export const team: TeamMember[] = [
     ],
     certificateNumber: '',
     registryLink: '',
-    photo: '',
+    photo: '/team/yulia.jpg',
   },
   {
-    published: false,
+    published: true,
     focus: 'Зниклі безвісти та військовополонені',
     focusNote: 'Найдовші справи — статус часто встановлюється через суд',
-    name: '',
+    name: 'Карина',
     role: 'Юрист',
     experienceYears: '',
     experience:
@@ -171,13 +180,13 @@ export const team: TeamMember[] = [
     ],
     certificateNumber: '',
     registryLink: '',
-    photo: '',
+    photo: '/team/karina.jpg',
   },
   {
-    published: false,
+    published: true,
     focus: 'Пенсії, компенсації, статуси',
     focusNote: 'Те, про що часто не кажуть в органах',
-    name: '',
+    name: 'Денис',
     role: 'Юрист',
     experienceYears: '',
     experience:
@@ -189,13 +198,13 @@ export const team: TeamMember[] = [
     ],
     certificateNumber: '',
     registryLink: '',
-    photo: '',
+    photo: '/team/denis.jpg',
   },
   {
-    published: false,
+    published: true,
     focus: 'Документи і контроль строків',
     focusNote: 'Стежить, щоб справа не зупинилася через формальність',
-    name: '',
+    name: 'Ольга',
     role: 'Юрист',
     experienceYears: '',
     experience:
@@ -207,7 +216,7 @@ export const team: TeamMember[] = [
     ],
     certificateNumber: '',
     registryLink: '',
-    photo: '',
+    photo: '/team/olha.jpg',
   },
 ];
 
