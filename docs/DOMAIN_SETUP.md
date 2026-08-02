@@ -206,11 +206,19 @@ TELEGRAM_CHAT_ID
 У `src/config/site.ts`:
 
 ```ts
-phone: '+380…',                          // зараз +380000000000
-email: 'info@zastupa.com.ua',            // зараз info@example.com
-privacyContact: 'privacy@zastupa.com.ua',// зараз privacy@example.com
-legalEntityName: '…',                    // ФОП / АО / АБ повністю
+email: 'info@zastupa.com.ua',       // ✅ зроблено 2 серпня
+privacyContact: 'info@zastupa.com.ua', // ⚠️ тимчасово, поки немає privacy@
+phone: '+380…',                     // ❌ зараз +380000000000
+legalEntityName: '…',               // ❌ ФОП / АО / АБ повністю
 ```
+
+**Про `privacyContact`.** Зараз там `info@`, бо окремої скриньки ще
+немає. Політика конфіденційності обіцяє канал для реалізації прав —
+доступ до даних, виправлення, видалення, відкликання згоди. `info@`
+цю обіцянку виконує, тож формально все чесно. Але такі запити
+змішуються із загальним потоком, і на них легко не звернути уваги.
+Коли заведете `privacy@zastupa.com.ua` — досить додати змінну
+`NEXT_PUBLIC_PRIVACY_EMAIL` у Vercel, код правити не треба.
 
 **Про `legalEntityName` окремо.** У копірайті футера тепер стоїть бренд
 («© 2026 Заступа») — так і має бути. Але це поле використовується ще у
