@@ -22,7 +22,7 @@ import { Providers } from '@/components/Providers';
 import { SiteShell } from '@/components/SiteShell';
 import { AttributionTracker } from '@/components/AttributionTracker';
 import { Analytics } from '@/components/Analytics';
-import { site } from '@/config/site';
+import { site, isReadyForIndexing } from '@/config/site';
 import { JsonLd, legalServiceSchema } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
@@ -42,7 +42,11 @@ export const metadata: Metadata = {
       'Перевіримо вашу ситуацію, пояснимо порядок дій та, за потреби, візьмемо на себе юридичний супровід.',
     images: [{ url: '/og.png', width: 1200, height: 630 }],
   },
-  robots: { index: true, follow: true },
+  /* Індексація вмикається сама, щойно з контактів зникнуть заглушки —
+     див. isReadyForIndexing у src/config/site.ts */
+  robots: isReadyForIndexing
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
