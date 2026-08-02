@@ -75,8 +75,12 @@ export function SiteFooter() {
             військової частини або іншого державного органу.
           </Text>
           <HStack gap={2} wrap="wrap" vAlign="center">
+            {/* У копірайті — бренд. Повна юридична назва (ФОП / АО / АБ)
+                потрібна в політиці конфіденційності та умовах користування,
+                де вона позначає володільця персональних даних — там бренд
+                не підходить, бо не ідентифікує особу. */}
             <Text type="supporting">
-              © {new Date().getFullYear()} {site.legalEntityName}
+              © {new Date().getFullYear()} {site.brandName}
             </Text>
             <Text type="supporting">·</Text>
             <Text type="supporting">
