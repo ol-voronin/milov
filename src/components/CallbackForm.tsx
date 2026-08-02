@@ -6,11 +6,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { VStack, HStack } from '@astryxdesign/core/Stack';
 import { TextInput } from '@astryxdesign/core/TextInput';
-import { TextArea } from '@astryxdesign/core/TextArea';
-import { Selector } from '@astryxdesign/core/Selector';
 import { RadioList, RadioListItem } from '@astryxdesign/core/RadioList';
 import { CheckboxInput } from '@astryxdesign/core/CheckboxInput';
-import { Collapsible } from '@astryxdesign/core/Collapsible';
 import { Field } from '@astryxdesign/core/Field';
 import { Button } from '@astryxdesign/core/Button';
 import { Banner } from '@astryxdesign/core/Banner';
@@ -20,7 +17,6 @@ import { VisuallyHidden } from '@astryxdesign/core/VisuallyHidden';
 import {
   leadSchema,
   leadTopics,
-  contactMethods,
   type LeadInput,
 } from '@/lib/leadSchema';
 import { site } from '@/config/site';
@@ -221,61 +217,22 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
           )}
         />
 
-        {/* Опційні поля — за прогресивним розкриттям (аудит F3) */}
-        <Collapsible
-          defaultIsOpen={false}
-          trigger={<Text type="label" weight="medium">Додати деталі (необов’язково)</Text>}
-        >
-          <VStack gap={4} paddingBlock={2}>
-            <Controller
-              name="contactMethod"
-              control={control}
-              render={({ field }) => (
-                <Selector
-                  label="Зручний спосіб зв’язку · за бажанням"
-                  placeholder="Телефон"
-                  options={contactMethods.map((m) => ({ value: m.value, label: m.label }))}
-                  value={field.value}
-                  onChange={(v) => field.onChange(v)}
-                  isOptional
-                />
-              )}
-            />
-            <Controller
-              name="preferredTime"
-              control={control}
-              render={({ field }) => (
-                <TextInput
-                  label="Зручний час для дзвінка · за бажанням"
-                  value={field.value ?? ''}
-                  onChange={(v) => field.onChange(v)}
-                  isOptional
-                  placeholder="Наприклад: будні після 17:00"
-                />
-              )}
-            />
-            <Controller
-              name="message"
-              control={control}
-              render={({ field }) => (
-                <TextArea
-                  label="Короткий опис ситуації · за бажанням"
-                  value={field.value ?? ''}
-                  onChange={(v) => field.onChange(v)}
-                  isOptional
-                  rows={4}
-                  maxLength={500}
-                  placeholder="Кількома реченнями — без персональних даних"
-                  status={
-                    errors.message
-                      ? { type: 'error', message: errors.message.message }
-                      : undefined
-                  }
-                />
-              )}
-            />
-          </VStack>
-        </Collapsible>
+        {/*
+          ЧОМУ ТУТ ЛИШЕ ТРИ ПОЛЯ.
+
+          Раніше під формою був блок «Додати деталі» зі способом зв'язку,
+          зручним часом і описом ситуації. Він розкривався в один клік, але
+          сама його присутність читалася як «від мене чекають більшого».
+
+          Для цієї аудиторії це недоречно: сайт в іншому місці прямо каже
+          «не потрібно одразу описувати особисту ситуацію», а форма тут же
+          пропонувала її описати. Жінці на четвертий день після загибелі
+          чоловіка не місце за формулюванням абзацу про власне горе
+          у веб-формі.
+
+          Спосіб зв'язку і зручний час швидше з'ясувати в розмові за
+          десять секунд, ніж змушувати заповнювати наперед.
+        */}
 
         {/* Honeypot: приховане поле для ботів */}
         <VisuallyHidden>

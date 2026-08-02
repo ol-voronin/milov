@@ -42,6 +42,7 @@ export default function MissingPage() {
         lead="Пояснюємо порядок звернень і належні родині кошти — простими словами."
         crumbs={[{ label: 'Зниклі безвісти та полонені' }]}
         photo={photos.missing}
+        topic="missing"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={8}>

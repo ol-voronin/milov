@@ -47,6 +47,7 @@ export default function DelayRefusalPage() {
         lead="Мовчання органу та необґрунтована відмова оскаржуються. Головне — правильно зафіксувати факти."
         crumbs={[{ label: 'Затримка або відмова' }]}
         photo={photos.delay}
+        topic="delay"
       />
 
       <Section variant="transparent" padding={8} paddingBlock={8}>
