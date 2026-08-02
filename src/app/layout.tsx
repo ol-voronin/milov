@@ -28,7 +28,7 @@ import { JsonLd, legalServiceSchema } from '@/components/JsonLd';
 export const metadata: Metadata = {
   metadataBase: new URL(site.siteUrl),
   title: {
-    default: `${site.brandName} — юридична допомога родинам військовослужбовців`,
+    default: `${site.brandName} — ${site.tagline}`,
     template: `%s — ${site.brandName}`,
   },
   description:
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'uk_UA',
     siteName: site.brandName,
-    title: `${site.brandName} — юридична допомога родинам військовослужбовців`,
+    title: `${site.brandName} — ${site.tagline}`,
     description:
       'Перевіримо вашу ситуацію, пояснимо порядок дій та, за потреби, візьмемо на себе юридичний супровід.',
     images: [{ url: '/og.png', width: 1200, height: 630 }],

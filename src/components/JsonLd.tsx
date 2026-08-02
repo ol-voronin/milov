@@ -20,6 +20,7 @@ export function legalServiceSchema() {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
     name: site.brandName,
+    alternateName: `${site.brandName} — ${site.tagline}`,
     url: site.siteUrl,
     telephone: site.phone,
     email: site.email,
