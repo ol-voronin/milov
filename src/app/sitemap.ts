@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/zatrymka-abo-vidmova',
     '/znykli-bezvisty-ta-poloneni',
     '/inshi-vyplaty',
+    '/rodyna-viyskovogo',
     '/poslugy',
     '/pro-komandu',
     '/faq',

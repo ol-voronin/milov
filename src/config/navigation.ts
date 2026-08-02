@@ -46,6 +46,11 @@ export const situationLinks: NavLink[] = [
     href: '/inshi-vyplaty',
     description: 'Що ще може належати родині крім одноразової допомоги',
   },
+  {
+    label: 'Він служить зараз',
+    href: '/rodyna-viyskovogo',
+    description: 'Пільги, статус УБД, виплати при пораненні, кредитні канікули',
+  },
 ];
 
 /** Що ми робимо і на яких умовах */

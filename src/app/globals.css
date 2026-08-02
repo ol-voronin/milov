@@ -683,6 +683,18 @@ dialog > div > :first-child:not(:only-child) {
   background: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-gold) 100%);
 }
 
+/* ---- Межі спеціалізації ----
+   Навмисно спокійний блок, а не попередження: це не помилка й не
+   застереження, а чесна межа. Червона рамка тут читалася б як тривога. */
+.scope-note {
+  padding: var(--spacing-5, 1.25rem);
+  padding-inline-start: calc(var(--spacing-5, 1.25rem) + 0.25rem);
+  border-radius: var(--radius-container, 6px);
+  background: var(--color-background-muted);
+  border-inline-start: 3px solid var(--color-border-emphasized);
+  max-inline-size: 52rem;
+}
+
 /* ---- Сторінка для партнерів ---- */
 .partner-steps {
   list-style: none;

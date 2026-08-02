@@ -75,6 +75,11 @@ export const photos: Record<string, PagePhoto> = {
     alt: 'Ряд книжок на полиці крупним планом',
     credit: 'Unsplash',
   },
+  servingFamily: {
+    src: unsplash('photo-1476611317561-60117649dd94'),
+    alt: 'Спокійний краєвид на світанку',
+    credit: 'Unsplash',
+  },
   contacts: {
     src: unsplash('photo-1486312338219-ce68d2c6f44d'),
     alt: 'Людина працює за ноутбуком',

@@ -21,22 +21,23 @@ import './globals.css';
 import { Providers } from '@/components/Providers';
 import { SiteShell } from '@/components/SiteShell';
 import { AttributionTracker } from '@/components/AttributionTracker';
+import { Analytics } from '@/components/Analytics';
 import { site } from '@/config/site';
 import { JsonLd, legalServiceSchema } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.siteUrl),
   title: {
-    default: `${site.brandName} — юридична допомога родинам військових`,
+    default: `${site.brandName} — юридична допомога родинам військовослужбовців`,
     template: `%s — ${site.brandName}`,
   },
   description:
-    'Допомагаємо родинам військових розібратися у виплатах, документах і захистити свої права. Консультації онлайн і телефоном по всій Україні.',
+    'Права родин військовослужбовців: виплати у разі загибелі, оскарження відмов, зниклі безвісти, пенсії та статуси, пільги для родини, поки він служить. Консультації онлайн і телефоном по всій Україні.',
   openGraph: {
     type: 'website',
     locale: 'uk_UA',
     siteName: site.brandName,
-    title: `${site.brandName} — юридична допомога родинам військових`,
+    title: `${site.brandName} — юридична допомога родинам військовослужбовців`,
     description:
       'Перевіримо вашу ситуацію, пояснимо порядок дій та, за потреби, візьмемо на себе юридичний супровід.',
     images: [{ url: '/og.png', width: 1200, height: 630 }],
@@ -66,6 +67,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers>
           {/* Фіксує канал першого входу на сесію — нічого не рендерить */}
           <AttributionTracker />
+          {/* Cookieless-аналітика. Не завантажується, поки не задано змінні */}
+          <Analytics />
           <SiteShell>{children}</SiteShell>
         </Providers>
       </body>

@@ -107,6 +107,11 @@ export const nextSteps: Record<string, PageNextSteps> = {
         href: '/zatrymka-abo-vidmova',
         hint: 'Порядок оскарження рішення або бездіяльності',
       },
+      {
+        label: 'Родина військового, який служить',
+        href: '/rodyna-viyskovogo',
+        hint: 'Пільги, статус УБД, виплати при пораненні',
+      },
     ],
   },
 
@@ -180,6 +185,27 @@ export const nextSteps: Record<string, PageNextSteps> = {
         label: 'Пенсія, компенсації, статуси',
         href: '/inshi-vyplaty',
         hint: 'Що ще може належати родині',
+      },
+    ],
+  },
+
+  servingFamily: {
+    title: 'Що ще варто знати',
+    steps: [
+      {
+        label: 'Пенсія, компенсації, статуси',
+        href: '/inshi-vyplaty',
+        hint: 'Виплати, які оформлюються окремо від пільг',
+      },
+      {
+        label: 'Якщо орган зволікає з оформленням',
+        href: '/zatrymka-abo-vidmova',
+        hint: 'Як зафіксувати бездіяльність — порядок той самий',
+      },
+      {
+        label: 'Інструкції та зразки',
+        href: '/korysna-informatsiya',
+        hint: 'Покрокові матеріали й чекліст на одну сторінку',
       },
     ],
   },
