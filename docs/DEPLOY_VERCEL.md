@@ -40,6 +40,10 @@ git commit -m "Initial site"
 
 ## Крок 4. Домен і HTTPS
 
+> Домен `zastupa.com.ua` зареєстровано в HOSTiQ.
+> Покрокова інструкція зі звʼязки HOSTiQ + Vercel і налаштування пошти —
+> у **[docs/DOMAIN_SETUP.md](DOMAIN_SETUP.md)**.
+
 1. **Settings → Domains** → додайте домен, налаштуйте DNS за підказками.
 2. HTTPS-сертифікат Vercel видає автоматично.
 3. Оновіть `NEXT_PUBLIC_SITE_URL` на фінальний домен і зробіть redeploy.
