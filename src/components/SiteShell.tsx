@@ -28,6 +28,7 @@ import {
   BanknotesIcon,
   QuestionMarkCircleIcon,
   BriefcaseIcon,
+  IdentificationIcon,
 } from '@heroicons/react/24/outline';
 import { BrandMark } from './BrandMark';
 import { site } from '@/config/site';
@@ -53,6 +54,9 @@ const menuIcons: Record<string, typeof DocumentTextIcon> = {
   '/zatrymka-abo-vidmova': ClockIcon,
   '/znykli-bezvisty-ta-poloneni': MagnifyingGlassIcon,
   '/inshi-vyplaty': BanknotesIcon,
+  /* Статуси й пільги для родини — посвідчення читається точніше,
+     ніж щит чи будинок, і не повторює жодну з решти іконок */
+  '/rodyna-viyskovogo': IdentificationIcon,
   '/poslugy': BriefcaseIcon,
   '/pro-komandu': UsersIcon,
   '/faq': QuestionMarkCircleIcon,

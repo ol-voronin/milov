@@ -2,18 +2,27 @@
 
 import { Collapsible, CollapsibleGroup } from '@astryxdesign/core/Collapsible';
 import { VStack } from '@astryxdesign/core/Stack';
-import { Heading, Text } from '@astryxdesign/core/Text';
+import { Text } from '@astryxdesign/core/Text';
 import { faqCategories, type FaqItem } from '@/content/faq';
 import { CallbackButton } from './CallbackDialog';
 
 /**
  * Список поширених запитань.
  *
- * @param grouped — розбити на теми. Замір показав 12 позицій по 61px
- * із розривом 4px: суцільна смуга, у якій око не чіпляється за окреме
- * питання і не розуміє, чи є тут потрібна тема взагалі.
- * На головній сторінці показуються лише перші чотири, тож там
- * групування зайве.
+ * @param grouped — розбити на теми.
+ *
+ * ЧОМУ ГРУПИ ОФОРМЛЕНІ САМЕ ТАК. Спершу теми відрізнялися лише
+ * заголовком, і на сторінці з дванадцяти питань межі груп не читалися:
+ * заголовок теми конкурував за увагу з самими питаннями, які набрані
+ * майже тим самим кеглем.
+ *
+ * Тепер кожна група — окремий блок із трьома ознаками одразу:
+ *   1. колірна мітка збоку (три відтінки палітри, не три різні кольори);
+ *   2. власна рамка, тобто видно, де група починається і де закінчується;
+ *   3. лічильник питань — одразу зрозуміло, скільки тут дивитися.
+ *
+ * Три ознаки, а не одна, тому що на самий колір покладатися не можна:
+ * приблизно кожен дванадцятий чоловік не розрізняє частину відтінків.
  */
 export function FaqList({
   items,
@@ -25,24 +34,40 @@ export function FaqList({
   if (!grouped) return <FaqGroup items={items} />;
 
   return (
-    <VStack gap={8}>
+    <VStack gap={6}>
       {faqCategories.map((cat) => {
         const inCat = items.filter((i) => i.category === cat.id);
         if (inCat.length === 0) return null;
         return (
-          <VStack gap={3} key={cat.id}>
-            <VStack gap={1}>
-              <Heading level={3}>{cat.title}</Heading>
-              <Text as="p" type="supporting">
-                {cat.hint}
-              </Text>
-            </VStack>
+          <section
+            className={`faq-group faq-group--${cat.accent}`}
+            key={cat.id}
+            aria-labelledby={`faq-${cat.id}`}
+          >
+            <div className="faq-group__head">
+              <h3 className="faq-group__title" id={`faq-${cat.id}`}>
+                {cat.title}
+              </h3>
+              <span className="faq-group__count">
+                {inCat.length} {pluralQuestions(inCat.length)}
+              </span>
+              <p className="faq-group__hint">{cat.hint}</p>
+            </div>
             <FaqGroup items={inCat} />
-          </VStack>
+          </section>
         );
       })}
     </VStack>
   );
+}
+
+/** «1 питання», «2 питання», «5 питань» */
+function pluralQuestions(n: number): string {
+  const last = n % 10;
+  const teen = n % 100 >= 11 && n % 100 <= 14;
+  if (!teen && last === 1) return 'питання';
+  if (!teen && last >= 2 && last <= 4) return 'питання';
+  return 'питань';
 }
 
 function FaqGroup({ items }: { items: FaqItem[] }) {

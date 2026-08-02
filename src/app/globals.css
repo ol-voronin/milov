@@ -683,6 +683,90 @@ dialog > div > :first-child:not(:only-child) {
   background: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-gold) 100%);
 }
 
+/* ---- Групи питань у FAQ ----
+   Було: теми відрізнялися лише заголовком, і на сторінці з 12 питань
+   межі груп не читалися — заголовок теми конкурував за увагу з самими
+   питаннями, набраними майже тим самим кеглем.
+
+   Стало: кожна тема — окремий блок із трьома ознаками одразу (колірна
+   мітка, власна рамка, лічильник). Три, а не одна, бо на самий колір
+   покладатися не можна: приблизно кожен дванадцятий чоловік не
+   розрізняє частину відтінків. */
+.faq-group {
+  --faq-accent: var(--brand-navy);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-container, 6px);
+  background: var(--color-background-surface);
+  overflow: hidden;
+}
+
+.faq-group--gold {
+  --faq-accent: var(--brand-gold);
+}
+
+.faq-group--slate {
+  --faq-accent: var(--color-text-secondary);
+}
+
+.faq-group__head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
+  align-items: baseline;
+  padding: var(--spacing-4, 1rem) var(--spacing-5, 1.25rem);
+  padding-inline-start: calc(var(--spacing-5, 1.25rem) + 0.25rem);
+  background: var(--color-background-muted);
+  border-bottom: 1px solid var(--color-border);
+  /* Колірна мітка теми — товста лінія збоку, а не заливка всього блоку:
+     заливка кольором тут виглядала б як попередження */
+  border-inline-start: 4px solid var(--faq-accent);
+}
+
+.faq-group__title {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-optical-sizing: auto;
+}
+
+.faq-group__count {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--faq-accent);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.faq-group__hint {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  max-inline-size: none;
+}
+
+/* Питання всередині групи не мають зовнішніх полів — рамка вже є */
+.faq-group [class*='collapsible']:not(#\#),
+.faq-group [class*='Collapsible']:not(#\#) {
+  padding-inline: var(--spacing-5, 1.25rem);
+}
+
+@media (max-width: 560px) {
+  .faq-group__head {
+    padding-inline: var(--spacing-4, 1rem);
+    padding-inline-start: calc(var(--spacing-4, 1rem) + 0.25rem);
+  }
+
+  .faq-group [class*='collapsible']:not(#\#),
+  .faq-group [class*='Collapsible']:not(#\#) {
+    padding-inline: var(--spacing-4, 1rem);
+  }
+}
+
 /* ---- Межі спеціалізації ----
    Навмисно спокійний блок, а не попередження: це не помилка й не
    застереження, а чесна межа. Червона рамка тут читалася б як тривога. */
