@@ -53,12 +53,21 @@ export const leadSchema = z.object({
   }),
   /** Сторінка, з якої надіслано заявку (шлях без параметрів, без PII) */
   sourcePage: z.string().trim().max(200).optional(),
-  /** UTM-мітки — лише службові значення кампаній, без персональних даних */
+  /**
+   * Джерело переходу — лише службові дані каналу, без персональних.
+   * Заповнюється зі сховища сесії (src/lib/attribution.ts), а не з
+   * поточного URL: мітка з першого входу губиться, щойно людина
+   * переходить на іншу сторінку сайту.
+   */
   utm: z
     .object({
       source: z.string().trim().max(100).optional(),
       medium: z.string().trim().max(100).optional(),
       campaign: z.string().trim().max(100).optional(),
+      /** Читабельна назва каналу: «Пошук Google», «Перехід із fond.org.ua» */
+      channel: z.string().trim().max(120).optional(),
+      /** Перша сторінка, на яку людина потрапила */
+      landing: z.string().trim().max(200).optional(),
     })
     .optional(),
   /** Honeypot: приховане поле, справжні користувачі його не заповнюють */

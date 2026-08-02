@@ -24,6 +24,7 @@ import {
   type LeadInput,
 } from '@/lib/leadSchema';
 import { site } from '@/config/site';
+import { readAttribution } from '@/lib/attribution';
 
 type Props = {
   /** Попередньо обрана тема (напр. з картки ситуації) */
@@ -85,11 +86,20 @@ export function CallbackForm({ defaultTopic, onSuccess }: Props) {
     setServerError(null);
     setStatus('submitting');
     try {
-      // UTM-мітки: лише службові значення кампанії, без персональних даних
+      /**
+       * Джерело беремо зі сховища сесії, а не з поточного URL.
+       * Людина заходить на /?utm_source=google, читає, переходить на іншу
+       * сторінку — і мітка зникає з адреси. Читання з URL у момент
+       * надсилання давало порожнє джерело майже завжди.
+       * Лише службові дані каналу, без жодних персональних.
+       */
+      const saved = readAttribution();
       const utm = {
-        source: searchParams.get('utm_source') ?? undefined,
-        medium: searchParams.get('utm_medium') ?? undefined,
-        campaign: searchParams.get('utm_campaign') ?? undefined,
+        source: saved.source ?? searchParams.get('utm_source') ?? undefined,
+        medium: saved.medium ?? searchParams.get('utm_medium') ?? undefined,
+        campaign: saved.campaign ?? searchParams.get('utm_campaign') ?? undefined,
+        channel: saved.channel,
+        landing: saved.landing,
       };
 
       const res = await fetch('/api/lead', {

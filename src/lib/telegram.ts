@@ -18,7 +18,15 @@ export type LeadNotification = {
   preferredTime: string;
   message: string;
   sourcePage: string;
-  utm: { source?: string; medium?: string; campaign?: string };
+  utm: {
+    source?: string;
+    medium?: string;
+    campaign?: string;
+    /** Читабельна назва каналу — саме її показуємо власнику */
+    channel?: string;
+    /** Перша сторінка входу на сайт */
+    landing?: string;
+  };
   receivedAt: string;
 };
 
@@ -60,15 +68,28 @@ function formatMessage(lead: LeadNotification): string {
     lines.push('', `📝 <b>Опис ситуації:</b>`, esc(lead.message));
   }
 
-  lines.push('', `🌐 <b>Сторінка:</b> ${esc(lead.sourcePage || '/')}`);
+  /**
+   * Звідки прийшла людина. Найцінніше — саме канал: без нього
+   * неможливо сказати, який спосіб просування приносить звернення,
+   * і будь-який рекламний бюджет витрачається наосліп.
+   */
+  lines.push('', `📡 <b>Канал:</b> ${esc(lead.utm.channel || 'не визначено')}`);
 
+  // Перша сторінка входу і сторінка заявки — часто різні, і різниця
+  // між ними каже, що саме людину переконало
+  if (lead.utm.landing && lead.utm.landing !== lead.sourcePage) {
+    lines.push(`🚪 <b>Увійшла через:</b> ${esc(lead.utm.landing)}`);
+  }
+  lines.push(`🌐 <b>Заявку залишила на:</b> ${esc(lead.sourcePage || '/')}`);
+
+  // Технічні мітки — дрібним рядком, потрібні лише для звірки з кабінетом
   const utmParts = [
     lead.utm.source && `source=${lead.utm.source}`,
     lead.utm.medium && `medium=${lead.utm.medium}`,
     lead.utm.campaign && `campaign=${lead.utm.campaign}`,
   ].filter(Boolean);
   if (utmParts.length) {
-    lines.push(`📊 <b>UTM:</b> ${esc(utmParts.join(', '))}`);
+    lines.push(`<i>${esc(utmParts.join(' · '))}</i>`);
   }
 
   lines.push(`⏰ <b>Отримано:</b> ${esc(time)} (Київ)`);

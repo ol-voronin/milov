@@ -20,6 +20,7 @@ import '@/theme/brandTheme.css';
 import './globals.css';
 import { Providers } from '@/components/Providers';
 import { SiteShell } from '@/components/SiteShell';
+import { AttributionTracker } from '@/components/AttributionTracker';
 import { site } from '@/config/site';
 import { JsonLd, legalServiceSchema } from '@/components/JsonLd';
 
@@ -63,6 +64,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </noscript>
         <JsonLd data={legalServiceSchema()} />
         <Providers>
+          {/* Фіксує канал першого входу на сесію — нічого не рендерить */}
+          <AttributionTracker />
           <SiteShell>{children}</SiteShell>
         </Providers>
       </body>
