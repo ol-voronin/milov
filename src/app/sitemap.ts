@@ -20,11 +20,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/umovy-korystuvannia',
   ];
 
+  /**
+   * Пріоритет сторінок для пошукових систем.
+   * Вищий пріоритет = більша ймовірність глибшого індексування.
+   * Ці значення порівнюються між собою в межах одного сайту.
+   */
+  const priorityMap: Record<string, number> = {
+    '': 1.0,
+    '/vyplaty-u-razi-zagybeli': 0.9,
+    '/zatrymka-abo-vidmova': 0.9,
+    '/znykli-bezvisty-ta-poloneni': 0.9,
+    '/rodyna-viyskovogo': 0.8,
+    '/inshi-vyplaty': 0.8,
+    '/poslugy': 0.8,
+    '/faq': 0.7,
+    '/korysna-informatsiya': 0.7,
+    '/pro-komandu': 0.6,
+    '/kontakty': 0.6,
+    '/dlya-organizatsiy': 0.5,
+    '/polityka-konfidentsiynosti': 0.3,
+    '/umovy-korystuvannia': 0.3,
+  };
+
   const staticEntries: MetadataRoute.Sitemap = staticPages.map((path) => ({
     url: `${site.siteUrl}${path}`,
     lastModified: new Date(site.lastLegalUpdate),
     changeFrequency: path === '' ? 'weekly' : 'monthly',
-    priority: path === '' ? 1 : path === '/vyplaty-u-razi-zagybeli' ? 0.9 : 0.7,
+    priority: priorityMap[path] ?? 0.5,
   }));
 
   const articleEntries: MetadataRoute.Sitemap = articles.map((a) => ({

@@ -23,7 +23,7 @@ import { SiteShell } from '@/components/SiteShell';
 import { AttributionTracker } from '@/components/AttributionTracker';
 import { Analytics } from '@/components/Analytics';
 import { site } from '@/config/site';
-import { JsonLd, legalServiceSchema } from '@/components/JsonLd';
+import { JsonLd, legalServiceSchema, webSiteSchema } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.siteUrl),
@@ -86,6 +86,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <style>{`.reveal { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
         <JsonLd data={legalServiceSchema()} />
+        <JsonLd data={webSiteSchema()} />
         <Providers>
           {/* Фіксує канал першого входу на сесію — нічого не рендерить */}
           <AttributionTracker />

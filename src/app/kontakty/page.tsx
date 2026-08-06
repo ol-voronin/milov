@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   description:
     'Зв’яжіться з нами телефоном, електронною поштою або через форму на сайті. Працюємо з родинами військових по всій Україні, онлайн і телефоном.',
   alternates: { canonical: '/kontakty' },
+  openGraph: {
+    title: 'Контакти — Заступа',
+    description:
+      'Телефон, пошта, форма зворотного зв’язку. Консультуємо родини військових онлайн і телефоном по всій Україні.',
+  },
 };
 
 export default function ContactsPage() {

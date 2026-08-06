@@ -24,15 +24,104 @@ export function legalServiceSchema() {
     url: site.siteUrl,
     telephone: site.phone,
     email: site.email,
-    areaServed: 'UA',
+    areaServed: {
+      '@type': 'Country',
+      name: 'Україна',
+    },
     address: {
       '@type': 'PostalAddress',
       addressLocality: site.city,
       addressCountry: 'UA',
     },
+    /**
+     * ContactPoint — структурований спосіб зв'язку для Google.
+     * Дозволяє Google показувати телефон і години роботи
+     * безпосередньо в результатах пошуку.
+     */
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: site.phone,
+      email: site.email,
+      contactType: 'customer service',
+      areaServed: 'UA',
+      availableLanguage: 'Ukrainian',
+    },
     description:
-      'Юридична допомога родинам військовослужбовців: виплати у разі загибелі, оскарження затримок і відмов, пенсія у зв’язку з втратою годувальника, права родин зниклих безвісти та військовополонених, пільги й статуси для родин діючих військовослужбовців.',
+      "Юридична допомога родинам військовослужбовців: виплати у разі загибелі, оскарження затримок і відмов, пенсія у зв’язку з втратою годувальника, права родин зниклих безвісти та військовополонених, пільги й статуси для родин діючих військовослужбовців.",
     inLanguage: 'uk-UA',
+    /**
+     * hasOfferCatalog — перелік послуг у структурованому вигляді.
+     * Google може показувати їх у Knowledge Panel.
+     */
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Юридичні послуги для родин військовослужбовців',
+      itemListElement: [
+        {
+          '@type': 'OfferCatalog',
+          name: 'Виплати у разі загибелі',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Перевірка права на виплати',
+                description:
+                  'Аналіз документів і визначення, які виплати належать родині загиблого військовослужбовця',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Оскарження затримки або відмови у виплаті',
+                description:
+                  'Від скарги до вищого органу до представництва в адміністративному суді',
+              },
+            },
+          ],
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Зниклі безвісти та військовополонені',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Встановлення юридичних фактів у суді',
+                description:
+                  'Супровід процедури визнання факту зниклості безвісти, збереження виплат за родиною',
+              },
+            },
+          ],
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Пенсії, статуси, пільги',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: "Пенсія у зв'язку з втратою годувальника",
+                description:
+                  'Призначення, перерахунок, оскарження відмови',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Оформлення статусів для родини',
+                description:
+                  "Статус члена сім'ї загиблого Захисника, пільги та компенсації",
+              },
+            },
+          ],
+        },
+      ],
+    },
     /**
      * Поля нижче потрібні не пошуку, а автоматичним класифікаторам
      * корпоративних фільтрів (Infoblox, Cisco Talos, Fortinet тощо).
@@ -50,8 +139,8 @@ export function legalServiceSchema() {
     knowsAbout: [
       'Соціальні виплати родинам військовослужбовців',
       'Оскарження рішень та бездіяльності державних органів',
-      'Пенсія у зв’язку з втратою годувальника',
-      'Статус члена сім’ї загиблого Захисника України',
+      "Пенсія у зв'язку з втратою годувальника",
+      "Статус члена сім'ї загиблого Захисника України",
       'Права родин зниклих безвісти та військовополонених',
     ],
     serviceType: [
@@ -63,6 +152,35 @@ export function legalServiceSchema() {
       '@type': 'Audience',
       audienceType: 'Родини військовослужбовців Збройних Сил України',
       geographicArea: { '@type': 'Country', name: 'Україна' },
+    },
+  };
+}
+
+/**
+ * WebSite schema — повідомляє Google загальну інформацію про сайт.
+ * Це дозволяє Google показувати sitelinks search box.
+ */
+export function webSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.brandName,
+    alternateName: `${site.brandName} — ${site.tagline}`,
+    url: site.siteUrl,
+    inLanguage: 'uk-UA',
+    /**
+     * potentialAction — якщо Google вирішить показати sitelinks
+     * search box, він використає цей шаблон для пошуку по сайту.
+     * Поки на сайті немає повнотекстового пошуку, це працює
+     * через Google site:zastupa.com.ua.
+     */
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `https://www.google.com/search?q=site:zastupa.com.ua+{search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
     },
   };
 }
